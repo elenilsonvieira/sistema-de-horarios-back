@@ -18,6 +18,7 @@ public class ProfessorService {
             this.repository.save(classModel);
             return true;
         }catch (Exception error){
+        	System.err.println(error.getMessage());
             return false;
         }
     }
