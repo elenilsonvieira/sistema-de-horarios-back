@@ -14,48 +14,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.dac.sistemadehorarios.DTO.GapDTO;
-import br.edu.ifpb.dac.sistemadehorarios.model.GapModel;
-import br.edu.ifpb.dac.sistemadehorarios.service.GapService;
+import br.edu.ifpb.dac.sistemadehorarios.DTO.ClassroomDTO;
+import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.service.ClassroomService;
 
 @RestController
-@RequestMapping("/gap")
-public class GapController {
+@RequestMapping("/classroom")
+public class ClassroomController {
 	
 	@Autowired
-	private GapService service;
+	private ClassroomService service;
 	
 	@PostMapping
-	public ResponseEntity<GapDTO> create(@RequestBody GapDTO gap){
-		GapModel gapModel = new GapModel(gap.getStart(), gap.getDayOfWeek());
-		boolean result = this.service.create(gapModel);
+	public ResponseEntity<ClassroomDTO> create(@RequestBody ClassroomDTO classroom){
+		ClassroomModel classroomModel = new ClassroomModel(classroom.getName(), classroom.getBlock(), classroom.getCapacity());
+		boolean result = this.service.create(classroomModel);
 		if(result) {
-			return ResponseEntity.status(201).body(gap);
+			return ResponseEntity.status(201).body(classroom);
 		}
 		return ResponseEntity.status(400).body(null);
 	}
 	
 	@GetMapping
-	public ResponseEntity <List<GapDTO>> read(){
-		List<GapModel> result = this.service.read();
-		return ResponseEntity.ok().body(GapDTO.convert(result));
+	public ResponseEntity <List<ClassroomDTO>> read(){
+		List<ClassroomModel> result = this.service.read();
+		return ResponseEntity.ok().body(ClassroomDTO.convert(result));
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
-	public ResponseEntity<GapDTO> readByUuid(@PathVariable("uuid") String uuid) {
-        GapModel result = this.service.readByUuid(uuid);
+	public ResponseEntity<ClassroomDTO> readByUuid(@PathVariable("uuid") String uuid) {
+        ClassroomModel result = this.service.readByUuid(uuid);
         if(result !=  null){
-            return  ResponseEntity.ok().body(new GapDTO(result));
+            return  ResponseEntity.ok().body(new ClassroomDTO(result));
         }
         return ResponseEntity.badRequest().body(null);
     }
 	
+	
 	@PutMapping("/{uuid}")
-	public ResponseEntity<GapDTO> update(@RequestBody GapDTO newGap, @PathVariable("uuid") String uuid){
-		GapModel gap = new GapModel(newGap.getStart(), newGap.getDayOfWeek());
-		var result = this.service.update(gap, uuid);
+	public ResponseEntity<ClassroomDTO> update(@RequestBody ClassroomDTO newClassroom, @PathVariable("uuid") String uuid){
+		ClassroomModel classroom = new ClassroomModel(newClassroom.getName(), newClassroom.getBlock(), newClassroom.getCapacity());
+		var result = this.service.update(classroom, uuid);
 		if (result) {
-			return ResponseEntity.ok().body(newGap);
+			return ResponseEntity.ok().body(newClassroom);
 		}
 		return ResponseEntity.badRequest().body(null);
 	}
@@ -69,5 +70,5 @@ public class GapController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
 }
