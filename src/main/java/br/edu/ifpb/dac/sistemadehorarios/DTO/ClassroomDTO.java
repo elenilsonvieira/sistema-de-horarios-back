@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 
 public class ClassroomDTO {
-	
+
+	private String uuid;
 	private String name;
 	private String block;
 	private int capacity;
@@ -15,12 +16,7 @@ public class ClassroomDTO {
 		this.name = classroom.getName();
 		this.block = classroom.getBlock();
 		this.capacity = classroom.getCapacity();
-	}
-
-	public ClassroomDTO(String name, String block, int capacity) {
-		this.name = name;
-		this.block = block;
-		this.capacity = capacity;
+		this.uuid = classroom.getUuid();
 	}
 	
 	public static List<ClassroomDTO> convert(List<ClassroomModel> classes){
@@ -51,4 +47,11 @@ public class ClassroomDTO {
 		this.capacity = capacity;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 }

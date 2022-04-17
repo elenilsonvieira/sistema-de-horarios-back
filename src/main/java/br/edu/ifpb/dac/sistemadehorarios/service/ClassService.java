@@ -1,46 +1,43 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
-import java.util.List;
-
+import br.edu.ifpb.dac.sistemadehorarios.model.ClassModel;
+import br.edu.ifpb.dac.sistemadehorarios.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
-import br.edu.ifpb.dac.sistemadehorarios.repository.ClassroomRepository;
+import java.util.List;
 
 @Service
-public class ClassroomService {
-	
-	@Autowired
-	private ClassroomRepository repository;
-	
-	public boolean create(ClassroomModel classroom) {
+public class ClassService {
+    @Autowired
+    private ClassRepository repository;
+
+    public boolean create(ClassModel classModel) {
         try {
-            this.repository.save(classroom);
+            this.repository.save(classModel);
             return true;
         }catch (Exception error){
             return false;
         }
     }
-	
-	public List<ClassroomModel> read() {
+
+    public List<ClassModel> read() {
         try {
             return this.repository.findAll();
         }catch (Exception error){
             return null;
         }
     }
-	
-	public boolean update(ClassroomModel classroom, String uuid) {
+
+    public boolean update(ClassModel classModel, String uuid) {
         try {
-            ClassroomModel result = this.repository.findByUuid(uuid);
-            String name = classroom.getName()==null? result.getName() : classroom.getName();
-            String block = classroom.getBlock()==null? result.getBlock() : classroom.getBlock();
-            int capacity = classroom.getCapacity()== 0 ? result.getCapacity(): classroom.getCapacity();
+            ClassModel result = this.repository.findByUuid(uuid);
+
+            String name = classModel.getName()==null? result.getName() : classModel.getName();
+            String course = classModel.getCourse()==null? result.getCourse() : classModel.getCourse();
 
             result.setName(name);
-            result.setBlock(block);
-            result.setCapacity(capacity);
+            result.setCourse(course);
             this.repository.save(result);
             return true;
         }catch (Exception error){
@@ -57,12 +54,11 @@ public class ClassroomService {
         }
     }
 
-    public ClassroomModel readByUuid(String uuid) {
+    public ClassModel readByUuid(String uuid) {
         try {
             return this.repository.findByUuid(uuid);
         }catch (Exception error){
             return null;
         }
     }
-
 }

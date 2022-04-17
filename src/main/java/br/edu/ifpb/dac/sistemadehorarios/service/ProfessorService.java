@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,12 @@ public class ProfessorService {
     public boolean update(ProfessorModel professorModel, String uuid) {
         try {
             ProfessorModel result = this.repository.findByUuid(uuid);
-            result.setName(professorModel.getName());
-            result.setArea(professorModel.getArea());
+
+            String name =professorModel.getName()==null? result.getName() : professorModel.getName();
+            String area = professorModel.getArea()==null? result.getArea() : professorModel.getArea();
+
+            result.setName(name);
+            result.setArea(area);
             this.repository.save(result);
             return true;
         }catch (Exception error){
@@ -43,11 +48,12 @@ public class ProfessorService {
         }
     }
 
-    public ProfessorModel delete(String uuid) {
+    public boolean delete(String uuid) {
         try {
-            return this.repository.deleteByUuid(uuid);
+            this.repository.deleteById(uuid);
+            return true;
         }catch (Exception error){
-            return null;
+            return false;
         }
     }
 

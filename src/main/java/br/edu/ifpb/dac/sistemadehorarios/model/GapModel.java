@@ -1,26 +1,31 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
+
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
+
+import java.io.Serializable;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "gap")
-public class GapModel {
+public class GapModel  implements Serializable {
 	
 	@Id
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
-	private String start;
-	private String dayOfWeek;
-	
+	@Column(name = "uuid", nullable = false)
+	private String uuid = String.valueOf(UUID.randomUUID());
+
+	@Enumerated(EnumType.STRING)
+	private DayOfWeekEnum dayOfWeek;
+
+	@Column(name = "interval_class")
+	private int interval;
+
 	public GapModel() {
 	}
 
-	public GapModel(String start, String dayOfWeek) {
-		this.uuid =  String.valueOf(UUID.randomUUID());
-		this.start = start;
+	public GapModel(int interval, DayOfWeekEnum dayOfWeek) {
+		this.interval = interval;
 		this.dayOfWeek = dayOfWeek;
 	}
 
@@ -28,20 +33,32 @@ public class GapModel {
 		return uuid;
 	}
 
-	public String getStart() {
-		return start;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
-	}
-
-	public String getDayOfWeek() {
+	public DayOfWeekEnum getDayOfWeek() {
 		return dayOfWeek;
 	}
 
-	public void setDayOfWeek(String dayOfWeek) {
+	public void setDayOfWeek(DayOfWeekEnum dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
-	
+
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		this.interval = interval;
+	}
+
+	@Override
+	public String toString() {
+		return "GapModel{" +
+				"uuid='" + uuid + '\'' +
+				", interval='" + interval + '\'' +
+				", dayOfWeek=" + dayOfWeek +
+				'}';
+	}
 }

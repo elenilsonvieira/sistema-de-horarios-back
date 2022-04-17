@@ -26,11 +26,10 @@ public class GapController {
 	private GapService service;
 	
 	@PostMapping
-	public ResponseEntity<GapDTO> create(@RequestBody GapDTO gap){
-		GapModel gapModel = new GapModel(gap.getStart(), gap.getDayOfWeek());
-		boolean result = this.service.create(gapModel);
+	public ResponseEntity<GapDTO> create(@RequestBody GapModel gap){
+		boolean result = this.service.create(gap);
 		if(result) {
-			return ResponseEntity.status(201).body(gap);
+			return ResponseEntity.status(201).body(new GapDTO(gap));
 		}
 		return ResponseEntity.status(400).body(null);
 	}
@@ -38,36 +37,34 @@ public class GapController {
 	@GetMapping
 	public ResponseEntity <List<GapDTO>> read(){
 		List<GapModel> result = this.service.read();
-		return ResponseEntity.ok().body(GapDTO.convert(result));
+		return ResponseEntity.status(200).body(GapDTO.convert(result));
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
 	public ResponseEntity<GapDTO> readByUuid(@PathVariable("uuid") String uuid) {
         GapModel result = this.service.readByUuid(uuid);
         if(result !=  null){
-            return  ResponseEntity.ok().body(new GapDTO(result));
+            return  ResponseEntity.status(200).body(new GapDTO(result));
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(404).body(null);
     }
 	
 	@PutMapping("/{uuid}")
-	public ResponseEntity<GapDTO> update(@RequestBody GapDTO newGap, @PathVariable("uuid") String uuid){
-		GapModel gap = new GapModel(newGap.getStart(), newGap.getDayOfWeek());
-		var result = this.service.update(gap, uuid);
+	public ResponseEntity<GapDTO> update(@RequestBody GapModel gap, @PathVariable("uuid") String uuid){
+		boolean result = this.service.update(gap, uuid);
 		if (result) {
-			return ResponseEntity.ok().body(newGap);
+			return ResponseEntity.status(200).body(new GapDTO(gap));
 		}
-		return ResponseEntity.badRequest().body(null);
+		return ResponseEntity.status(404).body(null);
 	}
 	
 	@DeleteMapping("/{uuid}")
 	public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
-		try {
-			this.service.delete(uuid);
-			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-		}catch(Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+		boolean result = this.service.delete(uuid);
+		if (result) {
+			return ResponseEntity.status(200).body("OK");
 		}
+		return ResponseEntity.status(404).body("NOT OK");
 	}
 
 }

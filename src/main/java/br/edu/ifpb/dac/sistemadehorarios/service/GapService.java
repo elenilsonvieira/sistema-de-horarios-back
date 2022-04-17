@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import java.util.List;
 
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,13 @@ public class GapService {
 	
 	public boolean create(GapModel gap) {
         try {
+            if(!this.isValidGap(gap)){
+                return false;
+            }
             this.repository.save(gap);
             return true;
         }catch (Exception error){
+            System.out.println(error);
             return false;
         }
     }
@@ -33,9 +38,16 @@ public class GapService {
 	
 	public boolean update(GapModel gap, String uuid) {
         try {
+            if(!this.isValidGap(gap)){
+                return false;
+            }
             GapModel result = this.repository.findByUuid(uuid);
-            result.setStart(gap.getStart());
-            result.setDayOfWeek(gap.getDayOfWeek());
+
+            int interval =gap.getInterval()==0? result.getInterval() : gap.getInterval();
+            DayOfWeekEnum dayOfWeek = gap.getDayOfWeek()==null? result.getDayOfWeek() : gap.getDayOfWeek();
+
+            result.setInterval(interval);
+            result.setDayOfWeek(dayOfWeek);
             this.repository.save(result);
             return true;
         }catch (Exception error){
@@ -43,8 +55,13 @@ public class GapService {
         }
     }
 
-    public void delete(String uuid) {
-    	repository.deleteById(uuid);
+    public boolean delete(String uuid) {
+        try {
+            this.repository.deleteById(uuid);
+            return true;
+        }catch (Exception error){
+            return false;
+        }
     }
 
     public GapModel readByUuid(String uuid) {
@@ -54,4 +71,17 @@ public class GapService {
             return null;
         }
     }
+
+
+    private boolean isValidGap(GapModel gap){
+        GapModel isValid = this.repository.findByDayAndInterval(
+                gap.getDayOfWeek().name(),
+                gap.getInterval());
+
+        if(isValid != null){
+            return false;
+        }
+        return true;
+    }
+
 }

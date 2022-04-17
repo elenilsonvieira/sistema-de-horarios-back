@@ -26,11 +26,10 @@ public class ClassroomController {
 	private ClassroomService service;
 	
 	@PostMapping
-	public ResponseEntity<ClassroomDTO> create(@RequestBody ClassroomDTO classroom){
-		ClassroomModel classroomModel = new ClassroomModel(classroom.getName(), classroom.getBlock(), classroom.getCapacity());
-		boolean result = this.service.create(classroomModel);
+	public ResponseEntity<ClassroomDTO> create(@RequestBody ClassroomModel classroom){
+		boolean result = this.service.create(classroom);
 		if(result) {
-			return ResponseEntity.status(201).body(classroom);
+			return ResponseEntity.status(201).body(new ClassroomDTO(classroom));
 		}
 		return ResponseEntity.status(400).body(null);
 	}
@@ -38,37 +37,36 @@ public class ClassroomController {
 	@GetMapping
 	public ResponseEntity <List<ClassroomDTO>> read(){
 		List<ClassroomModel> result = this.service.read();
-		return ResponseEntity.ok().body(ClassroomDTO.convert(result));
+		return ResponseEntity.status(200).body(ClassroomDTO.convert(result));
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
 	public ResponseEntity<ClassroomDTO> readByUuid(@PathVariable("uuid") String uuid) {
         ClassroomModel result = this.service.readByUuid(uuid);
         if(result !=  null){
-            return  ResponseEntity.ok().body(new ClassroomDTO(result));
+            return  ResponseEntity.status(200).body(new ClassroomDTO(result));
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(404).body(null);
     }
 	
 	
 	@PutMapping("/{uuid}")
-	public ResponseEntity<ClassroomDTO> update(@RequestBody ClassroomDTO newClassroom, @PathVariable("uuid") String uuid){
-		ClassroomModel classroom = new ClassroomModel(newClassroom.getName(), newClassroom.getBlock(), newClassroom.getCapacity());
-		var result = this.service.update(classroom, uuid);
+	public ResponseEntity<ClassroomDTO> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
+		boolean result = this.service.update(classroom, uuid);
 		if (result) {
-			return ResponseEntity.ok().body(newClassroom);
+			return ResponseEntity.status(200).body(new ClassroomDTO(classroom));
 		}
-		return ResponseEntity.badRequest().body(null);
+		return ResponseEntity.status(404).body(null);
 	}
 	
 	@DeleteMapping("/{uuid}")
 	public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
-		try {
-			this.service.delete(uuid);
-			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-		}catch(Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+		boolean result = this.service.delete(uuid);
+		if (result) {
+			return ResponseEntity.status(200).body("OK");
 		}
+		return ResponseEntity.status(404).body("NOT OK");
+
 	}
 	
 }

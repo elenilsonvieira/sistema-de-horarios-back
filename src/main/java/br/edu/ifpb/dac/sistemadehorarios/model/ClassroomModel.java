@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -7,11 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "classroom")
-public class ClassroomModel {
+public class ClassroomModel  implements Serializable {
 	
 	@Id
 	@Column(name = "uuid", nullable = false)
-	private String uuid;
+	private String uuid=String.valueOf(UUID.randomUUID());
 	private String name;
 	private String block;
 	private int capacity;
@@ -20,7 +21,6 @@ public class ClassroomModel {
 	}
 
 	public ClassroomModel(String name, String block, int capacity) {
-		this.uuid =  String.valueOf(UUID.randomUUID());
 		this.name = name;
 		this.block = block;
 		this.capacity = capacity;
