@@ -1,46 +1,46 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
-import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
-import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
-import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.repository.ClassroomRepository;
 
 @Service
-public class ProfessorService {
-
-    @Autowired
-    private ProfessorRepository repository;
-
-    public boolean create(ProfessorModel classModel) {
+public class ClassroomService {
+	
+	@Autowired
+	private ClassroomRepository repository;
+	
+	public boolean create(ClassroomModel classroom) {
         try {
-            this.repository.save(classModel);
+            this.repository.save(classroom);
             return true;
         }catch (Exception error){
-        	System.err.println(error.getMessage());
             return false;
         }
     }
-
-    public List<ProfessorModel> read() {
+	
+	public List<ClassroomModel> read() {
         try {
             return this.repository.findAll();
         }catch (Exception error){
             return null;
         }
     }
-
-    public boolean update(ProfessorModel professorModel, String uuid) {
+	
+	public boolean update(ClassroomModel classroom, String uuid) {
         try {
-            ProfessorModel result = this.repository.findByUuid(uuid);
-
-            String name =professorModel.getName()==null? result.getName() : professorModel.getName();
-            String area = professorModel.getArea()==null? result.getArea() : professorModel.getArea();
+            ClassroomModel result = this.repository.findByUuid(uuid);
+            String name = classroom.getName()==null? result.getName() : classroom.getName();
+            String block = classroom.getBlock()==null? result.getBlock() : classroom.getBlock();
+            int capacity = classroom.getCapacity()== 0 ? result.getCapacity(): classroom.getCapacity();
 
             result.setName(name);
-            result.setArea(area);
+            result.setBlock(block);
+            result.setCapacity(capacity);
             this.repository.save(result);
             return true;
         }catch (Exception error){
@@ -57,11 +57,12 @@ public class ProfessorService {
         }
     }
 
-    public ProfessorModel readByUuid(String uuid) {
+    public ClassroomModel readByUuid(String uuid) {
         try {
             return this.repository.findByUuid(uuid);
         }catch (Exception error){
             return null;
         }
     }
+
 }

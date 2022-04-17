@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface ProfessorRepository extends JpaRepository<ProfessorModel, String> {
 
     public ProfessorModel findByUuid(String uuid);
-    public ProfessorModel deleteByUuid(String uuid);
 }

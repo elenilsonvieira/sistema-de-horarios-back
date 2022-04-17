@@ -1,26 +1,47 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
-@NoArgsConstructor
 public class ProfessorDTO {
     private String name;
     private String area;
+	private String uuid;
 
-    public ProfessorDTO(ProfessorModel professor) {
+
+	public ProfessorDTO(ProfessorModel professor) {
 
         this.name = professor.getName();
         this.area = professor.getArea();
+		this.uuid = professor.getUuid();
     }
 
-
-    public static List<ProfessorDTO> convert(List<ProfessorModel> professor){
+	public static List<ProfessorDTO> convert(List<ProfessorModel> professor){
         return professor.stream().map(ProfessorDTO::new).collect(Collectors.toList());
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 }

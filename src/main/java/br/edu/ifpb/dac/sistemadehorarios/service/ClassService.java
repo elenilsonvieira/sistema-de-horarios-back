@@ -1,30 +1,27 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
-import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
-import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
-import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
+import br.edu.ifpb.dac.sistemadehorarios.model.ClassModel;
+import br.edu.ifpb.dac.sistemadehorarios.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProfessorService {
-
+public class ClassService {
     @Autowired
-    private ProfessorRepository repository;
+    private ClassRepository repository;
 
-    public boolean create(ProfessorModel classModel) {
+    public boolean create(ClassModel classModel) {
         try {
             this.repository.save(classModel);
             return true;
         }catch (Exception error){
-        	System.err.println(error.getMessage());
             return false;
         }
     }
 
-    public List<ProfessorModel> read() {
+    public List<ClassModel> read() {
         try {
             return this.repository.findAll();
         }catch (Exception error){
@@ -32,15 +29,15 @@ public class ProfessorService {
         }
     }
 
-    public boolean update(ProfessorModel professorModel, String uuid) {
+    public boolean update(ClassModel classModel, String uuid) {
         try {
-            ProfessorModel result = this.repository.findByUuid(uuid);
+            ClassModel result = this.repository.findByUuid(uuid);
 
-            String name =professorModel.getName()==null? result.getName() : professorModel.getName();
-            String area = professorModel.getArea()==null? result.getArea() : professorModel.getArea();
+            String name = classModel.getName()==null? result.getName() : classModel.getName();
+            String course = classModel.getCourse()==null? result.getCourse() : classModel.getCourse();
 
             result.setName(name);
-            result.setArea(area);
+            result.setCourse(course);
             this.repository.save(result);
             return true;
         }catch (Exception error){
@@ -57,7 +54,7 @@ public class ProfessorService {
         }
     }
 
-    public ProfessorModel readByUuid(String uuid) {
+    public ClassModel readByUuid(String uuid) {
         try {
             return this.repository.findByUuid(uuid);
         }catch (Exception error){

@@ -18,12 +18,10 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorDTO professor){
-
-        ProfessorModel professorModel = new ProfessorModel(professor.getName(), professor.getArea());
-        boolean result = this.professorService.create(professorModel);
+    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorModel professor){
+        boolean result = this.professorService.create(professor);
         if(result) {
-            return ResponseEntity.status(201).body(professor);
+            return ResponseEntity.status(201).body(new ProfessorDTO(professor));
         }
         return ResponseEntity.status(400).body(null);
     }
@@ -31,35 +29,34 @@ public class ProfessorController {
     @GetMapping
     public ResponseEntity<List<ProfessorDTO>> read(){
         List<ProfessorModel> result = this.professorService.read();
-        return ResponseEntity.ok().body(ProfessorDTO.convert(result));
+        return ResponseEntity.status(200).body(ProfessorDTO.convert(result));
     }
 
     @GetMapping("/get-by-uuid/{uuid}")
     public ResponseEntity<ProfessorDTO> readByUuid(@PathVariable("uuid") String uuid) {
         ProfessorModel result = this.professorService.readByUuid(uuid);
         if(result !=  null){
-            return  ResponseEntity.ok().body(new ProfessorDTO(result));
+            return  ResponseEntity.status(200).body(new ProfessorDTO(result));
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(404).body(null);
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<ProfessorDTO> update(@RequestBody ProfessorDTO professor, @PathVariable("uuid") String uuid) {
-        ProfessorModel professorModel = new ProfessorModel(professor.getName(),professor.getArea());
-        var result = this.professorService.update(professorModel, uuid);
+    public ResponseEntity<ProfessorDTO> update(@RequestBody ProfessorModel professor, @PathVariable("uuid") String uuid) {
+        boolean result = this.professorService.update(professor, uuid);
         if(result){
-            return  ResponseEntity.ok().body(professor);
+            return  ResponseEntity.status(200).body(new ProfessorDTO(professor));
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(404).body(null);
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<ProfessorDTO> delete(@PathVariable("uuid") String uuid){
-        ProfessorModel result = this.professorService.delete(uuid);
-        if(result != null){
-            return  ResponseEntity.ok().body(new ProfessorDTO(result));
+    public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
+        boolean result = this.professorService.delete(uuid);
+        if(result){
+            return  ResponseEntity.status(200).body("OK");
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(404).body("NOT OK");
     }
 
 
