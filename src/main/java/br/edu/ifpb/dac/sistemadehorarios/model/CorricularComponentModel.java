@@ -25,6 +25,14 @@ public class CorricularComponentModel implements Serializable {
     @JoinColumn(name = "class_uuid")
     private ClassModel classModel;
 
+    public CorricularComponentModel() {
+    }
+
+    public CorricularComponentModel( byte workload, String name, ClassModel classModel) {
+        this.workload = workload;
+        this.name = name;
+        this.classModel = classModel;
+    }
 
     public String getUuid() {
         return uuid;

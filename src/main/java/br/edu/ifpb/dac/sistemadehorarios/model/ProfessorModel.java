@@ -9,7 +9,33 @@ import java.util.UUID;
 
 @Entity(name = "professor")
 public class ProfessorModel implements Serializable {
-    public String getUuid() {
+	@Id
+    @Column(name = "uuid", nullable = false)
+    private String uuid=String.valueOf(UUID.randomUUID());
+
+	@Column(unique = true)
+    private String name;
+    private String area;
+    private Date create_at;
+
+   
+    
+    public ProfessorModel() {
+	}
+
+	public ProfessorModel(String name, String area) {
+        this.create_at = new Date();
+        this.name = name;
+        this.area = area;
+    }
+
+    public ProfessorModel(String name, String area, String uuid) {
+        this.uuid =  uuid;
+        this.create_at = new Date();
+        this.name = name;
+        this.area = area;
+    }
+	public String getUuid() {
 		return uuid;
 	}
 
@@ -40,32 +66,5 @@ public class ProfessorModel implements Serializable {
 	public void setCreate_at(Date create_at) {
 		this.create_at = create_at;
 	}
-
-	@Id
-    @Column(name = "uuid", nullable = false)
-    private String uuid=String.valueOf(UUID.randomUUID());;
-
-	@Column(unique = true)
-    private String name;
-    private String area;
-    private Date create_at;
-
-   
-    
-    public ProfessorModel() {
-	}
-
-	public ProfessorModel(String name, String area) {
-        this.create_at = new Date();
-        this.name = name;
-        this.area = area;
-    }
-
-    public ProfessorModel(String name, String area, String uuid) {
-        this.uuid =  uuid;
-        this.create_at = new Date();
-        this.name = name;
-        this.area = area;
-    }
 
 }

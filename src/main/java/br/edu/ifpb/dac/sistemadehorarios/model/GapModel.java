@@ -1,6 +1,4 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
-
-
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 
 import java.io.Serializable;
