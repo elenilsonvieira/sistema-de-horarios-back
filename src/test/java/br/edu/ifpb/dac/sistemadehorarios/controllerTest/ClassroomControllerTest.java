@@ -39,7 +39,7 @@ public class ClassroomControllerTest {
         mockMvc.perform(
                         post("/classroom")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new ClassroomDTO(classroomModel))))
+                                .content(this.objectMapper.writeValueAsString(classroomModel)))
                 .andExpect(status().is(201));
     }
 

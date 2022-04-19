@@ -39,7 +39,7 @@ public class GapControllerTest {
         mockMvc.perform(
                         post("/gap")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new GapDTO(gapModel))))
+                                .content(this.objectMapper.writeValueAsString(gapModel)))
                 .andExpect(status().is(201));
     }
 
