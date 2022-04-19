@@ -22,6 +22,10 @@ public class CorricularComponentService {
     public boolean create(CorricularComponentModel corricularComponentModel, String uuid) {
         try {
             ClassModel classModel =  this.classRepository.findByUuid(uuid);
+            System.out.println(classModel);
+            if(classModel == null && corricularComponentModel.getClassModel() == null){
+                return false;
+            }
             corricularComponentModel.setClassModel(classModel);
             this.repository.save(corricularComponentModel);
             return true;

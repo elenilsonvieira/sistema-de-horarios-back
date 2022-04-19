@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProfessorServiceTest {
 
     private ProfessorModel professorModel[] = {
-            new ProfessorModel("Tiago", "Testes"),
-            new ProfessorModel("Elenilson", "Projetos"),
-            new ProfessorModel("Larissa", "AA"),
+            new ProfessorModel(String.valueOf(UUID.randomUUID()), "Testes"),
+            new ProfessorModel(String.valueOf(UUID.randomUUID()), "Projetos"),
+            new ProfessorModel(String.valueOf(UUID.randomUUID()), "AA"),
     };
 
     @Autowired
@@ -24,7 +25,7 @@ public class ProfessorServiceTest {
 
     @Test
     @Order(1)
-    void save() {
+    void create() {
         for (ProfessorModel professor: this.professorModel) {
             boolean result = service.create(professor);
             assertTrue(result);
@@ -32,19 +33,37 @@ public class ProfessorServiceTest {
     }
 
     @Test
-//    @Order(2)
-    @Disabled
-    void delete() {
-//        ProfessorModel professor = service.delete(professorModel[0].getUuid());
-//        assertNotNull(professor);
+    @Order(2)
+    void read() {
+        List<ProfessorModel> professor = service.read();
+        assertNotEquals(0,professor.size());
     }
 
     @Test
-    @Order(2)
-    void read() throws InterruptedException {
-        Thread.sleep(500);
-        List<ProfessorModel> professor = service.read();
-        assertNotEquals(0,professor.size());
+    @Order(3)
+    void update() {
+        ProfessorModel professorModel = new ProfessorModel(this.professorModel[0].getName(), "Tec");
+        boolean result = this.service.update(professorModel, this.professorModel[0].getUuid());
+        assertTrue(result);
+    }
+
+    @Test
+    @Order(4)
+    void delete() {
+        boolean result = service.delete(professorModel[0].getUuid());
+        assertTrue(result);
+    }
+
+    @Test
+    @Order(5)
+    void equalsName(){
+        ProfessorModel professorModel1 = new ProfessorModel("Fuleco","AA");
+        ProfessorModel professorModel2 = new ProfessorModel("Fuleco","AA");
+
+        boolean resultProfessor1 = this.service.create(professorModel1);
+        assertTrue(resultProfessor1);
+        boolean resultProfessor2 = this.service.create(professorModel2);
+        assertFalse(resultProfessor2);
     }
 
 }
