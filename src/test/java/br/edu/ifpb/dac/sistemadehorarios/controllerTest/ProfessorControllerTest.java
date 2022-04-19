@@ -60,7 +60,7 @@ public class ProfessorControllerTest {
     public void getProfessorByUuid() throws Exception {
 
         mockMvc.perform(
-                        get("/professor/get-by-uuid/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        get("/professor/get-by-uuid/2a164b86-df8c-4a7b-9307-f87409b4da16")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
@@ -71,9 +71,9 @@ public class ProfessorControllerTest {
     public void updateProfessor() throws Exception {
 
         mockMvc.perform(
-                        put("/professor/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        put("/professor/2a164b86-df8c-4a7b-9307-f87409b4da16")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new ProfessorDTO(professorModel))))
+                                .content(this.objectMapper.writeValueAsString(professorModel)))
                 .andExpect(status().is(200));
     }
 
@@ -82,7 +82,7 @@ public class ProfessorControllerTest {
     @Order(5)
     public void deleteProfessor() throws Exception {
         mockMvc.perform(
-                        delete("/professor/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        delete("/professor/8753bc02-0248-4ac9-9e5c-cc8a95b3304b")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
