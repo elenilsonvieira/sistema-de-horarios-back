@@ -1,6 +1,5 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
-import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
