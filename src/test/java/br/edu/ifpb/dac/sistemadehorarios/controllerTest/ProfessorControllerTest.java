@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ProfessorControllerTest {
 
-    private ProfessorModel professorModel = new ProfessorModel("Fulano", "Area x");
+    private ProfessorModel professorModel = new ProfessorModel("teste abc", "abc");
 
     @Autowired
     private MockMvc mockMvc;
@@ -60,9 +60,9 @@ public class ProfessorControllerTest {
     public void getProfessorByUuid() throws Exception {
 
         mockMvc.perform(
-                        get("/professor/get-by-uuid/uuid")
+                        get("/professor/get-by-uuid/04db65c6-addd-4117-a9c9-d4025a638fb3")
                                 .contentType("application/json"))
-                .andExpect(status().is(400));
+                .andExpect(status().is(200));
     }
 
     @Test
@@ -71,20 +71,20 @@ public class ProfessorControllerTest {
     public void updateProfessor() throws Exception {
 
         mockMvc.perform(
-                        put("/professor/uuid")
+                        put("/professor/04db65c6-addd-4117-a9c9-d4025a638fb3")
                                 .contentType("application/json")
                                 .content(this.objectMapper.writeValueAsString(new ProfessorDTO(professorModel))))
-                .andExpect(status().is(400));
+                .andExpect(status().is(200));
     }
 
     @Test
-    @Description("Should update professor in database")
+    @Description("Should delete professor in database")
     @Order(5)
     public void deleteProfessor() throws Exception {
         mockMvc.perform(
-                        delete("/professor/uuid")
+                        delete("/professor/04db65c6-addd-4117-a9c9-d4025a638fb3")
                                 .contentType("application/json"))
-                .andExpect(status().is(400));
+                .andExpect(status().is(200));
     }
 
 }
