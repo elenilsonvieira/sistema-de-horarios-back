@@ -15,9 +15,9 @@ public class ClassController {
     @Autowired
     private ClassService service;
 
-    @PostMapping
-    public ResponseEntity<ClassDTO> create(@RequestBody ClassModel classModel){
-        boolean result = this.service.create(classModel);
+    @PostMapping("/{courseUuid}")
+    public ResponseEntity<ClassDTO> create(@RequestBody ClassModel classModel, @PathVariable("courseUuid") String courseUuid){
+        boolean result = this.service.create(classModel, courseUuid);
         if(result) {
             return ResponseEntity.status(201).body(new ClassDTO(classModel));
         }
@@ -44,7 +44,7 @@ public class ClassController {
     public ResponseEntity<ClassDTO> update(@RequestBody ClassModel classModel, @PathVariable("uuid") String uuid){
         boolean result = this.service.update(classModel, uuid);
         if (result) {
-            return ResponseEntity.status(200).body(new ClassDTO(classModel));
+            return ResponseEntity.status(200).body(new ClassDTO(this.service.readByUuid(uuid)));
         }
         return ResponseEntity.status(404).body(null);
     }

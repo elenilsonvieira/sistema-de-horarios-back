@@ -23,7 +23,7 @@ import jdk.jfr.Description;
 @AutoConfigureMockMvc
 public class ClassControllerTest {
 	
-	private ClassModel classModel = new ClassModel("2020.1", "ADS");
+	private ClassModel classModel = new ClassModel("2020.1");
 	
 	@Autowired
     private MockMvc mockMvc;

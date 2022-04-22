@@ -3,6 +3,9 @@ package br.edu.ifpb.dac.sistemadehorarios.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -12,14 +15,16 @@ public class ClassModel implements Serializable {
     @Column(name = "uuid", nullable = false)
     private String uuid = String.valueOf(UUID.randomUUID());
     private String name;
-    private String course;
+    
+    @ManyToOne
+    @JoinColumn(name = "course_uuid")
+    private CourseModel courseModel;
 
     public ClassModel() {
     }
 
-    public ClassModel(String name, String course) {
+    public ClassModel(String name) {
         this.name = name;
-        this.course = course;
     }
 
     public String getUuid() {
@@ -38,11 +43,11 @@ public class ClassModel implements Serializable {
         this.name = name;
     }
 
-    public String getCourse() {
-        return course;
-    }
+	public CourseModel getCourseModel() {
+		return courseModel;
+	}
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
+	public void setCourseModel(CourseModel courseModel) {
+		this.courseModel = courseModel;
+	}
 }
