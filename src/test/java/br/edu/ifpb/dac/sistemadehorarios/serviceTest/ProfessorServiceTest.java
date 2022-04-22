@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.serviceTest;
+ package br.edu.ifpb.dac.sistemadehorarios.serviceTest;
 
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.ProfessorService;

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ClassServiceAndCorricularComponentServiceTest {
 
     private  ClassModel turma = new ClassModel("5° Período","ADS");
-    private String uuid;
+
 
     @Autowired
     private CorricularComponentService corricularComponentService;
@@ -25,7 +25,6 @@ public class ClassServiceAndCorricularComponentServiceTest {
     @Order(1)
     void createClassModel(){
         boolean result = this.classService.create(turma);
-        this.uuid = this.turma.getUuid();
         assertTrue(result);
 
     }
@@ -38,9 +37,7 @@ public class ClassServiceAndCorricularComponentServiceTest {
                 "DAC",
                 this.turma
         );
-        System.out.println(this.turma.getUuid());
-        System.out.println(this.turma.getUuid());
-        boolean result = this.corricularComponentService.create(corricularComponentModel, this.uuid);
+        boolean result = this.corricularComponentService.create(corricularComponentModel,"uuid");
         assertTrue(result);
     }
 

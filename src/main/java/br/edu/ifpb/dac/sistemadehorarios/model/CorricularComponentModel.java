@@ -10,8 +10,7 @@ public class CorricularComponentModel implements Serializable {
     @Column(name = "uuid", nullable = false)
     private String uuid = String.valueOf(UUID.randomUUID());
     
-    public CorricularComponentModel() {
-    }
+
     
     public CorricularComponentModel(byte workload, String name) {
 		this.workload = workload;

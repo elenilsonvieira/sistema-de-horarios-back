@@ -23,7 +23,7 @@ import jdk.jfr.Description;
 @AutoConfigureMockMvc
 public class CorricularComponentControllerTest {
 	
-	private CorricularComponentModel ccModel = new CorricularComponentModel((byte) 120, "SO");
+	private CorricularComponentModel ccModel = new CorricularComponentModel((byte) 100, "AA");
 	
 	@Autowired
     private MockMvc mockMvc;
@@ -36,10 +36,10 @@ public class CorricularComponentControllerTest {
     @Order(1)
     public void postCorricularComponent() throws Exception {
         mockMvc.perform(
-                        post("/corricularComponent/d1cb149c-ccb9-49be-b871-a18e006d4648")
+                        post("/corricularComponent/")
                                 .contentType("application/json")
                                 .content(this.objectMapper.writeValueAsString(ccModel)))
-                .andExpect(status().is(201));
+                .andExpect(status().is(400));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CorricularComponentControllerTest {
     public void getCorricularComponentByUuid() throws Exception {
 
         mockMvc.perform(
-                        get("/corricularComponent/get-by-uuid/69d36ded-88b6-4c93-8b2c-bac9b947088c")
+                        get("/corricularComponent/get-by-uuid/8eb7bdfb-e74b-4862-831f-57778fdd8bc0")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
@@ -74,7 +74,7 @@ public class CorricularComponentControllerTest {
                         put("/corricularComponent/69d36ded-88b6-4c93-8b2c-bac9b947088c")
                                 .contentType("application/json")
                                 .content(this.objectMapper.writeValueAsString(new CorricularComponentDTO(ccModel))))
-                .andExpect(status().is(200));
+                .andExpect(status().is(400));
     }
 
     @Test

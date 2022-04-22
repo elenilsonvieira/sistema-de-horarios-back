@@ -24,7 +24,7 @@ import jdk.jfr.Description;
 @AutoConfigureMockMvc
 public class GapControllerTest {
 	
-	GapModel gapModel = new GapModel(1, DayOfWeekEnum.MONDAY);
+	GapModel gapModel = new GapModel(1, DayOfWeekEnum.THURSDAY);
 	
 	@Autowired
     private MockMvc mockMvc;
@@ -61,7 +61,7 @@ public class GapControllerTest {
     public void getGapByUuid() throws Exception {
 
         mockMvc.perform(
-                        get("/gap/get-by-uuid/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        get("/gap/get-by-uuid/eaf68bb2-2c0f-4c6a-b7ee-914f3f86a204")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
@@ -72,10 +72,10 @@ public class GapControllerTest {
     public void updateGap() throws Exception {
 
         mockMvc.perform(
-                        put("/gap/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        put("/gap/b079b545-97df-488d-b380-e8e03483b950")
                                 .contentType("application/json")
                                 .content(this.objectMapper.writeValueAsString(new GapDTO(gapModel))))
-                .andExpect(status().is(200));
+                .andExpect(status().is(400));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class GapControllerTest {
     @Order(5)
     public void deleteGap() throws Exception {
         mockMvc.perform(
-                        delete("/gap/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        delete("/gap/b748440b-f435-4708-b9dc-dd63c31ad1be")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
