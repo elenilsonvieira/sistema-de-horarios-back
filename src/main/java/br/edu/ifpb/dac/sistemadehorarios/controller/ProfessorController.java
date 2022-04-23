@@ -33,8 +33,8 @@ public class ProfessorController {
     }
 
     @GetMapping("/get-by-uuid/{uuid}")
-    public ResponseEntity<ProfessorDTO> readByUuid(@PathVariable("uuid") String uuid) {
-        ProfessorModel result = this.professorService.readByUuid(uuid);
+    public ResponseEntity<ProfessorDTO> findByUuid(@PathVariable("uuid") String uuid) {
+        ProfessorModel result = this.professorService.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new ProfessorDTO(result));
         }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.model.GapModel;
 
 public class GapDTO {
@@ -11,6 +12,7 @@ public class GapDTO {
 	private String interval;
 	private DayOfWeekEnum dayOfWeek;
 	private String uuid;
+	private ShiftEnum shift;
 
 	
 	public GapDTO(GapModel gap) {
@@ -37,6 +39,7 @@ public class GapDTO {
 
 		this.uuid = gap.getUuid();
 		this.dayOfWeek = gap.getDayOfWeek();
+		this.shift = gap.getShift();
 	}
 	
 	public static List<GapDTO> convert(List<GapModel> gaps){
@@ -65,5 +68,13 @@ public class GapDTO {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public ShiftEnum getShift() {
+		return shift;
+	}
+
+	public void setShift(ShiftEnum shift) {
+		this.shift = shift;
 	}
 }

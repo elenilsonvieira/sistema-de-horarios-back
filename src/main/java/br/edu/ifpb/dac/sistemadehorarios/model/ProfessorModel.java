@@ -11,7 +11,7 @@ import java.util.UUID;
 public class ProfessorModel implements Serializable {
 	@Id
     @Column(name = "uuid", nullable = false)
-    private String uuid=String.valueOf(UUID.randomUUID());
+    private String uuid;
 
 	@Column(unique = true)
     private String name;
@@ -21,16 +21,12 @@ public class ProfessorModel implements Serializable {
    
     
     public ProfessorModel() {
+		this.uuid = String.valueOf(UUID.randomUUID());
+		this.create_at = new Date();
 	}
 
 	public ProfessorModel(String name, String area) {
-        this.create_at = new Date();
-        this.name = name;
-        this.area = area;
-    }
-
-    public ProfessorModel(String name, String area, String uuid) {
-        this.uuid =  uuid;
+		this.uuid = String.valueOf(UUID.randomUUID());
         this.create_at = new Date();
         this.name = name;
         this.area = area;

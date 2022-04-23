@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,26 +8,27 @@ import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ClassroomRepository;
 
 @Service
-public class ClassroomService {
-	
+public class ClassroomService extends ServiceAbstract{
+
 	@Autowired
 	private ClassroomRepository repository;
+
+
 	
 	public boolean create(ClassroomModel classroom) {
-        try {
-            this.repository.save(classroom);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
+        return super.create(classroom, this.repository);
     }
 	
 	public List<ClassroomModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+        return (List<ClassroomModel>) super.read(this.repository);
+    }
+
+    public boolean delete(String uuid) {
+        return super.delete(uuid,this.repository);
+    }
+
+    public ClassroomModel readByUuid(String uuid) {
+        return (ClassroomModel) super.findByUuid(uuid, this.repository);
     }
 	
 	public boolean update(ClassroomModel classroom, String uuid) {
@@ -45,23 +45,6 @@ public class ClassroomService {
             return true;
         }catch (Exception error){
             return false;
-        }
-    }
-
-    public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
-    }
-
-    public ClassroomModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
         }
     }
 

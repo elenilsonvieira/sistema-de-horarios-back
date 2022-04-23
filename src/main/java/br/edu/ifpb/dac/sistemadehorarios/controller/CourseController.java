@@ -40,8 +40,8 @@ public class CourseController {
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
-	public ResponseEntity<CourseDTO> readByUuid(@PathVariable("uuid") String uuid) {
-		CourseModel result = this.service.readByUuid(uuid);
+	public ResponseEntity<CourseDTO> findByUuid(@PathVariable("uuid") String uuid) {
+		CourseModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new CourseDTO(result));
         }

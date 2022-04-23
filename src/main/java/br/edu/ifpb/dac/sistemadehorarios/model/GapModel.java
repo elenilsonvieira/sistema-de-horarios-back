@@ -3,6 +3,7 @@ import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.ShiftEnum;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -12,24 +13,26 @@ public class GapModel  implements Serializable {
 	
 	@Id
 	@Column(name = "uuid", nullable = false)
-	private String uuid = String.valueOf(UUID.randomUUID());
-
+	private String uuid;
 	@Enumerated(EnumType.STRING)
 	private DayOfWeekEnum dayOfWeek;
-
 	@Enumerated(EnumType.STRING)
-	private ShiftEnum shiftEnum;
-
-	@Column(name = "interval_class")
+	private ShiftEnum shift;
+	@Column(name = "interval_class") // da erro de sintaxe sql se for só interval
 	private int interval;
+	private Date create_at;
 
 	public GapModel() {
+		this.uuid=String.valueOf(UUID.randomUUID());
+		this.create_at = new Date();
 	}
 
 	public GapModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum) {
+		this.uuid=String.valueOf(UUID.randomUUID());
 		this.interval = interval;
 		this.dayOfWeek = dayOfWeek;
-		this.shiftEnum = shiftEnum;
+		this.shift = shiftEnum;
+		this.create_at = new Date();
 	}
 
 	public String getUuid() {
@@ -56,11 +59,19 @@ public class GapModel  implements Serializable {
 		this.interval = interval;
 	}
 
-	public ShiftEnum getShiftEnum() {
-		return shiftEnum;
+	public ShiftEnum getShift() {
+		return shift;
 	}
 
-	public void setShiftEnum(ShiftEnum shiftEnum) {
-		this.shiftEnum = shiftEnum;
+	public void setShift(ShiftEnum shiftEnum) {
+		this.shift = shiftEnum;
+	}
+
+	public Date getCreate_at() {
+		return create_at;
+	}
+
+	public void setCreate_at(Date create_at) {
+		this.create_at = create_at;
 	}
 }

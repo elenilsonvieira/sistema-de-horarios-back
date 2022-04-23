@@ -31,8 +31,8 @@ public class CorricularComponentController {
     }
 
     @GetMapping("/get-by-uuid/{uuid}")
-    public ResponseEntity<CorricularComponentDTO> readByUuid(@PathVariable("uuid") String uuid) {
-        CorricularComponentModel result = this.service.readByUuid(uuid);
+    public ResponseEntity<CorricularComponentDTO> findByUuid(@PathVariable("uuid") String uuid) {
+        CorricularComponentModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new CorricularComponentDTO(result));
         }

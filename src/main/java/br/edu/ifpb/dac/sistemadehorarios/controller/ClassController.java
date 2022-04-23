@@ -31,8 +31,8 @@ public class ClassController {
     }
 
     @GetMapping("/get-by-uuid/{uuid}")
-    public ResponseEntity<ClassDTO> readByUuid(@PathVariable("uuid") String uuid) {
-        ClassModel result = this.service.readByUuid(uuid);
+    public ResponseEntity<ClassDTO> findByUuid(@PathVariable("uuid") String uuid) {
+        ClassModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new ClassDTO(result));
         }
@@ -44,7 +44,7 @@ public class ClassController {
     public ResponseEntity<ClassDTO> update(@RequestBody ClassModel classModel, @PathVariable("uuid") String uuid){
         boolean result = this.service.update(classModel, uuid);
         if (result) {
-            return ResponseEntity.status(200).body(new ClassDTO(this.service.readByUuid(uuid)));
+            return ResponseEntity.status(200).body(new ClassDTO(this.service.findByUuid(uuid)));
         }
         return ResponseEntity.status(404).body(null);
     }

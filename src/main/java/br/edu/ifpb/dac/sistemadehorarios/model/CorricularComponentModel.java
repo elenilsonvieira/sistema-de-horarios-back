@@ -2,36 +2,33 @@ package br.edu.ifpb.dac.sistemadehorarios.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity(name="corricular_component")
 public class CorricularComponentModel implements Serializable {
+
     @Id
     @Column(name = "uuid", nullable = false)
-    private String uuid = String.valueOf(UUID.randomUUID());
-    
-
-    
-    public CorricularComponentModel(byte workload, String name) {
-		this.workload = workload;
-		this.name = name;
-	}
-
-	private byte workload;
+    private String uuid;
+    private byte workload;
     private String name;
-
     @ManyToOne
     @JoinColumn(name = "class_uuid")
     private ClassModel classModel;
+    private Date create_at;
 
     public CorricularComponentModel() {
+        this.uuid=String.valueOf(UUID.randomUUID());
+        this.create_at = new Date();
     }
 
-    public CorricularComponentModel( byte workload, String name, ClassModel classModel) {
-        this.workload = workload;
-        this.name = name;
-        this.classModel = classModel;
-    }
+    public CorricularComponentModel(byte workload, String name) {
+        this.uuid=String.valueOf(UUID.randomUUID());
+		this.workload = workload;
+		this.name = name;
+        this.create_at = new Date();
+	}
 
     public String getUuid() {
         return uuid;
@@ -64,4 +61,6 @@ public class CorricularComponentModel implements Serializable {
     public void setClassModel(ClassModel classModel) {
         this.classModel = classModel;
     }
+
+
 }

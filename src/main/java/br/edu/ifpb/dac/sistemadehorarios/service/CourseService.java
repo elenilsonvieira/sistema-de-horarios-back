@@ -9,26 +9,25 @@ import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.CourseRepository;
 
 @Service
-public class CourseService {
+public class CourseService extends ServiceAbstract{
 	
 	@Autowired
 	private CourseRepository repository;
 	
 	public boolean create(CourseModel courseModel) {
-        try {
-            this.repository.save(courseModel);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
+       return super.create(courseModel, this.repository);
     }
 
     public List<CourseModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+       return (List<CourseModel>) super.read(this.repository);
+    }
+
+    public boolean delete(String uuid) {
+        return super.delete(uuid, this.repository);
+    }
+
+    public CourseModel findByUuid(String uuid) {
+        return (CourseModel) super.findByUuid(uuid, this.repository);
     }
 
     public boolean update(CourseModel courseModel, String uuid) {
@@ -44,20 +43,4 @@ public class CourseService {
         }
     }
 
-    public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
-    }
-
-    public CourseModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
-        }
-    }
 }
