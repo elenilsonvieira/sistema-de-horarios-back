@@ -41,8 +41,8 @@ public class GapService {
             if(!this.isValidGap(gap)){
                 return false;
             }
-            GapModel result = this.repository.findByUuid(uuid);
 
+            GapModel result = this.repository.findByUuid(uuid);
             int interval =gap.getInterval()==0? result.getInterval() : gap.getInterval();
             DayOfWeekEnum dayOfWeek = gap.getDayOfWeek()==null? result.getDayOfWeek() : gap.getDayOfWeek();
 
@@ -76,8 +76,8 @@ public class GapService {
     private boolean isValidGap(GapModel gap){
         GapModel isValid = this.repository.findByDayAndInterval(
                 gap.getDayOfWeek().name(),
+                gap.getShiftEnum().name(),
                 gap.getInterval());
-
         if(isValid != null){
             return false;
         }

@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.ShiftEnum;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -16,15 +17,19 @@ public class GapModel  implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private DayOfWeekEnum dayOfWeek;
 
+	@Enumerated(EnumType.STRING)
+	private ShiftEnum shiftEnum;
+
 	@Column(name = "interval_class")
 	private int interval;
 
 	public GapModel() {
 	}
 
-	public GapModel(int interval, DayOfWeekEnum dayOfWeek) {
+	public GapModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum) {
 		this.interval = interval;
 		this.dayOfWeek = dayOfWeek;
+		this.shiftEnum = shiftEnum;
 	}
 
 	public String getUuid() {
@@ -51,12 +56,11 @@ public class GapModel  implements Serializable {
 		this.interval = interval;
 	}
 
-	@Override
-	public String toString() {
-		return "GapModel{" +
-				"uuid='" + uuid + '\'' +
-				", interval='" + interval + '\'' +
-				", dayOfWeek=" + dayOfWeek +
-				'}';
+	public ShiftEnum getShiftEnum() {
+		return shiftEnum;
+	}
+
+	public void setShiftEnum(ShiftEnum shiftEnum) {
+		this.shiftEnum = shiftEnum;
 	}
 }

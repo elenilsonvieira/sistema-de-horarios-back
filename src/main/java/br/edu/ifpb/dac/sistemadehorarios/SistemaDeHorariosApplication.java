@@ -10,5 +10,4 @@ public class SistemaDeHorariosApplication {
 
         SpringApplication.run(SistemaDeHorariosApplication.class, args);
     }
-
 }

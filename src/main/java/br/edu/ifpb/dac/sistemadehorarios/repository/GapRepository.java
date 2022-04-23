@@ -11,7 +11,7 @@ public interface GapRepository extends JpaRepository<GapModel, String>{
 	
 	public GapModel findByUuid(String uuid);
 
-	@Query(nativeQuery = true, value = "SELECT * FROM gap WHERE day_of_week=:dayOfWeek AND interval_class=:interval")
-	public GapModel findByDayAndInterval(String dayOfWeek, int interval);
+	@Query(nativeQuery = true, value = "SELECT * FROM gap WHERE day_of_week=:dayOfWeek AND shit=:shift AND interval_class=:interval")
+	public GapModel findByDayAndInterval(String dayOfWeek, String shift ,int interval);
 
 }

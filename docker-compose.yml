@@ -1,12 +1,28 @@
 version: "3"
 services:
-  database:
-    image: mysql:latest
+#  database:
+#    image: mysql:latest
+#    ports:
+#      - "3307:3306"
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    container_name: database
+#    working_dir: /app
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+  pgAdmin:
+    image: dpage/pgadmin4
     ports:
-      - "3307:3306"
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    container_name: database
-    working_dir: /app
+      - "15432:80"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      PGADMIN_DEFAULT_EMAIL: shd@email.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+
+    volumes:
+      - .:/pgadmin
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge
