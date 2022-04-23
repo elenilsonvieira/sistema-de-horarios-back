@@ -41,8 +41,8 @@ public class GapController {
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
-	public ResponseEntity<GapDTO> readByUuid(@PathVariable("uuid") String uuid) {
-        GapModel result = this.service.readByUuid(uuid);
+	public ResponseEntity<GapDTO> findByUuid(@PathVariable("uuid") String uuid) {
+        GapModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new GapDTO(result));
         }

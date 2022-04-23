@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class CorricularComponentService {
+public class CorricularComponentService extends ServiceAbstract{
     @Autowired
     private CorricularComponentRepository repository;
 
@@ -22,12 +22,13 @@ public class CorricularComponentService {
     public boolean create(CorricularComponentModel corricularComponentModel, String uuid) {
         try {
             ClassModel classModel =  this.classRepository.findByUuid(uuid);
-            System.out.println(classModel);
-            if(classModel == null && corricularComponentModel.getClassModel() == null){
+            corricularComponentModel.setClassModel(classModel);
+
+            if(corricularComponentModel.getClassModel()==null){
                 return false;
             }
-            corricularComponentModel.setClassModel(classModel);
-            this.repository.save(corricularComponentModel);
+
+            super.create(corricularComponentModel, this.repository);
             return true;
         }catch (Exception error){
             return false;
@@ -35,11 +36,7 @@ public class CorricularComponentService {
     }
 
     public List<CorricularComponentModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+       return (List<CorricularComponentModel>) super.read(this.repository);
     }
 
     public boolean update(CorricularComponentModel corricularComponentModel, String uuid) {
@@ -60,19 +57,10 @@ public class CorricularComponentService {
     }
 
     public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
+       return super.delete(uuid, this.repository);
     }
 
-    public CorricularComponentModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
-        }
+    public CorricularComponentModel findByUuid(String uuid) {
+       return (CorricularComponentModel) super.findByUuid(uuid, this.repository);
     }
 }

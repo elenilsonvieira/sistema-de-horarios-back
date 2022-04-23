@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassService {
+public class ClassService extends ServiceAbstract{
 	
     @Autowired
     private ClassRepository repository;
@@ -23,20 +23,24 @@ public class ClassService {
     public boolean create(ClassModel classModel, String uuid) {
         try {
         	CourseModel courseModel = this.courseRepository.findByUuid(uuid);
+            if(courseModel == null){
+                return false;
+            }
         	classModel.setCourseModel(courseModel);
-            this.repository.save(classModel);
-            return true;
+            return super.create(classModel, this.repository);
         }catch (Exception error){
             return false;
         }
     }
 
+    public boolean delete(String uuid) {
+        return super.delete(uuid, this.repository);
+    }
+    public ClassModel findByUuid(String uuid) {
+        return (ClassModel) super.findByUuid(uuid, this.repository);
+    }
     public List<ClassModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+       return (List<ClassModel>) super.read(this.repository);
     }
 
     public boolean update(ClassModel classModel, String uuid) {
@@ -50,23 +54,6 @@ public class ClassService {
             return true;
         }catch (Exception error){
             return false;
-        }
-    }
-
-    public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
-    }
-
-    public ClassModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
         }
     }
 }

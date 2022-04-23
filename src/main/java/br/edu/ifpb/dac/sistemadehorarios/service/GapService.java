@@ -10,30 +10,27 @@ import br.edu.ifpb.dac.sistemadehorarios.model.GapModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.GapRepository;
 
 @Service
-public class GapService {
+public class GapService extends ServiceAbstract{
 	
 	@Autowired
 	private GapRepository repository;
 	
 	public boolean create(GapModel gap) {
-        try {
-            if(!this.isValidGap(gap)){
-                return false;
-            }
-            this.repository.save(gap);
-            return true;
-        }catch (Exception error){
-            System.out.println(error);
+        if(!this.isValidGap(gap)){
             return false;
         }
+        return super.create(gap, this.repository);
     }
 	
 	public List<GapModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+        return (List<GapModel>) super.read(this.repository);
+    }
+    public boolean delete(String uuid) {
+        return super.delete(uuid, this.repository);
+    }
+
+    public GapModel findByUuid(String uuid) {
+        return (GapModel) super.findByUuid(uuid, this.repository);
     }
 	
 	public boolean update(GapModel gap, String uuid) {
@@ -55,29 +52,12 @@ public class GapService {
         }
     }
 
-    public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
-    }
-
-    public GapModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
-        }
-    }
-
-
     private boolean isValidGap(GapModel gap){
         GapModel isValid = this.repository.findByDayAndInterval(
                 gap.getDayOfWeek().name(),
-                gap.getShiftEnum().name(),
+                gap.getShift().name(),
                 gap.getInterval());
+
         if(isValid != null){
             return false;
         }

@@ -41,7 +41,7 @@ public class ClassroomController {
 	}
 	
 	@GetMapping("/get-by-uuid/{uuid}")
-	public ResponseEntity<ClassroomDTO> readByUuid(@PathVariable("uuid") String uuid) {
+	public ResponseEntity<ClassroomDTO> findByUuid(@PathVariable("uuid") String uuid) {
         ClassroomModel result = this.service.readByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new ClassroomDTO(result));

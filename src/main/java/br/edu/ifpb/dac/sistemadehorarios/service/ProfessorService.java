@@ -8,27 +8,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProfessorService {
+public class ProfessorService extends ServiceAbstract{
 
     @Autowired
     private ProfessorRepository repository;
 
     public boolean create(ProfessorModel classModel) {
-        try {
-            this.repository.save(classModel);
-            return true;
-        }catch (Exception error){
-        	System.err.println(error.getMessage());
-            return false;
-        }
+        return super.create(classModel, this.repository);
     }
 
     public List<ProfessorModel> read() {
-        try {
-            return this.repository.findAll();
-        }catch (Exception error){
-            return null;
-        }
+        return (List<ProfessorModel>) super.read(this.repository);
+    }
+
+    public boolean delete(String uuid) {
+        return super.delete(uuid, this.repository);
+    }
+
+    public ProfessorModel findByUuid(String uuid) {
+        return (ProfessorModel) super.findByUuid(uuid, this.repository);
     }
 
     public boolean update(ProfessorModel professorModel, String uuid) {
@@ -44,23 +42,6 @@ public class ProfessorService {
             return true;
         }catch (Exception error){
             return false;
-        }
-    }
-
-    public boolean delete(String uuid) {
-        try {
-            this.repository.deleteById(uuid);
-            return true;
-        }catch (Exception error){
-            return false;
-        }
-    }
-
-    public ProfessorModel readByUuid(String uuid) {
-        try {
-            return this.repository.findByUuid(uuid);
-        }catch (Exception error){
-            return null;
         }
     }
 }
