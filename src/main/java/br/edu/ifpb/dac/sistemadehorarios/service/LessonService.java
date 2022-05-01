@@ -9,39 +9,42 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LessonService extends ServiceAbstract{
+public class LessonService extends ServiceTemplate {
 
     @Autowired
     private LessonRepository repository;
-
     @Autowired
-    private ClassService classService;
+    private TurmaService turmaService;
     @Autowired
     private CorricularComponentService corricularComponentService;
     @Autowired
-    private GapService gapService;
+    private IntervalService intervalService;
     @Autowired
     private ProfessorService professorService;
+    @Autowired
+    private ClassroomService classroomModel;
 
-    public LessonModel create(LessonDRO lessonDRO) {
-        ClassModel classModel = this.classService.findByUuid(lessonDRO.getClassModelUuid());
-        CorricularComponentModel corricularComponentModel = this.corricularComponentService.findByUuid(lessonDRO.getCorricularComponentModelUuid());
-        GapModel gapModel = this.gapService.findByUuid(lessonDRO.getGapModelUuid());
-        ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorModelUuid());
+    public LessonModel create(LessonDRO lessonDRO){
+        TurmaModel turmaModel = this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
+        CorricularComponentModel corricularComponentModel = this.corricularComponentService.findByUuid(lessonDRO.getCorricularComponentlUuid());
+        IntervalModel intervalModel = this.intervalService.findByUuid(lessonDRO.getIntervalUuid());
+        ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
+        ClassroomModel classroomModel = this.classroomModel.findByUuid(lessonDRO.getClassroomUuid());
 
-        if(classModel == null ||
+        if(turmaModel == null ||
             corricularComponentModel == null ||
-            gapModel == null ||
-            professorModel == null){
+            intervalModel == null ||
+            professorModel == null ||
+            classroomModel == null){
 
             return null;
         }
         LessonModel lessonModel = new LessonModel();
-        lessonModel.setClassModel(classModel);
+        lessonModel.setTurmaModel(turmaModel);
         lessonModel.setCorricularComponentModel(corricularComponentModel);
-        lessonModel.setGapModel(gapModel);
+        lessonModel.setIntervalModel(intervalModel);
         lessonModel.setProfessorModel(professorModel);
-
+        lessonModel.setClassroomModel(classroomModel);
         boolean create = super.create(lessonModel, repository);
         if(create){
             return lessonModel;

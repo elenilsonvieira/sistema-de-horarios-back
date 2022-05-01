@@ -13,20 +13,24 @@ public class LessonModel implements Serializable {
     private String uuid;
 
     @ManyToOne
-    @JoinColumn(name = "corricular_component_model_uuid")
+    @JoinColumn(name = "corricular_component_uuid")
     private CorricularComponentModel corricularComponentModel;
 
     @ManyToOne
-    @JoinColumn(name = "professor_model_uuid")
+    @JoinColumn(name = "professor_uuid")
     private ProfessorModel professorModel;
 
     @ManyToOne
-    @JoinColumn(name = "gap_model_uuid")
-    private GapModel gapModel;
+    @JoinColumn(name = "interval_uuid")
+    private IntervalModel intervalModel;
 
     @ManyToOne
-    @JoinColumn(name = "class_model_uuid")
-    private ClassModel classModel;
+    @JoinColumn(name = "turma_uuid")
+    private TurmaModel turmaModel;
+
+    @ManyToOne
+    @JoinColumn(name = "classroom_uuid")
+    private ClassroomModel classroomModel;
 
     private Date create_at;
 
@@ -35,50 +39,51 @@ public class LessonModel implements Serializable {
         this.create_at = new Date();
     }
 
-    public ClassModel getClassModel() {
-        return classModel;
-    }
-
-    public GapModel getGapModel() {
-        return gapModel;
-    }
-
-    public ProfessorModel getProfessorModel() {
-        return professorModel;
-    }
-
     public CorricularComponentModel getCorricularComponentModel() {
         return corricularComponentModel;
-    }
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Date getCreate_at() {
-        return create_at;
-    }
-
-    public void setCreate_at(Date create_at) {
-        this.create_at = create_at;
     }
 
     public void setCorricularComponentModel(CorricularComponentModel corricularComponentModel) {
         this.corricularComponentModel = corricularComponentModel;
     }
 
+    public ProfessorModel getProfessorModel() {
+        return professorModel;
+    }
+
     public void setProfessorModel(ProfessorModel professorModel) {
         this.professorModel = professorModel;
     }
 
-    public void setGapModel(GapModel gapModel) {
-        this.gapModel = gapModel;
+    public IntervalModel getIntervalModel() {
+        return intervalModel;
     }
 
-    public void setClassModel(ClassModel classModel) {
-        this.classModel = classModel;
+    public void setIntervalModel(IntervalModel intervalModel) {
+        this.intervalModel = intervalModel;
+    }
+
+    public TurmaModel getTurmaModel() {
+        return turmaModel;
+    }
+
+    public void setTurmaModel(TurmaModel turmaModel) {
+        this.turmaModel = turmaModel;
+    }
+
+    public ClassroomModel getClassroomModel() {
+        return classroomModel;
+    }
+
+    public void setClassroomModel(ClassroomModel classroomModel) {
+        this.classroomModel = classroomModel;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Date getCreate_at() {
+        return create_at;
     }
 }

@@ -9,7 +9,7 @@ import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.CourseRepository;
 
 @Service
-public class CourseService extends ServiceAbstract{
+public class CourseService extends ServiceTemplate {
 	
 	@Autowired
 	private CourseRepository repository;

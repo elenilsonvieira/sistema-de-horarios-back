@@ -5,9 +5,10 @@ import java.util.stream.Collectors;
 
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import br.edu.ifpb.dac.sistemadehorarios.ENUM.ShiftEnum;
-import br.edu.ifpb.dac.sistemadehorarios.model.GapModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.utils.shift.ShiftTemplate;
 
-public class GapDTO {
+public class IntervalDTO {
 
 	private String interval;
 	private DayOfWeekEnum dayOfWeek;
@@ -15,35 +16,36 @@ public class GapDTO {
 	private ShiftEnum shift;
 
 	
-	public GapDTO(GapModel gap) {
-		switch (gap.getInterval()){
+	public IntervalDTO(IntervalModel interval) {
+		this.uuid = interval.getUuid();
+		this.dayOfWeek = interval.getDayOfWeek();
+		this.shift = interval.getShift();
+		ShiftTemplate shiftTemplate = this.shift.factory(this.shift);
+
+		switch (interval.getInterval()){
 			case 1:
-				this.interval = "18:30";
+				this.interval = shiftTemplate.one();
 				break;
 			case 2:
-				this.interval = "19:20";
+				this.interval = shiftTemplate.two();
 				break;
 			case 3:
-				this.interval = "20:10";
+				this.interval = shiftTemplate.three();
 				break;
 			case 4:
-				this.interval = "21:00";
+				this.interval = shiftTemplate.four();
 				break;
 			case 5:
-				this.interval = "21:50";
+				this.interval = shiftTemplate.five();
 				break;
 			default:
-				this.interval = "22:00+";
+				this.interval = shiftTemplate.six();
 				break;
 		}
-
-		this.uuid = gap.getUuid();
-		this.dayOfWeek = gap.getDayOfWeek();
-		this.shift = gap.getShift();
 	}
 	
-	public static List<GapDTO> convert(List<GapModel> gaps){
-		return gaps.stream().map(GapDTO::new).collect(Collectors.toList());
+	public static List<IntervalDTO> convert(List<IntervalModel> intervalList){
+		return intervalList.stream().map(IntervalDTO::new).collect(Collectors.toList());
 	}
 
 	public String getInterval() {

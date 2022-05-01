@@ -7,17 +7,19 @@ import java.util.stream.Collectors;
 
 public class LessonDTO {
     private String uuid;
-    private CorricularComponentModel corricularComponentModel;
-    private ProfessorModel professorModel;
-    private GapModel gapModel;
-    private ClassModel classModel;
+    private CorricularComponentDTO corricularComponent;
+    private ProfessorDTO professor;
+    private IntervalDTO interval;
+    private TurmaDTO turma;
+    private ClassroomDTO classroom;
 
     public LessonDTO(LessonModel lessonModel){
         this.uuid = lessonModel.getUuid();
-        this.corricularComponentModel = lessonModel.getCorricularComponentModel();
-        this.professorModel = lessonModel.getProfessorModel();
-        this.gapModel = lessonModel.getGapModel();
-        this.classModel = lessonModel.getClassModel();
+        this.corricularComponent = new CorricularComponentDTO(lessonModel.getCorricularComponentModel());
+        this.professor = new ProfessorDTO(lessonModel.getProfessorModel());
+        this.interval = new IntervalDTO(lessonModel.getIntervalModel());
+        this.turma = new TurmaDTO(lessonModel.getTurmaModel());
+        this.classroom = new ClassroomDTO(lessonModel.getClassroomModel());
     }
 
     public static List<LessonDTO> convert(List<LessonModel> gaps){
@@ -32,35 +34,43 @@ public class LessonDTO {
         this.uuid = uuid;
     }
 
-    public CorricularComponentModel getCorricularComponentModel() {
-        return corricularComponentModel;
+    public CorricularComponentDTO getCorricularComponent() {
+        return corricularComponent;
     }
 
-    public void setCorricularComponentModel(CorricularComponentModel corricularComponentModel) {
-        this.corricularComponentModel = corricularComponentModel;
+    public void setCorricularComponent(CorricularComponentDTO corricularComponent) {
+        this.corricularComponent = corricularComponent;
     }
 
-    public ProfessorModel getProfessorModel() {
-        return professorModel;
+    public ProfessorDTO getProfessor() {
+        return professor;
     }
 
-    public void setProfessorModel(ProfessorModel professorModel) {
-        this.professorModel = professorModel;
+    public void setProfessor(ProfessorDTO professor) {
+        this.professor = professor;
     }
 
-    public GapModel getGapModel() {
-        return gapModel;
+    public IntervalDTO getInterval() {
+        return interval;
     }
 
-    public void setGapModel(GapModel gapModel) {
-        this.gapModel = gapModel;
+    public void setInterval(IntervalDTO interval) {
+        this.interval = interval;
     }
 
-    public ClassModel getClassModel() {
-        return classModel;
+    public TurmaDTO getTurma() {
+        return turma;
     }
 
-    public void setClassModel(ClassModel classModel) {
-        this.classModel = classModel;
+    public void setTurma(TurmaDTO turma) {
+        this.turma = turma;
+    }
+
+    public ClassroomDTO getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(ClassroomDTO classroom) {
+        this.classroom = classroom;
     }
 }

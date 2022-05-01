@@ -1,5 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
+import br.edu.ifpb.dac.sistemadehorarios.DRO.ProfessorDRO;
+import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +10,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProfessorService extends ServiceAbstract{
+public class ProfessorService extends ServiceTemplate {
 
     @Autowired
     private ProfessorRepository repository;
+    @Autowired
+    private CourseService courseService;
 
-    public boolean create(ProfessorModel classModel) {
-        return super.create(classModel, this.repository);
+    public ProfessorModel create(ProfessorDRO DRO) {
+
+        CourseModel courseModel =  courseService.findByUuid(DRO.getCourseUuid());
+        if(courseModel==null){
+            return null;
+        }
+        ProfessorModel professorModel = new ProfessorModel();
+        professorModel.setName(DRO.getName());
+        professorModel.setArea(DRO.getArea());
+        professorModel.setCourseUuid(courseModel);
+        if(DRO.getUuid() != null){
+            professorModel.setUuid(DRO.getUuid());
+        }
+        super.create(professorModel, this.repository);
+        return professorModel;
     }
 
     public List<ProfessorModel> read() {

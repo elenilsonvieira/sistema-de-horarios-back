@@ -2,40 +2,49 @@ package br.edu.ifpb.dac.sistemadehorarios.DRO;
 
 
 public class LessonDRO {
-    private String classModelUuid;
-    private String corricularComponentModelUuid;
-    private String gapModelUuid;
-    private String professorModelUuid;
+    private String turmaUuid;
+    private String corricularComponentlUuid;
+    private String intervalUuid;
+    private String professorUuid;
+    private String classroomUuid;
 
-    public String getClassModelUuid() {
-        return classModelUuid;
+    public String getTurmaUuid() {
+        return turmaUuid;
     }
 
-    public void setClassModelUuid(String classModelUuid) {
-        this.classModelUuid = classModelUuid;
+    public void setTurmaUuid(String turmaUuid) {
+        this.turmaUuid = turmaUuid;
     }
 
-    public String getCorricularComponentModelUuid() {
-        return corricularComponentModelUuid;
+    public String getCorricularComponentlUuid() {
+        return corricularComponentlUuid;
     }
 
-    public void setCorricularComponentModelUuid(String corricularComponentModelUuid) {
-        this.corricularComponentModelUuid = corricularComponentModelUuid;
+    public void setCorricularComponentlUuid(String corricularComponentlUuid) {
+        this.corricularComponentlUuid = corricularComponentlUuid;
     }
 
-    public String getGapModelUuid() {
-        return gapModelUuid;
+    public String getIntervalUuid() {
+        return intervalUuid;
     }
 
-    public void setGapModelUuid(String gapModelUuid) {
-        this.gapModelUuid = gapModelUuid;
+    public void setIntervalUuid(String intervalUuid) {
+        this.intervalUuid = intervalUuid;
     }
 
-    public String getProfessorModelUuid() {
-        return professorModelUuid;
+    public String getProfessorUuid() {
+        return professorUuid;
     }
 
-    public void setProfessorModelUuid(String professorModelUuid) {
-        this.professorModelUuid = professorModelUuid;
+    public void setProfessorUuid(String professorUuid) {
+        this.professorUuid = professorUuid;
+    }
+
+    public String getClassroomUuid() {
+        return classroomUuid;
+    }
+
+    public void setClassroomUuid(String classroomUuid) {
+        this.classroomUuid = classroomUuid;
     }
 }

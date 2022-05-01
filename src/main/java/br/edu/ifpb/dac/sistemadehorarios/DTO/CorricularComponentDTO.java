@@ -1,13 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CorricularComponentDTO {
@@ -15,14 +11,14 @@ public class CorricularComponentDTO {
     private String uuid;
     private byte workload;
     private String name;
-    private ClassModel classModel;
+    private CourseDTO course;
 
 
     public CorricularComponentDTO(CorricularComponentModel corricularComponentModel) {
         this.uuid = corricularComponentModel.getUuid();
         this.workload = corricularComponentModel.getWorkload();
         this.name = corricularComponentModel.getName();
-        this.classModel = corricularComponentModel.getClassModel();
+        this.course = new CourseDTO(corricularComponentModel.getCourseUuid());
     }
 
     public static List<CorricularComponentDTO> convert(List<CorricularComponentModel> corricularComponentModel){
@@ -53,11 +49,11 @@ public class CorricularComponentDTO {
         this.name = name;
     }
 
-    public ClassModel getClassModel() {
-        return classModel;
+    public CourseDTO getCourse() {
+        return course;
     }
 
-    public void setClassModel(ClassModel classModel) {
-        this.classModel = classModel;
+    public void setCourse(CourseDTO course) {
+        this.course = course;
     }
 }

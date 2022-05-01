@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.controller;
 
+import br.edu.ifpb.dac.sistemadehorarios.DRO.ProfessorDRO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
@@ -18,10 +19,10 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorModel professor){
-        boolean result = this.professorService.create(professor);
-        if(result) {
-            return ResponseEntity.status(201).body(new ProfessorDTO(professor));
+    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorDRO DRO){
+        ProfessorModel result = this.professorService.create(DRO);
+        if(result!=null) {
+            return ResponseEntity.status(201).body(new ProfessorDTO(result));
         }
         return ResponseEntity.status(400).body(null);
     }

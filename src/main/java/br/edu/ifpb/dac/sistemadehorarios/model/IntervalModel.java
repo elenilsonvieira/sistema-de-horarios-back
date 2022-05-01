@@ -8,8 +8,8 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
-@Entity(name = "gap")
-public class GapModel  implements Serializable {
+@Entity(name = "interval_time")
+public class IntervalModel implements Serializable {
 	
 	@Id
 	@Column(name = "uuid", nullable = false)
@@ -22,12 +22,12 @@ public class GapModel  implements Serializable {
 	private int interval;
 	private Date create_at;
 
-	public GapModel() {
+	public IntervalModel() {
 		this.uuid=String.valueOf(UUID.randomUUID());
 		this.create_at = new Date();
 	}
 
-	public GapModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum) {
+	public IntervalModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum) {
 		this.uuid=String.valueOf(UUID.randomUUID());
 		this.interval = interval;
 		this.dayOfWeek = dayOfWeek;

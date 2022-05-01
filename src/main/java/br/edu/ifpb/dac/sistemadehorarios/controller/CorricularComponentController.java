@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.controller;
 
+import br.edu.ifpb.dac.sistemadehorarios.DRO.CorricularComponentDRO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CorricularComponentDTO;
 import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CorricularComponentService;
@@ -15,11 +16,11 @@ public class CorricularComponentController {
     @Autowired
     private CorricularComponentService service;
 
-    @PostMapping("/{classUuid}")
-    public ResponseEntity<CorricularComponentDTO> create(@RequestBody CorricularComponentModel CorricularComponentModel, @PathVariable("classUuid") String classUuid){
-        boolean result = this.service.create(CorricularComponentModel,classUuid);
-        if(result) {
-            return ResponseEntity.status(201).body(new CorricularComponentDTO(CorricularComponentModel));
+    @PostMapping()
+    public ResponseEntity<CorricularComponentDTO> create(@RequestBody CorricularComponentDRO DRO){
+        CorricularComponentModel result = this.service.create(DRO);
+        if(result!=null) {
+            return ResponseEntity.status(201).body(new CorricularComponentDTO(result));
         }
         return ResponseEntity.status(400).body(null);
     }

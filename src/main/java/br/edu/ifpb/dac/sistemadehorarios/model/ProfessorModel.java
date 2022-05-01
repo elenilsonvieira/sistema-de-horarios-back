@@ -1,8 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -17,6 +15,10 @@ public class ProfessorModel implements Serializable {
     private String name;
     private String area;
     private Date create_at;
+
+	@ManyToOne
+	@JoinColumn(name = "course_uuid")
+	private CourseModel courseUuid;
 
    
     
@@ -63,4 +65,11 @@ public class ProfessorModel implements Serializable {
 		this.create_at = create_at;
 	}
 
+	public CourseModel getCourseUuid() {
+		return courseUuid;
+	}
+
+	public void setCourseUuid(CourseModel courseUuid) {
+		this.courseUuid = courseUuid;
+	}
 }

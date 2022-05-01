@@ -1,11 +1,11 @@
 package br.edu.ifpb.dac.sistemadehorarios.repository;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClassRepository extends JpaRepository<ClassModel, String> {
+public interface TurmaRepository extends JpaRepository<TurmaModel, String> {
 
-    public ClassModel findByUuid(String uuid);
+    public TurmaModel findByUuid(String uuid);
 }
