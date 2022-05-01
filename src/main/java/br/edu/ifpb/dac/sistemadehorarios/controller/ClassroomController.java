@@ -2,8 +2,9 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import java.util.List;
 
+import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.middleware.ClassroomMiddleware;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +25,23 @@ public class ClassroomController {
 	
 	@Autowired
 	private ClassroomService service;
+
+	@Autowired
+	private ClassroomMiddleware middleware;
 	
 	@PostMapping
-	public ResponseEntity<ClassroomDTO> create(@RequestBody ClassroomModel classroom){
-		boolean result = this.service.create(classroom);
-		if(result) {
-			return ResponseEntity.status(201).body(new ClassroomDTO(classroom));
+	public ResponseEntity<Object> create(@RequestBody ClassroomModel classroom){
+
+		try{
+			middleware.isValidClassroom(classroom);
+			boolean result = this.service.create(classroom);
+			if(result) {
+				return ResponseEntity.status(201).body(new ClassroomDTO(classroom));
+			}
+			return ResponseEntity.status(400).body(null);
+		} catch (ClassroomInvalidException error) {
+			return ResponseEntity.status(400).body(error.getMessage());
 		}
-		return ResponseEntity.status(400).body(null);
 	}
 	
 	@GetMapping
@@ -42,7 +52,7 @@ public class ClassroomController {
 	
 	@GetMapping("/get-by-uuid/{uuid}")
 	public ResponseEntity<ClassroomDTO> findByUuid(@PathVariable("uuid") String uuid) {
-        ClassroomModel result = this.service.readByUuid(uuid);
+        ClassroomModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new ClassroomDTO(result));
         }

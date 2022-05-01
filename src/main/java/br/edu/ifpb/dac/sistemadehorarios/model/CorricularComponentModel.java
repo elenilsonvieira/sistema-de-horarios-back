@@ -14,8 +14,9 @@ public class CorricularComponentModel implements Serializable {
     private byte workload;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "class_uuid")
-    private ClassModel classModel;
+    @JoinColumn(name = "course_uuid")
+    private CourseModel courseUuid;
+
     private Date create_at;
 
     public CorricularComponentModel() {
@@ -54,13 +55,15 @@ public class CorricularComponentModel implements Serializable {
         this.name = name;
     }
 
-    public ClassModel getClassModel() {
-        return classModel;
+    public Date getCreate_at() {
+        return create_at;
     }
 
-    public void setClassModel(ClassModel classModel) {
-        this.classModel = classModel;
+    public CourseModel getCourseUuid() {
+        return courseUuid;
     }
 
-
+    public void setCourseUuid(CourseModel courseUuid) {
+        this.courseUuid = courseUuid;
+    }
 }

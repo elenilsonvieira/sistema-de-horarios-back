@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service
-public abstract class ServiceAbstract {
+@Service //TEMPLATE METHOD
+public abstract class ServiceTemplate {
 
     protected <T> boolean create(T object, JpaRepository repository) {
         try {

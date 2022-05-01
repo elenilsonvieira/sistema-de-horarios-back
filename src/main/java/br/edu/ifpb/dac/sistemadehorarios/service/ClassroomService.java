@@ -8,7 +8,7 @@ import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ClassroomRepository;
 
 @Service
-public class ClassroomService extends ServiceAbstract{
+public class ClassroomService extends ServiceTemplate {
 
 	@Autowired
 	private ClassroomRepository repository;
@@ -27,7 +27,7 @@ public class ClassroomService extends ServiceAbstract{
         return super.delete(uuid,this.repository);
     }
 
-    public ClassroomModel readByUuid(String uuid) {
+    public ClassroomModel findByUuid(String uuid) {
         return (ClassroomModel) super.findByUuid(uuid, this.repository);
     }
 	

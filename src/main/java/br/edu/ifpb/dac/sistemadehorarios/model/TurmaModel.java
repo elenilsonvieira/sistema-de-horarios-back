@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "class")
-public class ClassModel implements Serializable {
+@Entity(name = "turma")
+public class TurmaModel implements Serializable {
     @Id
     @Column(name = "uuid", nullable = false)
     private String uuid;
@@ -21,12 +21,12 @@ public class ClassModel implements Serializable {
     private CourseModel courseModel;
     private Date create_at;
 
-    public ClassModel() {
+    public TurmaModel() {
         this.uuid = String.valueOf(UUID.randomUUID());
         this.create_at = new Date();
     }
 
-    public ClassModel(String name) {
+    public TurmaModel(String name) {
         this.uuid = String.valueOf(UUID.randomUUID());
         this.name = name;
         this.create_at = new Date();
@@ -48,11 +48,11 @@ public class ClassModel implements Serializable {
         this.name = name;
     }
 
-	public CourseModel getCourseModel() {
+	public CourseModel getCourse() {
 		return courseModel;
 	}
 
-	public void setCourseModel(CourseModel courseModel) {
+	public void setCourse(CourseModel courseModel) {
 		this.courseModel = courseModel;
 	}
 

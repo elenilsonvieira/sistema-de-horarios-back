@@ -49,6 +49,7 @@ public class CourseModel implements Serializable {
 		return create_at;
 	}
 
+
 	public void setCreate_at(Date create_at) {
 		this.create_at = create_at;
 	}

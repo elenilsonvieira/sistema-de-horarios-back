@@ -1,9 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassModel;
+import br.edu.ifpb.dac.sistemadehorarios.DRO.CorricularComponentDRO;
+import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
 
-import br.edu.ifpb.dac.sistemadehorarios.repository.ClassRepository;
 import br.edu.ifpb.dac.sistemadehorarios.repository.CorricularComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,26 +12,30 @@ import java.util.List;
 
 
 @Service
-public class CorricularComponentService extends ServiceAbstract{
+public class CorricularComponentService extends ServiceTemplate {
     @Autowired
     private CorricularComponentRepository repository;
-
     @Autowired
-    private ClassRepository classRepository;
+    private CourseService courseService;
 
-    public boolean create(CorricularComponentModel corricularComponentModel, String uuid) {
+
+    public CorricularComponentModel create(CorricularComponentDRO DRO) {
         try {
-            ClassModel classModel =  this.classRepository.findByUuid(uuid);
-            corricularComponentModel.setClassModel(classModel);
-
-            if(corricularComponentModel.getClassModel()==null){
-                return false;
+            CourseModel courseModel =  courseService.findByUuid(DRO.getCourseUuid());
+            if(courseModel==null){
+                return null;
             }
-
-            super.create(corricularComponentModel, this.repository);
-            return true;
+            CorricularComponentModel corricularComponent = new CorricularComponentModel();
+            corricularComponent.setName(DRO.getName());
+            corricularComponent.setWorkload(DRO.getWorkload());
+            corricularComponent.setCourseUuid(courseModel);
+            if(DRO.getUuid() != null){
+                corricularComponent.setUuid(DRO.getUuid());
+            }
+            super.create(corricularComponent, this.repository);
+            return corricularComponent;
         }catch (Exception error){
-            return false;
+            return null;
         }
     }
 
@@ -45,10 +49,9 @@ public class CorricularComponentService extends ServiceAbstract{
 
             String name = corricularComponentModel.getName()==null? result.getName() : corricularComponentModel.getName();
             byte workload = corricularComponentModel.getWorkload()==0? result.getWorkload() : corricularComponentModel.getWorkload();
-
-
             result.setName(name);
             result.setWorkload(workload);
+
             this.repository.save(result);
             return true;
         }catch (Exception error){
