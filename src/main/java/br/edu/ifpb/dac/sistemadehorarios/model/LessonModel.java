@@ -14,7 +14,7 @@ public class LessonModel implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "corricular_component_uuid")
-    private CorricularComponentModel corricularComponentModel;
+    private CurricularComponentModel curricularComponentModel;
 
     @ManyToOne
     @JoinColumn(name = "professor_uuid")
@@ -43,12 +43,12 @@ public class LessonModel implements Serializable {
         this.create_at = new Date();
     }
 
-    public CorricularComponentModel getCorricularComponentModel() {
-        return corricularComponentModel;
+    public CurricularComponentModel getCorricularComponentModel() {
+        return curricularComponentModel;
     }
 
-    public void setCorricularComponentModel(CorricularComponentModel corricularComponentModel) {
-        this.corricularComponentModel = corricularComponentModel;
+    public void setCorricularComponentModel(CurricularComponentModel curricularComponentModel) {
+        this.curricularComponentModel = curricularComponentModel;
     }
 
     public ProfessorModel getProfessorModel() {

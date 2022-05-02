@@ -1,6 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DRO;
 
-public class CorricularComponentDRO {
+public class CurricularComponentDRO {
     private String name;
     private byte workload;
     private String courseUuid;

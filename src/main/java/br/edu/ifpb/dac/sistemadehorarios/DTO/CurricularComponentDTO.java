@@ -1,12 +1,12 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
 import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CorricularComponentDTO {
+public class CurricularComponentDTO {
 
     private String uuid;
     private byte workload;
@@ -14,15 +14,15 @@ public class CorricularComponentDTO {
     private CourseDTO course;
 
 
-    public CorricularComponentDTO(CorricularComponentModel corricularComponentModel) {
-        this.uuid = corricularComponentModel.getUuid();
-        this.workload = corricularComponentModel.getWorkload();
-        this.name = corricularComponentModel.getName();
-        this.course = new CourseDTO(corricularComponentModel.getCourseUuid());
+    public CurricularComponentDTO(CurricularComponentModel curricularComponentModel) {
+        this.uuid = curricularComponentModel.getUuid();
+        this.workload = curricularComponentModel.getWorkload();
+        this.name = curricularComponentModel.getName();
+        this.course = new CourseDTO(curricularComponentModel.getCourseUuid());
     }
 
-    public static List<CorricularComponentDTO> convert(List<CorricularComponentModel> corricularComponentModel){
-        return corricularComponentModel.stream().map(CorricularComponentDTO::new).collect(Collectors.toList());
+    public static List<CurricularComponentDTO> convert(List<CurricularComponentModel> curricularComponentModel){
+        return curricularComponentModel.stream().map(CurricularComponentDTO::new).collect(Collectors.toList());
     }
 
     public String getUuid() {

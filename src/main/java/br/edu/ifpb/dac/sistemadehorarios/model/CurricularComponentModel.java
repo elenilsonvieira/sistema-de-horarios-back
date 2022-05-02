@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity(name="corricular_component")
-public class CorricularComponentModel implements Serializable {
+public class CurricularComponentModel implements Serializable {
 
     @Id
     @Column(name = "uuid", nullable = false)
@@ -19,12 +19,12 @@ public class CorricularComponentModel implements Serializable {
 
     private Date create_at;
 
-    public CorricularComponentModel() {
+    public CurricularComponentModel() {
         this.uuid=String.valueOf(UUID.randomUUID());
         this.create_at = new Date();
     }
 
-    public CorricularComponentModel(byte workload, String name) {
+    public CurricularComponentModel(byte workload, String name) {
         this.uuid=String.valueOf(UUID.randomUUID());
 		this.workload = workload;
 		this.name = name;
