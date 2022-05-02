@@ -21,6 +21,9 @@ public class IntervalMock {
 	@Mock
 	private IntervalDTO mockTest = mock(IntervalDTO.class);
 	
+	@Mock
+	private List<IntervalDTO> intervalDTOList;
+	
 	
 	@Test
 	public void verifyHour() {
@@ -30,16 +33,22 @@ public class IntervalMock {
 
 	@Test
 	public void verifyShiftWithHour(){
-		List<IntervalDTO> intervalDTOList = mock(List.class);
-		IntervalModel intervalModel = null;
-		IntervalDTO dto = new IntervalDTO(intervalModel);
+		intervalDTOList = mock(List.class);
+		IntervalDTO dto =  mock(IntervalDTO.class);
 
 		when(intervalDTOList.get(0)).thenReturn(dto);
+		when(intervalDTOList.get(0).getInterval()).thenReturn("13:50");
 		when(intervalDTOList.get(1)).thenReturn(null);
 
 		assertEquals(intervalDTOList.get(0), dto);
 		assertEquals(intervalDTOList.get(0).getInterval(), "13:50");
 		assertNull(intervalDTOList.get(1));
+	}
+	
+	@Test
+	public void verifyDayOfWeek() {
+		
+		
 	}
 
 
