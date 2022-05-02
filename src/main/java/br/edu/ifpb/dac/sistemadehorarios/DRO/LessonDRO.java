@@ -7,6 +7,7 @@ public class LessonDRO {
     private String intervalUuid;
     private String professorUuid;
     private String classroomUuid;
+    private String calendarUuid;
 
     public String getTurmaUuid() {
         return turmaUuid;
@@ -46,5 +47,13 @@ public class LessonDRO {
 
     public void setClassroomUuid(String classroomUuid) {
         this.classroomUuid = classroomUuid;
+    }
+
+    public String getCalendarUuid() {
+        return calendarUuid;
+    }
+
+    public void setCalendarUuid(String calendarUuid) {
+        this.calendarUuid = calendarUuid;
     }
 }

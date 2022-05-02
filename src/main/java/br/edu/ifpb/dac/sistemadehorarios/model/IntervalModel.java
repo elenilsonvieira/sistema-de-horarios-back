@@ -27,9 +27,9 @@ public class IntervalModel implements Serializable {
 		this.create_at = new Date();
 	}
 
-	public IntervalModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum) {
+	public IntervalModel(int interval, DayOfWeekEnum dayOfWeek, ShiftEnum shiftEnum){
 		this.uuid=String.valueOf(UUID.randomUUID());
-		this.interval = interval;
+		this.interval = Math.min(interval, 6);
 		this.dayOfWeek = dayOfWeek;
 		this.shift = shiftEnum;
 		this.create_at = new Date();
@@ -56,7 +56,7 @@ public class IntervalModel implements Serializable {
 	}
 
 	public void setInterval(int interval) {
-		this.interval = interval;
+		this.interval = Math.min(interval, 6);
 	}
 
 	public ShiftEnum getShift() {

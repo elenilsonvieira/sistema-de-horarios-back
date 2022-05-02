@@ -13,14 +13,16 @@ public class LessonMiddleware {
     @Autowired
     private LessonRepository repository;
 
-    public void lessonEqualsValidation(LessonDRO lesson) throws LessonInvalidException {
+    public boolean lessonEqualsValidation(LessonDRO lesson) throws LessonInvalidException {
         boolean result = LessonUtils.lessonEqualsValidation(lesson, this.repository);
         this.throwError(result);
+        return true;
     }
 
-    public void classroomAndIntervalValidation(LessonDRO lesson) throws LessonInvalidException {
+    public boolean classroomAndIntervalValidation(LessonDRO lesson) throws LessonInvalidException {
         boolean result = LessonUtils.classroomAndIntervalValidation(lesson, repository);
         this.throwError(result);
+        return true;
     }
 
     private void throwError(boolean result) throws LessonInvalidException {

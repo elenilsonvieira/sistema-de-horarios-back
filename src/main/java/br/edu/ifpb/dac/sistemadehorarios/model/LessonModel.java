@@ -32,6 +32,10 @@ public class LessonModel implements Serializable {
     @JoinColumn(name = "classroom_uuid")
     private ClassroomModel classroomModel;
 
+    @ManyToOne
+    @JoinColumn(name = "calendar_uuid")
+    private CalendarModel calendarModel;
+
     private Date create_at;
 
     public LessonModel() {
@@ -85,5 +89,13 @@ public class LessonModel implements Serializable {
 
     public Date getCreate_at() {
         return create_at;
+    }
+
+    public CalendarModel getCalendarModel() {
+        return calendarModel;
+    }
+
+    public void setCalendarModel(CalendarModel calendarModel) {
+        this.calendarModel = calendarModel;
     }
 }
