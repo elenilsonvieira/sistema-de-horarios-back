@@ -16,7 +16,7 @@ public class LessonService extends ServiceTemplate {
     @Autowired
     private TurmaService turmaService;
     @Autowired
-    private CorricularComponentService corricularComponentService;
+    private CurricularComponentService curricularComponentService;
     @Autowired
     private IntervalService intervalService;
     @Autowired
@@ -28,14 +28,14 @@ public class LessonService extends ServiceTemplate {
 
     public LessonModel create(LessonDRO lessonDRO){
         TurmaModel turmaModel = this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
-        CorricularComponentModel corricularComponentModel = this.corricularComponentService.findByUuid(lessonDRO.getCorricularComponentlUuid());
+        CurricularComponentModel curricularComponentModel = this.curricularComponentService.findByUuid(lessonDRO.getCorricularComponentlUuid());
         IntervalModel intervalModel = this.intervalService.findByUuid(lessonDRO.getIntervalUuid());
         ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
         ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
         CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
 
         if(turmaModel == null ||
-            corricularComponentModel == null ||
+            curricularComponentModel == null ||
             intervalModel == null ||
             professorModel == null ||
             classroomModel == null ||
@@ -45,7 +45,7 @@ public class LessonService extends ServiceTemplate {
         }
         LessonModel lessonModel = new LessonModel();
         lessonModel.setTurmaModel(turmaModel);
-        lessonModel.setCorricularComponentModel(corricularComponentModel);
+        lessonModel.setCorricularComponentModel(curricularComponentModel);
         lessonModel.setIntervalModel(intervalModel);
         lessonModel.setProfessorModel(professorModel);
         lessonModel.setClassroomModel(classroomModel);

@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.unidade.service;
 
-import br.edu.ifpb.dac.sistemadehorarios.DRO.CorricularComponentDRO;
-import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
-import br.edu.ifpb.dac.sistemadehorarios.service.CorricularComponentService;
+import br.edu.ifpb.dac.sistemadehorarios.DRO.CurricularComponentDRO;
+import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
+import br.edu.ifpb.dac.sistemadehorarios.service.CurricularComponentService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,39 +19,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CorricularComponentServiceTest implements ServiceTest{
 
     @Autowired
-    private CorricularComponentService corricularComponentService;
+    private CurricularComponentService curricularComponentService;
     private String uuid = "cf7846a6-630a-4008-b961-fb67c16868fc";
 
     @Override
     @Test
     @Order(1)
     public void create() {
-        CorricularComponentDRO DRO = new CorricularComponentDRO();
+        CurricularComponentDRO DRO = new CurricularComponentDRO();
         DRO.setWorkload((byte) 120);
         DRO.setName("TÉCNICAS DE TESTES");
         DRO.setCourseUuid("e38dd5cc-a220-4c82-8648-2d24903b4877");
         DRO.setUuid(this.uuid);
 
-        CorricularComponentModel corricularComponentModel = this.corricularComponentService.create(DRO);
-        assertNotNull(corricularComponentModel);
+        CurricularComponentModel curricularComponentModel = this.curricularComponentService.create(DRO);
+        assertNotNull(curricularComponentModel);
     }
     @Test
     @Order(2)
     public void createWithoutCourse(){
-        CorricularComponentDRO DRO = new CorricularComponentDRO();
+        CurricularComponentDRO DRO = new CurricularComponentDRO();
         DRO.setWorkload((byte) 120);
         DRO.setName("TÉCNICAS DE TESTES");
         DRO.setUuid(this.uuid);
 
-        CorricularComponentModel corricularComponentModel = this.corricularComponentService.create(DRO);
-        assertNull(corricularComponentModel);
+        CurricularComponentModel curricularComponentModel = this.curricularComponentService.create(DRO);
+        assertNull(curricularComponentModel);
     }
 
     @Override
     @Test
     @Order(3)
     public void read() {
-        List<CorricularComponentModel> corricularComponentModelList = this.corricularComponentService.read();
+        List<CurricularComponentModel> corricularComponentModelList = this.curricularComponentService.read();
         assertNotEquals(0, corricularComponentModelList.size() );
     }
 
@@ -59,8 +59,8 @@ public class CorricularComponentServiceTest implements ServiceTest{
     @Test
     @Order(4)
     public void update() {
-        CorricularComponentModel corricularComponentModel = new CorricularComponentModel((byte) 60,"Análise de Algoritmos");
-        boolean result = this.corricularComponentService.update(corricularComponentModel,this.uuid);
+        CurricularComponentModel curricularComponentModel = new CurricularComponentModel((byte) 60,"Análise de Algoritmos");
+        boolean result = this.curricularComponentService.update(curricularComponentModel,this.uuid);
         assertTrue(result);
     }
 
@@ -68,7 +68,7 @@ public class CorricularComponentServiceTest implements ServiceTest{
     @Test
     @Order(5)
     public void delete() {
-        boolean result = this.corricularComponentService.delete(this.uuid);
+        boolean result = this.curricularComponentService.delete(this.uuid);
         assertTrue(result);
     }
 }

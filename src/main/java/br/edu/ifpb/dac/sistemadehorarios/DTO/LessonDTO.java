@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class LessonDTO {
     private String uuid;
-    private CorricularComponentDTO corricularComponent;
+    private CurricularComponentDTO corricularComponent;
     private ProfessorDTO professor;
     private IntervalDTO interval;
     private TurmaDTO turma;
@@ -16,7 +16,7 @@ public class LessonDTO {
 
     public LessonDTO(LessonModel lessonModel){
         this.uuid = lessonModel.getUuid();
-        this.corricularComponent = new CorricularComponentDTO(lessonModel.getCorricularComponentModel());
+        this.corricularComponent = new CurricularComponentDTO(lessonModel.getCorricularComponentModel());
         this.professor = new ProfessorDTO(lessonModel.getProfessorModel());
         this.interval = new IntervalDTO(lessonModel.getIntervalModel());
         this.turma = new TurmaDTO(lessonModel.getTurmaModel());
@@ -36,11 +36,11 @@ public class LessonDTO {
         this.uuid = uuid;
     }
 
-    public CorricularComponentDTO getCorricularComponent() {
+    public CurricularComponentDTO getCorricularComponent() {
         return corricularComponent;
     }
 
-    public void setCorricularComponent(CorricularComponentDTO corricularComponent) {
+    public void setCorricularComponent(CurricularComponentDTO corricularComponent) {
         this.corricularComponent = corricularComponent;
     }
 
