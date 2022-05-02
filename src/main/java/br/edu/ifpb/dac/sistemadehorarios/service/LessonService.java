@@ -22,20 +22,24 @@ public class LessonService extends ServiceTemplate {
     @Autowired
     private ProfessorService professorService;
     @Autowired
-    private ClassroomService classroomModel;
+    private ClassroomService classroomService;
+    @Autowired
+    private CalendarService calendarService;
 
     public LessonModel create(LessonDRO lessonDRO){
         TurmaModel turmaModel = this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
         CorricularComponentModel corricularComponentModel = this.corricularComponentService.findByUuid(lessonDRO.getCorricularComponentlUuid());
         IntervalModel intervalModel = this.intervalService.findByUuid(lessonDRO.getIntervalUuid());
         ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
-        ClassroomModel classroomModel = this.classroomModel.findByUuid(lessonDRO.getClassroomUuid());
+        ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
+        CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
 
         if(turmaModel == null ||
             corricularComponentModel == null ||
             intervalModel == null ||
             professorModel == null ||
-            classroomModel == null){
+            classroomModel == null ||
+            calendarModel == null){
 
             return null;
         }
@@ -45,6 +49,8 @@ public class LessonService extends ServiceTemplate {
         lessonModel.setIntervalModel(intervalModel);
         lessonModel.setProfessorModel(professorModel);
         lessonModel.setClassroomModel(classroomModel);
+        lessonModel.setCalendarModel(calendarModel);
+
         boolean create = super.create(lessonModel, repository);
         if(create){
             return lessonModel;

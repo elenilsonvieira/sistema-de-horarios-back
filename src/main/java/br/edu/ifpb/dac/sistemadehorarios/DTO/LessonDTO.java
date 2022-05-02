@@ -12,6 +12,7 @@ public class LessonDTO {
     private IntervalDTO interval;
     private TurmaDTO turma;
     private ClassroomDTO classroom;
+    private CalendarDTO calendarModel;
 
     public LessonDTO(LessonModel lessonModel){
         this.uuid = lessonModel.getUuid();
@@ -20,6 +21,7 @@ public class LessonDTO {
         this.interval = new IntervalDTO(lessonModel.getIntervalModel());
         this.turma = new TurmaDTO(lessonModel.getTurmaModel());
         this.classroom = new ClassroomDTO(lessonModel.getClassroomModel());
+        this.calendarModel = new CalendarDTO(lessonModel.getCalendarModel());
     }
 
     public static List<LessonDTO> convert(List<LessonModel> gaps){
@@ -72,5 +74,13 @@ public class LessonDTO {
 
     public void setClassroom(ClassroomDTO classroom) {
         this.classroom = classroom;
+    }
+
+    public CalendarDTO getCalendarModel() {
+        return calendarModel;
+    }
+
+    public void setCalendarModel(CalendarDTO calendarModel) {
+        this.calendarModel = calendarModel;
     }
 }

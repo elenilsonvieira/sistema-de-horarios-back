@@ -14,10 +14,11 @@ public class IntervalMiddleware {
     private IntervalRepository repository;
 
 
-    public void isValidInterval(IntervalModel interval) throws IntervalInvalidException {
+    public boolean isValidInterval(IntervalModel interval) throws IntervalInvalidException {
         boolean result = IntervalUtils.isValidInterval(interval, this.repository);
         if(!result){
             throw new IntervalInvalidException("Interval already exists");
         }
+        return true;
     }
 }

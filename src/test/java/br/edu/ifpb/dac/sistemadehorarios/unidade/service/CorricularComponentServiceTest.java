@@ -2,9 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.unidade.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.CorricularComponentDRO;
 import br.edu.ifpb.dac.sistemadehorarios.model.CorricularComponentModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CorricularComponentService;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

@@ -12,10 +12,11 @@ public class ClassroomMiddleware {
     @Autowired
     private ClassroomRepository repository;
 
-    public void isValidClassroom(ClassroomModel classroom) throws ClassroomInvalidException {
+    public boolean isValidClassroom(ClassroomModel classroom) throws ClassroomInvalidException {
         boolean result = ClassroomUtils.isValidClassroom(classroom, this.repository);
         if(!result){
             throw new ClassroomInvalidException("Invalid classroom");
         }
+        return true;
     }
 }

@@ -30,12 +30,8 @@ public class IntervalController {
 	
 	@PostMapping
 	public ResponseEntity<Object> create(@RequestBody IntervalModel interval){
-
 		try{
 			middleware.isValidInterval(interval);
-			if(interval.getInterval() > 6){
-				return ResponseEntity.status(400).body("Invalid interval. Needs a interval <= 6");
-			}
 			boolean result = this.service.create(interval);
 			if(result) {
 				return ResponseEntity.status(201).body(new IntervalDTO(interval));
