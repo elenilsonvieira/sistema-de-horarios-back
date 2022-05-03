@@ -1,6 +1,5 @@
 package br.edu.ifpb.dac.sistemadehorarios.mockito.callAPI;
 
-import br.edu.ifpb.dac.sistemadehorarios.DRO.ProfessorDRO;
 import br.edu.ifpb.dac.sistemadehorarios.controller.ProfessorController;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
