@@ -1,6 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.mockito;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -11,12 +13,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.IntervalDTO;
-import br.edu.ifpb.dac.sistemadehorarios.model.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class IntervalMock {
+public class IntervalModelMock {
 	
 	@Mock
 	private IntervalDTO mockTest = mock(IntervalDTO.class);
@@ -24,15 +26,9 @@ public class IntervalMock {
 	@Mock
 	private List<IntervalDTO> intervalDTOList;
 	
-	
-	@Test
-	public void verifyHour() {
-		when(mockTest.getInterval()).thenReturn("18:30");
-		assertEquals("18:30", mockTest.getInterval());
-	}
 
 	@Test
-	public void verifyShiftWithHour(){
+	public void verifyHour(){
 		intervalDTOList = mock(List.class);
 		IntervalDTO dto =  mock(IntervalDTO.class);
 
@@ -47,9 +43,28 @@ public class IntervalMock {
 	
 	@Test
 	public void verifyDayOfWeek() {
-		
-		
-	}
+		intervalDTOList = mock(List.class);
+		IntervalDTO dto =  mock(IntervalDTO.class);
 
+		when(intervalDTOList.get(0)).thenReturn(dto);
+		when(intervalDTOList.get(0).getDayOfWeek()).thenReturn(DayOfWeekEnum.FRIDAY);
+		
+		assertEquals(intervalDTOList.get(0).getDayOfWeek(), DayOfWeekEnum.FRIDAY);
+		assertNotEquals(intervalDTOList.get(0).getDayOfWeek(), "FRIDAY");
+	}
+	
+	@Test
+	public void verifyData() {
+		intervalDTOList = mock(List.class);
+		IntervalDTO dto1 =  mock(IntervalDTO.class);
+		IntervalDTO dto2 =  mock(IntervalDTO.class);
+		
+		intervalDTOList.add(dto1);
+		intervalDTOList.add(dto2);
+		
+		verify(intervalDTOList).add(dto1);
+		verify(intervalDTOList).add(dto2);
+	}
+	
 
 }
