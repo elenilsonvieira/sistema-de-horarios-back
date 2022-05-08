@@ -1,6 +1,4 @@
-FROM maven:3.6.0-jdk-11-slim AS build
-WORKDIR /Sistema_de_Horarios
-COPY . .
-RUN mvn -f pom.xml clean package
-
-CMD ASPNETCORE_URLS="http://*:$PORT" sh -c java -jar target/Sistema-de-Horarios-0.0.1-SNAPSHOT.jar
+FROM openjdk:11.0.10
+VOLUME /tmp
+COPY target/Sistema-de-Horarios-0.0.1-SNAPSHOT.jar Sistema-de-Horarios-0.0.1-SNAPSHOT.jar
+CMD [ "java" , "-Djava.security.egd=file:/dev /./urandom" , "-jar" , "/Sistema-de-Horarios-0.0.1-SNAPSHOT.jar" ]
