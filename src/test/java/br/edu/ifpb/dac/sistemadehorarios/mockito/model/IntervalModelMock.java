@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.mockito;
+package br.edu.ifpb.dac.sistemadehorarios.mockito.model;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;

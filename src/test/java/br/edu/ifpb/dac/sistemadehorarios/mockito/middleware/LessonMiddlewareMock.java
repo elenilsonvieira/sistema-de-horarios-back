@@ -1,6 +1,5 @@
-package br.edu.ifpb.dac.sistemadehorarios.mockito;
+package br.edu.ifpb.dac.sistemadehorarios.mockito.middleware;
 
-import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.middleware.LessonMiddleware;
 import org.junit.jupiter.api.Test;

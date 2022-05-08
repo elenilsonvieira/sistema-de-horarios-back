@@ -3,12 +3,10 @@ package br.edu.ifpb.dac.sistemadehorarios.unidade.service;
 import br.edu.ifpb.dac.sistemadehorarios.DRO.CurricularComponentDRO;
 import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CurricularComponentService;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

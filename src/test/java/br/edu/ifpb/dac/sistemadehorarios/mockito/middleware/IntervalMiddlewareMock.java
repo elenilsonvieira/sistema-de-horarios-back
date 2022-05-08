@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.mockito;
+package br.edu.ifpb.dac.sistemadehorarios.mockito.middleware;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.IntervalInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.middleware.IntervalMiddleware;

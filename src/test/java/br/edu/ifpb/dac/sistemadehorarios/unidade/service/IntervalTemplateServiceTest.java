@@ -9,6 +9,7 @@ import br.edu.ifpb.dac.sistemadehorarios.service.IntervalService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class IntervalTemplateServiceTest implements ServiceTest{
     private IntervalMiddleware middleware;
 
     private String uuid = "cf7846a6-630a-4008-b961-fb67c16868fc";
-
     @Override
     @Test
     @Order(1)
@@ -41,6 +41,7 @@ public class IntervalTemplateServiceTest implements ServiceTest{
             assertThrows(IntervalInvalidException.class, () -> this.intervalService.create(finalInterval));
         }
     }
+
     @Test
     @Order(2)
     public void createInvalidGap() throws InterruptedException {

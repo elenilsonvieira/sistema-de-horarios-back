@@ -3,4 +3,4 @@ WORKDIR /Sistema_de_Horarios
 COPY . .
 RUN mvn -f pom.xml clean package
 
-ENTRYPOINT ["sh", "-c", "java -jar target/Sistema-de-Horarios-0.0.1-SNAPSHOT.jar"]
+CMD ASPNETCORE_URLS="http://*:$PORT" sh -c java -jar target/Sistema-de-Horarios-0.0.1-SNAPSHOT.jar

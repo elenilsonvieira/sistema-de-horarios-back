@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.mockito.callAPI;
+package br.edu.ifpb.dac.sistemadehorarios.mockito.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
