@@ -22,8 +22,10 @@ import jdk.jfr.Description;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class ClassroomControllerTest {
-
-    private ClassroomModel classroomModel = new ClassroomModel("Sala 1", "Bloco A", 40);
+	
+	
+    private ClassroomModel classroomModel = new ClassroomModel("Sala 2", "Bloco A", 40);
+    private ClassroomModel classroomModelUpdate = new ClassroomModel("Sala 3", "Bloco C", 32);
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,45 +37,56 @@ public class ClassroomControllerTest {
     @Description("Should be create a classroom in database")
     @Order(1)
     public void postClassroom() throws Exception {
+    	// nova sala
         mockMvc.perform(
                         post("/classroom")
                                 .contentType("application/json")
                                 .content(this.objectMapper.writeValueAsString(classroomModel)))
                 .andExpect(status().is(201));
+        
+        // salas duplicadas
+        mockMvc.perform(
+                post("/classroom")
+                        .contentType("application/json")
+                        .content(this.objectMapper.writeValueAsString(classroomModel)))
+        .andExpect(status().is(400));
     }
 
     @Test
     @Description("Should get all classrooms in database")
     @Order(2)
     public void getAllClassroom() throws Exception {
-
         mockMvc.perform(
                         get("/classroom")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
-
     }
 
     @Test
     @Description("Should get by uuid classrooms in database")
     @Order(3)
     public void getClasroomByUuid() throws Exception {
-
+    	//id existente
         mockMvc.perform(
-                        get("/classroom/get-by-uuid/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        get("/classroom/get-by-uuid/8f42ab25-bc18-4a7f-a6ac-7771c036d1e1")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
+        
+        // id inexistente
+        mockMvc.perform(
+                get("/classroom/get-by-uuid/8f42ab25-bc18-4a7f-a6ac-7771c036d1e7")
+                        .contentType("application/json"))
+        .andExpect(status().is(404));
     }
 
     @Test
     @Description("Should update classroom in database")
     @Order(4)
     public void updateClassroom() throws Exception {
-
         mockMvc.perform(
-                        put("/classroom/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        put("/classroom/8f42ab25-bc18-4a7f-a6ac-7771c036d1e1")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new ClassroomDTO(classroomModel))))
+                                .content(this.objectMapper.writeValueAsString(new ClassroomDTO(classroomModelUpdate))))
                 .andExpect(status().is(200));
     }
 
@@ -82,9 +95,15 @@ public class ClassroomControllerTest {
     @Order(5)
     public void deleteClassroom() throws Exception {
         mockMvc.perform(
-                        delete("/classroom/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        delete("/classroom/bd37436b-2f32-496f-bf48-87384728df6b")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
+        
+        // id inexistente
+        mockMvc.perform(
+                delete("/classroom/8f42ab25-bc18-4a7f-a6ac-7771c036d185")
+                        .contentType("application/json"))
+        .andExpect(status().is(404));
     }
 
 }
