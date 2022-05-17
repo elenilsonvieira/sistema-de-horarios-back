@@ -62,11 +62,17 @@ public class ClassroomController {
 	
 	@PutMapping("/{uuid}")
 	public ResponseEntity<ClassroomDTO> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
-		boolean result = this.service.update(classroom, uuid);
-		if (result) {
-			return ResponseEntity.status(200).body(new ClassroomDTO(classroom));
+		try{
+			middleware.isValidClassroom(classroom);
+
+			boolean result = this.service.update(classroom, uuid);
+			if (result) {
+				return ResponseEntity.status(200).body(new ClassroomDTO(classroom));
+			}
+			return ResponseEntity.status(404).body(null);
+		}catch(Exception exception){
+			return ResponseEntity.status(400).body(error.getMessage());
 		}
-		return ResponseEntity.status(404).body(null);
 	}
 	
 	@DeleteMapping("/{uuid}")
