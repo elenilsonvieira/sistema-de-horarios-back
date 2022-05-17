@@ -1,0 +1,1 @@
+mvn clean package -DskipTests && heroku login && heroku container:login && heroku container:push web -a sistema-de-horario && heroku container:release web -a sistema-de-horario
