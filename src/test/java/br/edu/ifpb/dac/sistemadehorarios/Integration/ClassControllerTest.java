@@ -23,7 +23,7 @@ import jdk.jfr.Description;
 @AutoConfigureMockMvc
 public class ClassControllerTest {
 
-    private TurmaModel classModel = new TurmaModel("2020.1");
+    private TurmaModel turmaModel = new TurmaModel("2020.1");
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,55 +36,55 @@ public class ClassControllerTest {
     @Order(1)
     public void postClass() throws Exception {
         mockMvc.perform(
-                        post("/class")
+                        post("/turma")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new TurmaDTO(classModel))))
+                                .content(this.objectMapper.writeValueAsString(new TurmaDTO(turmaModel))))
                 .andExpect(status().is(201));
     }
 
     @Test
-    @Description("Should get all classes in database")
+    @Description("Should get all turmaes in database")
     @Order(2)
     public void getAllClass() throws Exception {
 
         mockMvc.perform(
-                        get("/class")
+                        get("/turma")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
 
     }
 
     @Test
-    @Description("Should get by uuid classes in database")
+    @Description("Should get by uuid turmaes in database")
     @Order(3)
     public void getClassByUuid() throws Exception {
 
         mockMvc.perform(
-                        get("/class/get-by-uuid/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        get("/turma/get-by-uuid/5a499208-6048-44c0-8db3-fb3e1bbc8bdd")
                                 .contentType("application/json"))
                 .andExpect(status().is(200));
     }
 
     @Test
-    @Description("Should update class in database")
+    @Description("Should update turma in database")
     @Order(4)
     public void updateClass() throws Exception {
 
         mockMvc.perform(
-                        put("/class/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        put("/turma/5a499208-6048-44c0-8db3-fb3e1bbc8bdd")
                                 .contentType("application/json")
-                                .content(this.objectMapper.writeValueAsString(new TurmaDTO(classModel))))
+                                .content(this.objectMapper.writeValueAsString(new TurmaDTO(turmaModel))))
                 .andExpect(status().is(200));
     }
 
     @Test
-    @Description("Should delete class in database")
+    @Description("Should delete turma in database")
     @Order(5)
     public void deleteClass() throws Exception {
         mockMvc.perform(
-                        delete("/class/04db65c6-addd-4117-a9c9-d4025a638fb3")
+                        delete("/turma/5a499208-6048-44c0-8db3-fb3e1bbc8bdd")
                                 .contentType("application/json"))
-                .andExpect(status().is(200));
+                .andExpect(status().is(400));
     }
 
 

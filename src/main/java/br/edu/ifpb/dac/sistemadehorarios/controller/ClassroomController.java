@@ -61,7 +61,7 @@ public class ClassroomController {
 	
 	
 	@PutMapping("/{uuid}")
-	public ResponseEntity<ClassroomDTO> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
+	public ResponseEntity<Object> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
 		try{
 			middleware.isValidClassroom(classroom);
 
@@ -70,7 +70,7 @@ public class ClassroomController {
 				return ResponseEntity.status(200).body(new ClassroomDTO(classroom));
 			}
 			return ResponseEntity.status(404).body(null);
-		}catch(Exception exception){
+		}catch(Exception error){
 			return ResponseEntity.status(400).body(error.getMessage());
 		}
 	}

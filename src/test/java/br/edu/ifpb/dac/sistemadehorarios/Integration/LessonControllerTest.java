@@ -1,10 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.Integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.LessonDRO;
-import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -140,7 +136,7 @@ public class LessonControllerTest {
 
         String turmaUuid="5a499208-6048-44c0-8db3-fb3e1bbc8bdd";
         String curricularComponentlUuid="2d19725b-6b72-425a-bc0b-735138871598";
-        String intervalUuid="7cc1f3ea-2f0e-470f-a1ec-0183c52e7b71";
+        String intervalUuid="91deda24-9beb-4dfb-ae88-9206b7fb6986";
         String professorUuid="4b2c37e2-be24-4336-9887-424a1b2b2f44";
         String classroomUuid="8f42ab25-bc18-4a7f-a6ac-7771c036d1e1";
         String calendarUuid="a65fed7d-38ec-4e35-b9c1-ea4830b8bb1c";
