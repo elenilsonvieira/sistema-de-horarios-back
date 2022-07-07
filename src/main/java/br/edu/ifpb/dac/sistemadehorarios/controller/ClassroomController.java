@@ -30,18 +30,16 @@ public class ClassroomController {
 	private ClassroomMiddleware middleware;
 	
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody ClassroomModel classroom){
+	public ResponseEntity<Object> create(@RequestBody ClassroomModel classroom) throws ClassroomInvalidException {
 
-		try{
-			middleware.isValidClassroom(classroom);
-			boolean result = this.service.create(classroom);
-			if(result) {
-				return ResponseEntity.status(201).body(new ClassroomDTO(classroom));
-			}
-			return ResponseEntity.status(400).body(null);
-		} catch (ClassroomInvalidException error) {
-			return ResponseEntity.status(400).body(error.getMessage());
+
+		middleware.isValidClassroom(classroom);
+		boolean result = this.service.create(classroom);
+		if(result) {
+			return ResponseEntity.status(201).body(new ClassroomDTO(classroom));
 		}
+		return ResponseEntity.status(400).body(null);
+
 	}
 	
 	@GetMapping

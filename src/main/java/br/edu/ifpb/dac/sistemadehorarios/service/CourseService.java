@@ -2,6 +2,9 @@ package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import java.util.List;
 
+import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,13 @@ public class CourseService extends ServiceTemplate {
 	@Autowired
 	private CourseRepository repository;
 	
-	public boolean create(CourseModel courseModel) {
-       return super.create(courseModel, this.repository);
+	public boolean create(CourseModel courseModel) throws CourseInvalidException {
+
+        try{
+            return super.create(courseModel, this.repository);
+        }catch (Exception error){
+            throw new CourseInvalidException("Houve um problema para criar um Course. Erro: "+error.getMessage(), 400);
+        }
     }
 
     public List<CourseModel> read() {

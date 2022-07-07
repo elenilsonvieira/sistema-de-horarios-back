@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import br.edu.ifpb.dac.sistemadehorarios.exception.IntervalInvalidException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -26,7 +27,7 @@ public class IntervalControllerMock {
     private IntervalController controller = mock(IntervalController.class);
 	
 	@Test
-    public void postMock(){
+    public void postMock() throws IntervalInvalidException {
 		IntervalModel model = new IntervalModel();
         this.controller.create(model);
         

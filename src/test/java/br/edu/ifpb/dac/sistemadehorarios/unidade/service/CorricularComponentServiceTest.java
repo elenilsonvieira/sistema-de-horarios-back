@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.unidade.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.CurricularComponentDRO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CurricularComponentService;
 import org.junit.jupiter.api.*;
@@ -23,7 +24,7 @@ public class CorricularComponentServiceTest implements ServiceTest{
     @Override
     @Test
     @Order(1)
-    public void create() {
+    public void create() throws CurricularComponentInvalidException {
         CurricularComponentDRO DRO = new CurricularComponentDRO();
         DRO.setWorkload((byte) 120);
         DRO.setName("TÉCNICAS DE TESTES");
@@ -35,7 +36,7 @@ public class CorricularComponentServiceTest implements ServiceTest{
     }
     @Test
     @Order(2)
-    public void createWithoutCourse(){
+    public void createWithoutCourse() throws CurricularComponentInvalidException {
         CurricularComponentDRO DRO = new CurricularComponentDRO();
         DRO.setWorkload((byte) 120);
         DRO.setName("TÉCNICAS DE TESTES");

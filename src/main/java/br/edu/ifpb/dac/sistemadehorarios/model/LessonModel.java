@@ -13,7 +13,7 @@ public class LessonModel implements Serializable {
     private String uuid;
 
     @ManyToOne
-    @JoinColumn(name = "corricular_component_uuid")
+    @JoinColumn(name = "corricular_component_uuid", unique = true)
     private CurricularComponentModel curricularComponentModel;
 
     @ManyToOne
@@ -21,7 +21,7 @@ public class LessonModel implements Serializable {
     private ProfessorModel professorModel;
 
     @ManyToOne
-    @JoinColumn(name = "interval_uuid")
+    @JoinColumn(name = "interval_uuid", nullable = true)
     private IntervalModel intervalModel;
 
     @ManyToOne

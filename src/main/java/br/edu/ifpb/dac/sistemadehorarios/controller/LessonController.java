@@ -22,20 +22,16 @@ public class LessonController {
     private LessonMiddleware middlaware;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody LessonDRO DRO)  {
+    public ResponseEntity<Object> create(@RequestBody LessonDRO DRO) throws LessonInvalidException {
 
-        try{
-            middlaware.lessonEqualsValidation(DRO);
-            middlaware.classroomAndIntervalValidation(DRO);
+        middlaware.lessonEqualsValidation(DRO);
 
-            LessonModel result = this.service.create(DRO);
-            if(result != null) {
-                return ResponseEntity.status(201).body(new LessonDTO(result));
-            }
-            return ResponseEntity.status(400).body(null);
-        }catch (LessonInvalidException error){
-            return ResponseEntity.status(400).body(error.getMessage());
+        LessonModel result = this.service.create(DRO);
+        if(result != null) {
+            return ResponseEntity.status(201).body(new LessonDTO(result));
         }
+        return ResponseEntity.status(400).body(null);
+
 }
 
     @GetMapping
@@ -60,5 +56,19 @@ public class LessonController {
             return ResponseEntity.status(200).body("OK");
         }
         return ResponseEntity.status(404).body("NOT OK");
+    }
+
+    @GetMapping("/withInterval/{onOuOff}")
+    public ResponseEntity<List<LessonDTO>> getWithoutInterval(@PathVariable("onOuOff") String onOuOff) throws LessonInvalidException {
+
+        List<LessonModel> result;
+        if(onOuOff.equals("on")){
+            result = this.service.getWithInterval();
+        }else if (onOuOff.equals("off")){
+            result = this.service.getWithoutInterval();
+        }else {
+            throw new LessonInvalidException("Esse endpoint não existe", 404);
+        }
+        return ResponseEntity.status(200).body(LessonDTO.convert(result));
     }
 }

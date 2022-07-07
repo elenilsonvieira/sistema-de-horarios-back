@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.mockito.controller;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
 import br.edu.ifpb.dac.sistemadehorarios.controller.ProfessorController;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ public class ProfessorControllerMock {
     private ProfessorController controller = mock(ProfessorController.class);
 
     @Test
-    public void postMock(){
+    public void postMock() throws ProfessorInvalidException {
         this.controller.create(null);
         verify(this.controller).create(null);
         when(this.controller.create(null)).thenReturn(null);

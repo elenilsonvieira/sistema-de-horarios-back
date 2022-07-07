@@ -1,6 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import java.util.List;
+
+import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +18,12 @@ public class ClassroomService extends ServiceTemplate {
 
 
 	
-	public boolean create(ClassroomModel classroom) {
-        return super.create(classroom, this.repository);
+	public boolean create(ClassroomModel classroom) throws ClassroomInvalidException {
+        try{
+            return super.create(classroom, this.repository);
+        }catch (Exception error){
+            throw new ClassroomInvalidException("Houve um problema para criar um Classroom. Erro: "+error.getMessage(), 400);
+        }
     }
 	
 	public List<ClassroomModel> read() {

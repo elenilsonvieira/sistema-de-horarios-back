@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -37,8 +36,7 @@ public class LessonControllerTest {
 
         LessonDRO dro = new LessonDRO();
         dro.setTurmaUuid(turmaUuid);
-        dro.setCorricularComponentlUuid(curricularComponentlUuid);
-        dro.setIntervalUuid(intervalUuid);
+        dro.setCurricularComponentUuid(curricularComponentlUuid);
         dro.setProfessorUuid(professorUuid);
         dro.setClassroomUuid(classroomUuid);
         dro.setCalendarUuid(calendarUuid);
@@ -61,8 +59,7 @@ public class LessonControllerTest {
 
         LessonDRO dro = new LessonDRO();
         dro.setTurmaUuid(turmaUuid);
-        dro.setCorricularComponentlUuid(curricularComponentlUuid);
-        dro.setIntervalUuid(intervalUuid);
+        dro.setCurricularComponentUuid(curricularComponentlUuid);
         dro.setProfessorUuid(professorUuid);
         dro.setClassroomUuid(classroomUuid);
         dro.setCalendarUuid(calendarUuid);
@@ -84,8 +81,7 @@ public class LessonControllerTest {
 
         LessonDRO dro = new LessonDRO();
         dro.setTurmaUuid(turmaUuid);
-        dro.setCorricularComponentlUuid(curricularComponentlUuid);
-        dro.setIntervalUuid(intervalUuid);
+        dro.setCurricularComponentUuid(curricularComponentlUuid);
         dro.setProfessorUuid(professorUuid);
         dro.setClassroomUuid(classroomUuid);
         dro.setCalendarUuid(calendarUuid);
@@ -108,8 +104,7 @@ public class LessonControllerTest {
 
         LessonDRO dro = new LessonDRO();
         dro.setTurmaUuid(turmaUuid);
-        dro.setCorricularComponentlUuid(curricularComponentlUuid);
-        dro.setIntervalUuid(intervalUuid);
+        dro.setCurricularComponentUuid(curricularComponentlUuid);
         dro.setProfessorUuid(professorUuid);
         dro.setClassroomUuid(classroomUuid);
         dro.setCalendarUuid(calendarUuid);
@@ -143,8 +138,7 @@ public class LessonControllerTest {
 
         LessonDRO dro = new LessonDRO();
         dro.setTurmaUuid(turmaUuid);
-        dro.setCorricularComponentlUuid(curricularComponentlUuid);
-        dro.setIntervalUuid(intervalUuid);
+        dro.setCurricularComponentUuid(curricularComponentlUuid);
         dro.setProfessorUuid(professorUuid);
         dro.setClassroomUuid(classroomUuid);
         dro.setCalendarUuid(calendarUuid);

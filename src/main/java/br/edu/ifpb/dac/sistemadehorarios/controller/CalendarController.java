@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CalendarDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.ClassroomDTO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
@@ -20,7 +21,7 @@ public class CalendarController {
     private CalendarService service;
 
     @PostMapping
-    public ResponseEntity<CalendarDTO> create(@RequestBody CalendarModel calendar){
+    public ResponseEntity<CalendarDTO> create(@RequestBody CalendarModel calendar) throws CalendarInvalidException {
 
         boolean result = this.service.create(calendar);
         if(result) {

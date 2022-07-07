@@ -3,8 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.DRO;
 
 public class LessonDRO {
     private String turmaUuid;
-    private String corricularComponentlUuid;
-    private String intervalUuid;
+    private String curricularComponentUuid;
     private String professorUuid;
     private String classroomUuid;
     private String calendarUuid;
@@ -17,20 +16,12 @@ public class LessonDRO {
         this.turmaUuid = turmaUuid;
     }
 
-    public String getCorricularComponentlUuid() {
-        return corricularComponentlUuid;
+    public String getCurricularComponentUuid() {
+        return curricularComponentUuid;
     }
 
-    public void setCorricularComponentlUuid(String corricularComponentlUuid) {
-        this.corricularComponentlUuid = corricularComponentlUuid;
-    }
-
-    public String getIntervalUuid() {
-        return intervalUuid;
-    }
-
-    public void setIntervalUuid(String intervalUuid) {
-        this.intervalUuid = intervalUuid;
+    public void setCurricularComponentUuid(String curricularComponentUuid) {
+        this.curricularComponentUuid = curricularComponentUuid;
     }
 
     public String getProfessorUuid() {

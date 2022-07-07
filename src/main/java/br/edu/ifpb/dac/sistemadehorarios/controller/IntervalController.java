@@ -29,17 +29,15 @@ public class IntervalController {
 	private IntervalMiddleware middleware;
 	
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody IntervalModel interval){
-		try{
-			middleware.isValidInterval(interval);
-			boolean result = this.service.create(interval);
-			if(result) {
-				return ResponseEntity.status(201).body(new IntervalDTO(interval));
-			}
-			return ResponseEntity.status(400).body(null);
-		}catch (IntervalInvalidException error) {
-			return ResponseEntity.status(400).body(error.getMessage());
+	public ResponseEntity<Object> create(@RequestBody IntervalModel interval) throws IntervalInvalidException {
+
+		middleware.isValidInterval(interval);
+		boolean result = this.service.create(interval);
+		if(result) {
+			return ResponseEntity.status(201).body(new IntervalDTO(interval));
 		}
+		return ResponseEntity.status(400).body(null);
+
 	}
 	
 	@GetMapping

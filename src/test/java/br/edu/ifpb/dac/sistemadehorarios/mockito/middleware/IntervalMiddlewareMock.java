@@ -25,7 +25,7 @@ public class IntervalMiddlewareMock {
             middleware.isValidInterval(null);
 
             verify(middleware).isValidInterval(null);
-            when(middleware.isValidInterval(null)).thenThrow(new IntervalInvalidException("Mock test"));
+            when(middleware.isValidInterval(null)).thenThrow(new IntervalInvalidException("Mock test", 400));
             assertThrows(IntervalInvalidException.class, () -> middleware.isValidInterval(null));
         }catch (IntervalInvalidException e) {
             e.printStackTrace();

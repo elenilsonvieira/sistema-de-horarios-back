@@ -1,6 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.TurmaDRO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.TurmaInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.TurmaRepository;
@@ -19,12 +22,12 @@ public class TurmaService extends ServiceTemplate {
     @Autowired
     private CourseService courseService;
 
-    public TurmaModel create(TurmaDRO DRO) {
+    public TurmaModel create(TurmaDRO DRO) throws TurmaInvalidException {
         try {
             CourseModel course = this.courseService.findByUuid(DRO.getCourseUuid());
 
             if(course == null){
-                return null;
+                throw new TurmaInvalidException("O Curso não existe", 400);
             }
 
             TurmaModel turma = new TurmaModel();
@@ -33,7 +36,7 @@ public class TurmaService extends ServiceTemplate {
             super.create(turma, this.repository);
             return turma;
         }catch (Exception error){
-            return null;
+            throw new TurmaInvalidException("Houve um problema para criar um Turma. Error: "+error.getMessage(), 400);
         }
     }
 

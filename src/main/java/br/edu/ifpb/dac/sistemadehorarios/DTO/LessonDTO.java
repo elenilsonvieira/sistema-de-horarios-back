@@ -7,21 +7,22 @@ import java.util.stream.Collectors;
 
 public class LessonDTO {
     private String uuid;
-    private CurricularComponentDTO corricularComponent;
+    private CurricularComponentDTO curricularComponent;
     private ProfessorDTO professor;
-    private IntervalDTO interval;
     private TurmaDTO turma;
+    private IntervalDTO interval;
     private ClassroomDTO classroom;
-    private CalendarDTO calendarModel;
+    private CalendarDTO calendar;
 
     public LessonDTO(LessonModel lessonModel){
         this.uuid = lessonModel.getUuid();
-        this.corricularComponent = new CurricularComponentDTO(lessonModel.getCorricularComponentModel());
+        this.curricularComponent = new CurricularComponentDTO(lessonModel.getCorricularComponentModel());
         this.professor = new ProfessorDTO(lessonModel.getProfessorModel());
-        this.interval = new IntervalDTO(lessonModel.getIntervalModel());
         this.turma = new TurmaDTO(lessonModel.getTurmaModel());
         this.classroom = new ClassroomDTO(lessonModel.getClassroomModel());
-        this.calendarModel = new CalendarDTO(lessonModel.getCalendarModel());
+        this.calendar = new CalendarDTO(lessonModel.getCalendarModel());
+        var intervalModel = lessonModel.getIntervalModel();
+        this.interval = intervalModel != null? new IntervalDTO(lessonModel.getIntervalModel()): null;
     }
 
     public static List<LessonDTO> convert(List<LessonModel> gaps){
@@ -36,12 +37,12 @@ public class LessonDTO {
         this.uuid = uuid;
     }
 
-    public CurricularComponentDTO getCorricularComponent() {
-        return corricularComponent;
+    public CurricularComponentDTO getCurricularComponent() {
+        return curricularComponent;
     }
 
-    public void setCorricularComponent(CurricularComponentDTO corricularComponent) {
-        this.corricularComponent = corricularComponent;
+    public void setCurricularComponent(CurricularComponentDTO curricularComponent) {
+        this.curricularComponent = curricularComponent;
     }
 
     public ProfessorDTO getProfessor() {
@@ -50,14 +51,6 @@ public class LessonDTO {
 
     public void setProfessor(ProfessorDTO professor) {
         this.professor = professor;
-    }
-
-    public IntervalDTO getInterval() {
-        return interval;
-    }
-
-    public void setInterval(IntervalDTO interval) {
-        this.interval = interval;
     }
 
     public TurmaDTO getTurma() {
@@ -76,11 +69,19 @@ public class LessonDTO {
         this.classroom = classroom;
     }
 
-    public CalendarDTO getCalendarModel() {
-        return calendarModel;
+    public CalendarDTO getCalendar() {
+        return calendar;
     }
 
-    public void setCalendarModel(CalendarDTO calendarModel) {
-        this.calendarModel = calendarModel;
+    public void setCalendar(CalendarDTO calendar) {
+        this.calendar = calendar;
+    }
+
+    public IntervalDTO getInterval() {
+        return interval;
+    }
+
+    public void setInterval(IntervalDTO interval) {
+        this.interval = interval;
     }
 }

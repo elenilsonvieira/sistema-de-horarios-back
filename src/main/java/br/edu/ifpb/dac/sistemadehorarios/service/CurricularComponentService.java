@@ -1,6 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.CurricularComponentDRO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
 
@@ -19,11 +22,11 @@ public class CurricularComponentService extends ServiceTemplate {
     private CourseService courseService;
 
 
-    public CurricularComponentModel create(CurricularComponentDRO DRO) {
+    public CurricularComponentModel create(CurricularComponentDRO DRO) throws CurricularComponentInvalidException {
         try {
             CourseModel courseModel =  courseService.findByUuid(DRO.getCourseUuid());
             if(courseModel==null){
-                return null;
+                throw new CurricularComponentInvalidException("O Curso não existe", 400);
             }
             CurricularComponentModel corricularComponent = new CurricularComponentModel();
             corricularComponent.setName(DRO.getName());
@@ -35,7 +38,7 @@ public class CurricularComponentService extends ServiceTemplate {
             super.create(corricularComponent, this.repository);
             return corricularComponent;
         }catch (Exception error){
-            return null;
+            throw new CurricularComponentInvalidException("Houve um problema para criar um Curricular Component. Erro: "+error.getMessage(), 400);
         }
     }
 

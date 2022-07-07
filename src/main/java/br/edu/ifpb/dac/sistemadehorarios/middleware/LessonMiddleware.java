@@ -19,15 +19,9 @@ public class LessonMiddleware {
         return true;
     }
 
-    public boolean classroomAndIntervalValidation(LessonDRO lesson) throws LessonInvalidException {
-        boolean result = LessonUtils.classroomAndIntervalValidation(lesson, repository);
-        this.throwError(result);
-        return true;
-    }
-
     private void throwError(boolean result) throws LessonInvalidException {
         if(!result){
-            throw new LessonInvalidException("Lesson is not valid");
+            throw new LessonInvalidException("A Lesson já existe", 400);
         }
     }
 

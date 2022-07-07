@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.unidade.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.ProfessorDRO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.ProfessorService;
 import jdk.jfr.Description;
@@ -27,7 +28,7 @@ public class ProfessorServiceTest implements ServiceTest{
 
     @Test
     @Order(1)
-    public void create() {
+    public void create() throws ProfessorInvalidException {
         ProfessorDRO professorDRO = new ProfessorDRO();
         professorDRO.setName(UUID.randomUUID().toString());
         professorDRO.setArea("programação");
@@ -40,7 +41,7 @@ public class ProfessorServiceTest implements ServiceTest{
     @Test
     @Order(2)
     @Description("Should be try create a invalid professor(its ivalible because the name is unique in the context)")
-    public void createInvalidProfessor(){
+    public void createInvalidProfessor() throws ProfessorInvalidException {
         ProfessorDRO professorDRO = new ProfessorDRO();
         professorDRO.setName(UUID.randomUUID().toString());
         professorDRO.setArea("programação");

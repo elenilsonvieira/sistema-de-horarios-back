@@ -17,7 +17,7 @@ public class IntervalMiddleware {
     public boolean isValidInterval(IntervalModel interval) throws IntervalInvalidException {
         boolean result = IntervalUtils.isValidInterval(interval, this.repository);
         if(!result){
-            throw new IntervalInvalidException("Interval already exists");
+            throw new IntervalInvalidException("O intervalo já existe", 400);
         }
         return true;
     }

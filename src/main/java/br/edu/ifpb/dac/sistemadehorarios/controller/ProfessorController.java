@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.ProfessorDRO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.ProfessorRepository;
 import br.edu.ifpb.dac.sistemadehorarios.service.ProfessorService;
@@ -19,7 +20,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorDRO DRO){
+    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorDRO DRO) throws ProfessorInvalidException {
         ProfessorModel result = this.professorService.create(DRO);
         if(result!=null) {
             return ResponseEntity.status(201).body(new ProfessorDTO(result));

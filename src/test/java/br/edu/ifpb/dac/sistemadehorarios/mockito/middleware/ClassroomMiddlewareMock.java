@@ -26,7 +26,7 @@ public class ClassroomMiddlewareMock {
             middleware.isValidClassroom(null);
 
             verify(middleware).isValidClassroom(null);
-            when(middleware.isValidClassroom(null)).thenThrow(new ClassroomInvalidException("Mock test"));
+            when(middleware.isValidClassroom(null)).thenThrow(new ClassroomInvalidException("Mock test", 400));
             assertThrows(ClassroomInvalidException.class, () -> middleware.isValidClassroom(null));
         } catch (ClassroomInvalidException e) {
             e.printStackTrace();

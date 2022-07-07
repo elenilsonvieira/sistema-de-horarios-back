@@ -15,7 +15,7 @@ public class ClassroomMiddleware {
     public boolean isValidClassroom(ClassroomModel classroom) throws ClassroomInvalidException {
         boolean result = ClassroomUtils.isValidClassroom(classroom, this.repository);
         if(!result){
-            throw new ClassroomInvalidException("Invalid classroom");
+            throw new ClassroomInvalidException("Já existe um classroom igual a este", 400);
         }
         return true;
     }

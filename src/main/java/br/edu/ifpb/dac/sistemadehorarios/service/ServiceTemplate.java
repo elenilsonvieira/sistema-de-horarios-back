@@ -17,7 +17,7 @@ public abstract class ServiceTemplate {
             repository.save(object);
             return true;
         }catch (Exception error){
-            return false;
+            throw error;
         }
     }
 

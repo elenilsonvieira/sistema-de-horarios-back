@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.CurricularComponentDRO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CurricularComponentDTO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CurricularComponentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CurricularComponentController {
     private CurricularComponentService service;
 
     @PostMapping()
-    public ResponseEntity<CurricularComponentDTO> create(@RequestBody CurricularComponentDRO DRO){
+    public ResponseEntity<CurricularComponentDTO> create(@RequestBody CurricularComponentDRO DRO) throws CurricularComponentInvalidException {
         CurricularComponentModel result = this.service.create(DRO);
         if(result!=null) {
             return ResponseEntity.status(201).body(new CurricularComponentDTO(result));
