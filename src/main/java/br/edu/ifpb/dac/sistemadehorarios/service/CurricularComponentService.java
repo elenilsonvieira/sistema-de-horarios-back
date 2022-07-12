@@ -32,9 +32,6 @@ public class CurricularComponentService extends ServiceTemplate {
             corricularComponent.setName(DRO.getName());
             corricularComponent.setWorkload(DRO.getWorkload());
             corricularComponent.setCourseUuid(courseModel);
-            if(DRO.getUuid() != null){
-                corricularComponent.setUuid(DRO.getUuid());
-            }
             super.create(corricularComponent, this.repository);
             return corricularComponent;
         }catch (Exception error){

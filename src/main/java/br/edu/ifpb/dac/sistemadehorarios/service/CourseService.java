@@ -2,9 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import java.util.List;
 
-import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

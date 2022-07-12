@@ -1,16 +1,22 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
+import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassNameModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.model.interval.IntervalModel;
+import com.fasterxml.uuid.Generators;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity(name = "lesson")
-public class LessonModel implements Serializable {
-
-    @Id
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
+public class LessonModel implements Serializable  {
 
     @ManyToOne
     @JoinColumn(name = "corricular_component_uuid", unique = true)
@@ -36,66 +42,17 @@ public class LessonModel implements Serializable {
     @JoinColumn(name = "calendar_uuid")
     private CalendarModel calendarModel;
 
-    private Date create_at;
+    @ManyToOne
+    @JoinColumn(name = "course_uuid")
+    private CourseModel courseModel;
+
+    @Id
+    private String uuid;
+    private Date create_at = new Date();
+    @Column(updatable = true)
+    private Date update_at;
 
     public LessonModel() {
-        this.uuid=String.valueOf(UUID.randomUUID());
-        this.create_at = new Date();
-    }
-
-    public CurricularComponentModel getCorricularComponentModel() {
-        return curricularComponentModel;
-    }
-
-    public void setCorricularComponentModel(CurricularComponentModel curricularComponentModel) {
-        this.curricularComponentModel = curricularComponentModel;
-    }
-
-    public ProfessorModel getProfessorModel() {
-        return professorModel;
-    }
-
-    public void setProfessorModel(ProfessorModel professorModel) {
-        this.professorModel = professorModel;
-    }
-
-    public IntervalModel getIntervalModel() {
-        return intervalModel;
-    }
-
-    public void setIntervalModel(IntervalModel intervalModel) {
-        this.intervalModel = intervalModel;
-    }
-
-    public TurmaModel getTurmaModel() {
-        return turmaModel;
-    }
-
-    public void setTurmaModel(TurmaModel turmaModel) {
-        this.turmaModel = turmaModel;
-    }
-
-    public ClassroomModel getClassroomModel() {
-        return classroomModel;
-    }
-
-    public void setClassroomModel(ClassroomModel classroomModel) {
-        this.classroomModel = classroomModel;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public Date getCreate_at() {
-        return create_at;
-    }
-
-    public CalendarModel getCalendarModel() {
-        return calendarModel;
-    }
-
-    public void setCalendarModel(CalendarModel calendarModel) {
-        this.calendarModel = calendarModel;
+        this.uuid= Generators.randomBasedGenerator().generate().toString();
     }
 }

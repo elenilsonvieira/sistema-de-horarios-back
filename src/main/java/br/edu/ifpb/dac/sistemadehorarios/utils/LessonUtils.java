@@ -13,7 +13,8 @@ public class LessonUtils {
                     lesson.getClassroomUuid(),
                     lesson.getProfessorUuid(),
                     lesson.getCurricularComponentUuid(),
-                    lesson.getTurmaUuid());
+                    lesson.getTurmaUuid(),
+                    lesson.getCourseUuid());
 
             return result == null;
         }catch (Exception error){

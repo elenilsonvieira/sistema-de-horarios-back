@@ -32,7 +32,7 @@ public class TurmaService extends ServiceTemplate {
 
             TurmaModel turma = new TurmaModel();
             turma.setName(DRO.getName());
-            turma.setCourse(course);
+            turma.setCourseModel(course);
             super.create(turma, this.repository);
             return turma;
         }catch (Exception error){

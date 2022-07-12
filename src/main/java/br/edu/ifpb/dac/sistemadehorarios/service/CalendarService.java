@@ -1,9 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CalendarModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

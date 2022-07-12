@@ -30,9 +30,6 @@ public class ProfessorService extends ServiceTemplate {
             professorModel.setName(DRO.getName());
             professorModel.setArea(DRO.getArea());
             professorModel.setCourseUuid(courseModel);
-            if(DRO.getUuid() != null){
-                professorModel.setUuid(DRO.getUuid());
-            }
             boolean create = super.create(professorModel, this.repository);
             if(create){
                 return professorModel;

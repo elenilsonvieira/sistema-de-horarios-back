@@ -1,53 +1,34 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
+import com.fasterxml.uuid.Generators;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
+
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity(name="calendar")
-public class CalendarModel implements Serializable {
-    @Id
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
-    private String Semester;
-    private Date create_at;
+public class CalendarModel  implements Serializable {
 
-    public CalendarModel(String uuid, String semester) {
-        this.uuid = uuid;
-        Semester = semester;
-        this.uuid = UUID.randomUUID().toString();
-        this.create_at = new Date();
-    }
+    private String Semester;
+
+
+    @Id
+    private String uuid;
+    private Date create_at = new Date();
+    @Column(updatable = true)
+    private Date update_at;
 
     public CalendarModel() {
-        this.uuid = UUID.randomUUID().toString();
-        this.create_at = new Date();
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getSemester() {
-        return Semester;
-    }
-
-    public void setSemester(String semester) {
-        Semester = semester;
-    }
-
-    public Date getCreate_at() {
-        return create_at;
-    }
-
-    public void setCreate_at(Date create_at) {
-        this.create_at = create_at;
+        this.uuid= Generators.randomBasedGenerator().generate().toString();
     }
 }

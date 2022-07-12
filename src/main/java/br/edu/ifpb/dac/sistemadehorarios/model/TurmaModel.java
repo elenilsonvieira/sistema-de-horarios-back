@@ -1,67 +1,39 @@
 package br.edu.ifpb.dac.sistemadehorarios.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.fasterxml.uuid.Generators;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity(name = "turma")
 public class TurmaModel implements Serializable {
-    @Id
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
+
     private String name;
+
+    @Id
+    private String uuid;
+    private Date create_at = new Date();
+    @Column(updatable = true)
+    private Date update_at;
+
+    public TurmaModel() {
+        this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
+
     @ManyToOne
     @JoinColumn(name = "course_uuid")
     private CourseModel courseModel;
-    private Date create_at;
-
-    public TurmaModel() {
-        this.uuid = String.valueOf(UUID.randomUUID());
-        this.create_at = new Date();
-    }
 
     public TurmaModel(String name) {
-        this.uuid = String.valueOf(UUID.randomUUID());
-        this.name = name;
-        this.create_at = new Date();
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+        super();
         this.name = name;
     }
-
-	public CourseModel getCourse() {
-		return courseModel;
-	}
-
-	public void setCourse(CourseModel courseModel) {
-		this.courseModel = courseModel;
-	}
-
-    public Date getCreate_at() {
-        return create_at;
-    }
-
-    public void setCreate_at(Date create_at) {
-        this.create_at = create_at;
-    }
-
 }

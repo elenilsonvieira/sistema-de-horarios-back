@@ -7,9 +7,11 @@ import br.edu.ifpb.dac.sistemadehorarios.middleware.LessonMiddleware;
 import br.edu.ifpb.dac.sistemadehorarios.model.LessonModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,11 +20,13 @@ public class LessonController {
 
     @Autowired
     private LessonService service;
+
     @Autowired
     private LessonMiddleware middlaware;
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody LessonDRO DRO) throws LessonInvalidException {
+
 
         middlaware.lessonEqualsValidation(DRO);
 
@@ -70,5 +74,20 @@ public class LessonController {
             throw new LessonInvalidException("Esse endpoint não existe", 404);
         }
         return ResponseEntity.status(200).body(LessonDTO.convert(result));
+    }
+    @GetMapping("/getWithFilters")
+    public ResponseEntity<List<LessonDTO>> getByCourseByBlockAndClass(@RequestHeader HttpHeaders headers) throws LessonInvalidException {
+
+        String block = String.valueOf(headers.get("block")).replaceAll("\\[","").replaceAll("]","");
+        String className = String.valueOf(headers.get("className")).replaceAll("\\[","").replaceAll("]","");
+        String courseUuid = String.valueOf(headers.get("courseUuid")).replaceAll("\\[","").replaceAll("]","");
+        List<LessonModel> result = this.service.getByCourseByBlockAndClass(courseUuid, block, className);
+        try{
+            return ResponseEntity.status(200).body(LessonDTO.convert(result));
+        }catch (Exception error) {
+            return ResponseEntity.status(200).body(new ArrayList<LessonDTO>());
+        }
+
+
     }
 }

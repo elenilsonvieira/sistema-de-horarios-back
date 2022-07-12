@@ -1,11 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CalendarDTO;
-import br.edu.ifpb.dac.sistemadehorarios.DTO.ClassroomDTO;
 import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.exception.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CalendarModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +35,12 @@ public class CalendarController {
     }
 
     @GetMapping("/get-by-uuid/{uuid}")
-    public ResponseEntity<CalendarDTO> findByUuid(@PathVariable("uuid") String uuid) {
+    public ResponseEntity<CalendarDTO> findByUuid(@PathVariable("uuid") String uuid) throws CalendarInvalidException {
         CalendarModel result = this.service.findByUuid(uuid);
         if(result !=  null){
             return  ResponseEntity.status(200).body(new CalendarDTO(result));
         }
-        return ResponseEntity.status(404).body(null);
+        throw new CalendarInvalidException("Calendar não encontrado", 404);
     }
 
     @PutMapping("/{uuid}")
