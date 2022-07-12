@@ -16,7 +16,6 @@ public class ClassroomDTO {
 	private String uuid;
 	private ClassNameDTO classNameDTO;
 	private ClassBlockDTO classBlockDTO;
-	private int capacity;
 	
 	public ClassroomDTO(ClassroomModel classroom) {
 		this.uuid = classroom.getUuid();
