@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.exception;
 
-public class LessonInvalidException extends Exception{
+public class LessonInvalidException extends ErrorProject {
 
-    public LessonInvalidException(String message) {
-        super(message);
+    public LessonInvalidException(String message, int status) {
+        super(message, status);
     }
 }

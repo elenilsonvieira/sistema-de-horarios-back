@@ -5,9 +5,9 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.repository.LessonRepository;
 import br.edu.ifpb.dac.sistemadehorarios.utils.LessonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class LessonMiddleware {
 
     @Autowired
@@ -19,18 +19,10 @@ public class LessonMiddleware {
         return true;
     }
 
-    public boolean classroomAndIntervalValidation(LessonDRO lesson) throws LessonInvalidException {
-        boolean result = LessonUtils.classroomAndIntervalValidation(lesson, repository);
-        this.throwError(result);
-        return true;
-    }
-
     private void throwError(boolean result) throws LessonInvalidException {
         if(!result){
-            throw new LessonInvalidException("Lesson is not valid");
+            throw new LessonInvalidException("Lesson is duplicate", 400);
         }
     }
-
-
 
 }

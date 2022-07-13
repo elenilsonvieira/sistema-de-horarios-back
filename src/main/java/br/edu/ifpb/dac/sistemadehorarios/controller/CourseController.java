@@ -2,6 +2,8 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import java.util.List;
 
+import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +27,7 @@ public class CourseController {
 	private CourseService service;
 	
 	@PostMapping
-	public ResponseEntity<CourseDTO> create(@RequestBody CourseModel course){
+	public ResponseEntity<CourseDTO> create(@RequestBody CourseModel course) throws CourseInvalidException {
 		boolean result = this.service.create(course);
 		if(result) {
 			return ResponseEntity.status(201).body(new CourseDTO(course));

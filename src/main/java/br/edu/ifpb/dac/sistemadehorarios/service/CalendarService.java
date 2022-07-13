@@ -1,7 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.service;
 
+import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.CalendarModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,12 @@ public class CalendarService extends ServiceTemplate{
     @Autowired
     private CalendarRepository repository;
 
-    public boolean create(CalendarModel calendar) {
-        return super.create(calendar, this.repository);
+    public boolean create(CalendarModel calendar) throws CalendarInvalidException {
+        try{
+            return super.create(calendar, this.repository);
+        }catch (Exception error){
+            throw new CalendarInvalidException("Houve um problema para criar um Calendar. Erro: "+error.getMessage(), 400);
+        }
     }
 
     public List<CalendarModel> read() {

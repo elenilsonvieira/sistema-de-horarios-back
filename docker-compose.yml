@@ -10,18 +10,26 @@ services:
 #    working_dir: /app
 #    environment:
 #      MYSQL_ROOT_PASSWORD: root
-  pgAdmin:
-    image: dpage/pgadmin4
-    ports:
-      - "15432:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: shd@email.com
-      PGADMIN_DEFAULT_PASSWORD: postgres
+#  pgAdmin:
+#    image: dpage/pgadmin4
+#    ports:
+#      - "15432:80"
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: shd@email.com
+#      PGADMIN_DEFAULT_PASSWORD: postgres
+#
+#    volumes:
+#      - .:/pgadmin
+#    networks:
+#      - postgres-network
 
+  sqs:
+    image: roribio16/alpine-sqs
     volumes:
-      - .:/pgadmin
-    networks:
-      - postgres-network
+      - ./elasticmq.conf:/opt/config/elasticmq.conf
+    ports:
+      - "9324:9324"
+      - "9325:9325"
 
 networks:
   postgres-network:

@@ -2,10 +2,14 @@ package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
 import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class CurricularComponentDTO {
 
     private String uuid;
@@ -23,37 +27,5 @@ public class CurricularComponentDTO {
 
     public static List<CurricularComponentDTO> convert(List<CurricularComponentModel> curricularComponentModel){
         return curricularComponentModel.stream().map(CurricularComponentDTO::new).collect(Collectors.toList());
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public byte getWorkload() {
-        return workload;
-    }
-
-    public void setWorkload(byte workload) {
-        this.workload = workload;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public CourseDTO getCourse() {
-        return course;
-    }
-
-    public void setCourse(CourseDTO course) {
-        this.course = course;
     }
 }

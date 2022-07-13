@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.controller;
 
 import br.edu.ifpb.dac.sistemadehorarios.DRO.TurmaDRO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TurmaDTO;
+import br.edu.ifpb.dac.sistemadehorarios.exception.TurmaInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class TurmaController {
     private TurmaService service;
 
     @PostMapping()
-    public ResponseEntity<TurmaDTO> create(@RequestBody TurmaDRO DRO){
+    public ResponseEntity<TurmaDTO> create(@RequestBody TurmaDRO DRO) throws TurmaInvalidException {
         TurmaModel result = this.service.create(DRO);
         if(result!=null) {
             return ResponseEntity.status(201).body(new TurmaDTO(result));
