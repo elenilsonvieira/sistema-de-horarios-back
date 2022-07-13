@@ -26,4 +26,7 @@ public interface LessonRepository extends JpaRepository<LessonModel, String> {
     @Query(nativeQuery = true, value = "SELECT * FROM lesson WHERE course_uuid=:courseModelUuid")
     public List<LessonModel> getByCourseModelFilter(String courseModelUuid);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM lesson WHERE professor_uuid=:professorModelUuid")
+    public List<LessonModel> getByProfessorModelFilter(String professorModelUuid);
+
 }

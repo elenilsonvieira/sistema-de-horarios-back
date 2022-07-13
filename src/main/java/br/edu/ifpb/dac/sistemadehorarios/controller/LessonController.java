@@ -80,8 +80,10 @@ public class LessonController {
 
         String block = String.valueOf(headers.get("block")).replaceAll("\\[","").replaceAll("]","");
         String className = String.valueOf(headers.get("className")).replaceAll("\\[","").replaceAll("]","");
+        String professorUuid = String.valueOf(headers.get("professorUuid")).replaceAll("\\[","").replaceAll("]","");
         String courseUuid = String.valueOf(headers.get("courseUuid")).replaceAll("\\[","").replaceAll("]","");
-        List<LessonModel> result = this.service.getByCourseByBlockAndClass(courseUuid, block, className);
+
+        List<LessonModel> result = this.service.getByCourseByBlockAndClass(courseUuid, professorUuid, block, className);
         try{
             return ResponseEntity.status(200).body(LessonDTO.convert(result));
         }catch (Exception error) {

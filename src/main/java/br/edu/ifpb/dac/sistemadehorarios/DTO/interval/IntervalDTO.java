@@ -3,8 +3,6 @@ package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.edu.ifpb.dac.sistemadehorarios.ENUM.DayOfWeekEnum;
-import br.edu.ifpb.dac.sistemadehorarios.ENUM.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.model.interval.IntervalModel;
 import lombok.Getter;
 import lombok.Setter;

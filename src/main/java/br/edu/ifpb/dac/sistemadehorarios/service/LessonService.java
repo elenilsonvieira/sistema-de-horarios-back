@@ -6,9 +6,7 @@ import br.edu.ifpb.dac.sistemadehorarios.model.*;
 import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.repository.LessonRepository;
 import br.edu.ifpb.dac.sistemadehorarios.service.classroom.ClassroomService;
-import br.edu.ifpb.dac.sistemadehorarios.utils.lessonChainOfResponsability.Filter;
-import br.edu.ifpb.dac.sistemadehorarios.utils.lessonChainOfResponsability.FilterByBlock;
-import br.edu.ifpb.dac.sistemadehorarios.utils.lessonChainOfResponsability.FilterByClassName;
+import br.edu.ifpb.dac.sistemadehorarios.utils.lessonFiltersChainOfResponsability.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,30 +87,16 @@ public class LessonService extends ServiceTemplate {
         return this.repository.getWithInterval();
     }
 
-    public List<LessonModel> getByCourseByBlockAndClass(String courseUuid, String block, String className) {
-        List<LessonModel> list;
-        if(!courseUuid.equals("null")) {
-            list = this.repository.getByCourseModelFilter(courseUuid);
-        }else{
-            list = (List<LessonModel>) super.read(this.repository);
-        }
+    public List<LessonModel> getByCourseByBlockAndClass(String ... filtersList) {
 
         List<Filter> filters = new ArrayList<Filter>();
 
-        byte count=0;
-        if(!block.equals("null")){
-            filters.add(new FilterByBlock(block));
-            count++;
-        }
+        filters.add(new FilterByCourse(filtersList[0], this.repository));
+        filters.add(new FilterByProfessor(filtersList[1], this.repository));
+        filters.add(new FilterByBlock(filtersList[2]));
+        filters.add(new FilterByClassName(filtersList[3]));
 
-        if(!className.equals("null")){
-            filters.add(new FilterByClassName(className));
-            count++;
-        }
-
-        if(count == 0){
-            return list;
-        }
+        List<LessonModel> list = this.read();
         return Filter.getResult(filters,list);
     }
 }
