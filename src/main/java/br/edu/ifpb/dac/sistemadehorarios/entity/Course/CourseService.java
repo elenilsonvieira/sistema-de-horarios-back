@@ -3,7 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Course;
 import java.util.List;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

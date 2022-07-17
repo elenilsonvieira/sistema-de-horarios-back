@@ -12,7 +12,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomMod
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomService;
 import br.edu.ifpb.dac.sistemadehorarios.utils.lessonFiltersChainOfResponsability.*;
 import org.springframework.beans.factory.annotation.Autowired;

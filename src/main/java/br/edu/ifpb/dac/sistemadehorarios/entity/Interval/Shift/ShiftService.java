@@ -1,7 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.interval.ShiftInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

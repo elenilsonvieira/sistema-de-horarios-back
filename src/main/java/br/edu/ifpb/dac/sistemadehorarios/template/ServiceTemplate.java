@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.templates;
+package br.edu.ifpb.dac.sistemadehorarios.template;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
