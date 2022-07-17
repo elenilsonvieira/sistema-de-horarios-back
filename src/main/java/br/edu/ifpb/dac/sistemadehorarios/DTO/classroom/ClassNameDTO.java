@@ -1,6 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.classroom;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassNameModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 import lombok.Getter;
 import lombok.Setter;
 

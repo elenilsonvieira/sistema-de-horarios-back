@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.TurmaModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.CurricularComponentModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -2,7 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.classroom.ClassroomDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.interval.IntervalDTO;
-import br.edu.ifpb.dac.sistemadehorarios.model.*;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import lombok.Getter;
 import lombok.Setter;
 

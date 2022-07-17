@@ -3,9 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.DTO.classroom;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassBlockModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassNameModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import lombok.Getter;
 import lombok.Setter;
 

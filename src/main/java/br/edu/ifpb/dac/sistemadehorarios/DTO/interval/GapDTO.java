@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.GapModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.ProfessorModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,14 +13,12 @@ public class ProfessorDTO {
     private String name;
     private String area;
 	private String uuid;
-	private CourseDTO course;
 
 	public ProfessorDTO(ProfessorModel professor) {
 
         this.name = professor.getName();
         this.area = professor.getArea();
 		this.uuid = professor.getUuid();
-		this.course = new CourseDTO(professor.getCourseUuid());
     }
 
 	public static List<ProfessorDTO> convert(List<ProfessorModel> professor){
