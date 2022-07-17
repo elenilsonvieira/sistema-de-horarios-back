@@ -2,7 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Turma;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.TurmaInvalidException;
 
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

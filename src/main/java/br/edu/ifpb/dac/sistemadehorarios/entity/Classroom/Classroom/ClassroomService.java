@@ -6,7 +6,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockS
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.classroom.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

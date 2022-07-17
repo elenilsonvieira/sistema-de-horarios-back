@@ -4,7 +4,7 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidExc
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

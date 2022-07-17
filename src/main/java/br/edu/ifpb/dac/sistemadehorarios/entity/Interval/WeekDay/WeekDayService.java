@@ -1,7 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay;
 
 import br.edu.ifpb.dac.sistemadehorarios.exception.interval.WeekDayInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -10,7 +10,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonService;
-import br.edu.ifpb.dac.sistemadehorarios.templates.ServiceTemplate;
+import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
 import org.springframework.beans.factory.annotation.Autowired;

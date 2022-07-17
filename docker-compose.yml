@@ -1,35 +1,40 @@
 version: "3"
 services:
-#  database:
-#    image: mysql:latest
-#    ports:
-#      - "3307:3306"
-#    command: --default-authentication-plugin=mysql_native_password
-#    restart: always
-#    container_name: database
-#    working_dir: /app
-#    environment:
-#      MYSQL_ROOT_PASSWORD: root
-#  pgAdmin:
-#    image: dpage/pgadmin4
-#    ports:
-#      - "15432:80"
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: shd@email.com
-#      PGADMIN_DEFAULT_PASSWORD: postgres
-#
-#    volumes:
-#      - .:/pgadmin
-#    networks:
-#      - postgres-network
-
-  sqs:
-    image: roribio16/alpine-sqs
-    volumes:
-      - ./elasticmq.conf:/opt/config/elasticmq.conf
+  database:
+    image: postgres:10.17
     ports:
-      - "9324:9324"
-      - "9325:9325"
+      - "5441:5432"
+    restart: always
+    container_name: database
+    working_dir: /app
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: shd
+    networks:
+      - postgres-network
+
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    ports:
+      - "15432:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: shd@email.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+
+    volumes:
+      - .:/pgadmin
+    networks:
+      - postgres-network
+
+#  sqs:
+#    image: roribio16/alpine-sqs
+#    volumes:
+#      - ./elasticmq.conf:/opt/config/elasticmq.conf
+#    ports:
+#      - "9324:9324"
+#      - "9325:9325"
 
 networks:
   postgres-network:
