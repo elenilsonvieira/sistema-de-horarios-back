@@ -1,7 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.utils;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassroomModel;
-import br.edu.ifpb.dac.sistemadehorarios.repository.classroom.ClassroomRepository;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomRepository;
 
 public class ClassroomUtils {
 

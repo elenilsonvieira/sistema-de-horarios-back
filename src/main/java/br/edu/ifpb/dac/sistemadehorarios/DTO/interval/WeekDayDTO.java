@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.ShiftModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.WeekDayModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import lombok.Getter;
 import lombok.Setter;
 

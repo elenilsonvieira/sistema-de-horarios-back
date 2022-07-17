@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.utils.lessonFiltersChainOfResponsability;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassBlockModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.LessonModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.classroom.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 
 import java.util.ArrayList;
 import java.util.List;

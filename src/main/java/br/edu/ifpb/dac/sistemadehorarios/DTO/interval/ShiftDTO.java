@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.IntervalModel;
-import br.edu.ifpb.dac.sistemadehorarios.model.interval.ShiftModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import lombok.Getter;
 import lombok.Setter;
 

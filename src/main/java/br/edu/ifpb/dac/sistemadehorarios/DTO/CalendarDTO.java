@@ -1,11 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
-import br.edu.ifpb.dac.sistemadehorarios.model.CalendarModel;
-import lombok.AllArgsConstructor;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

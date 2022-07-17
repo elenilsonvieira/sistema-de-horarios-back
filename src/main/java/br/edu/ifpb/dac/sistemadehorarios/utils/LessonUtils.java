@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.utils;
 
-import br.edu.ifpb.dac.sistemadehorarios.DRO.LessonDRO;
-import br.edu.ifpb.dac.sistemadehorarios.model.LessonModel;
-import br.edu.ifpb.dac.sistemadehorarios.repository.LessonRepository;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonDRO;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonRepository;
 
 public class LessonUtils {
 
