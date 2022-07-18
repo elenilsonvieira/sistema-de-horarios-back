@@ -26,7 +26,7 @@ Agora basta baixar as dependências maven e executar o projeto normalmente
 
 ## Observação
 Se você quiser se conectar ao seu postgreSQL para fazer operações e visualizar a forma como os dados estarão nas tabelas através do PgAdmin,
-basta acessar [esse link](localhost:15432) e colocar as seguintes configurações:  
+basta acessar [esse link](http://localhost:15432) e colocar as seguintes configurações:  
 - Host: 172.17.0.1
 - Port: 5441
 - User: dac
