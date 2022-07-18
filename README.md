@@ -23,3 +23,7 @@ Após isso, execute:
 docker-compose up
 ```
 Agora basta baixar as dependências maven e executar o projeto normalmente
+
+## Documentação
+- Produção:  [Clique aqui](https://sistema-de-horario.herokuapp.com/swagger-ui.html#/) Para acessar a documentação da API na heroku
+- Desenvolvimento  [Clique aqui](http://localhost:8080/swagger-ui.html#/) Para acessar a documentação da API localmente
