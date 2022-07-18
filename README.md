@@ -24,6 +24,17 @@ docker-compose up
 ```
 Agora basta baixar as dependências maven e executar o projeto normalmente
 
+## Observação
+Se você quiser se conectar ao seu postgreSQL para fazer operações e visualizar a forma como os dados estarão nas tabelas,   
+basta acessar [esse link](localhost:15432) e colocar as seguintes configurações:  
+- Host: 172.17.0.1
+- Port: 5441
+- User: dac
+- Password: dac
+- Database: shd
+Isso é possível porque existem duas imagens no docker-compose responsável por subir dois containers (um container pro banco postgre e outro pro pgAdmin).  
+Essa configuração poderá ser visualizada e editada acessando o arquivo docker-compose.yml
+
 ## Documentação
 - Produção:  [Clique aqui](https://sistema-de-horario.herokuapp.com/swagger-ui.html#/) Para acessar a documentação da API na heroku
 - Desenvolvimento  [Clique aqui](http://localhost:8080/swagger-ui.html#/) Para acessar a documentação da API localmente
