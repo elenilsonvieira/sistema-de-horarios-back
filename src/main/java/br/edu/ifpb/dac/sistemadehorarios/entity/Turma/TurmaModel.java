@@ -24,11 +24,6 @@ public class TurmaModel implements Serializable {
     private Date update_at;
 
     public TurmaModel() {
-        this.uuid= Generators.randomBasedGenerator().generate().toString();
-    }
-
-    public TurmaModel(String name) {
-        super();
-        this.name = name;
+        this.uuid = Generators.randomBasedGenerator().generate().toString();
     }
 }

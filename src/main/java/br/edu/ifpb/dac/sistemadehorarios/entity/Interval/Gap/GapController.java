@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.interval.GapDTO;
-import br.edu.ifpb.dac.sistemadehorarios.exception.interval.GapInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +13,6 @@ public class GapController {
 
     @Autowired
     private GapService service;
-
-    @PostMapping
-    public ResponseEntity<Object> create(@RequestBody GapModel gapModel) throws GapInvalidException {
-        boolean result = this.service.create(gapModel);
-        if(result) {
-            return ResponseEntity.status(201).body(new GapDTO(gapModel));
-        }
-        return ResponseEntity.status(400).body("Inválido");
-
-    }
 
     @GetMapping
     public ResponseEntity <List<GapDTO>> read(){

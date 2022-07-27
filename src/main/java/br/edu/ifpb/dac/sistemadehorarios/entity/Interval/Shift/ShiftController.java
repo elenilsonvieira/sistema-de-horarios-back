@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.interval.ShiftDTO;
-import br.edu.ifpb.dac.sistemadehorarios.exception.interval.ShiftInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +14,6 @@ public class ShiftController {
     @Autowired
     private ShiftService service;
 
-    @PostMapping
-    public ResponseEntity<ShiftDTO> create(@RequestBody ShiftModel shiftModel) throws ShiftInvalidException {
-
-        boolean result = this.service.create(shiftModel);
-        if(result) {
-            return ResponseEntity.status(201).body(new ShiftDTO(shiftModel));
-        }
-        return ResponseEntity.status(400).body(null);
-
-    }
 
     @GetMapping
     public ResponseEntity <List<ShiftDTO>> read(){
