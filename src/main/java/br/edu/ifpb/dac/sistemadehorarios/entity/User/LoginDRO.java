@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class LoginDRO {
     private String email;
-    private String password;
+    private String pass;
 }

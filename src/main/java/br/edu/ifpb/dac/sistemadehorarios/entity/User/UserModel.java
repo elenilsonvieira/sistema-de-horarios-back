@@ -15,13 +15,14 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name= "user_entity")
-public class UserModel implements UserDetails {
+public class UserModel implements UserDetails{
 
     @Id
     private String uuid;
     private String name;
+    @Column(unique = true)
     private String email;
-    private String password;
+    private String pass;
     private Date create_at = new Date();
     @Column(updatable = true)
     private Date update_at;
@@ -36,8 +37,13 @@ public class UserModel implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return this.getPass();
+    }
+
+    @Override
     public String getUsername() {
-        return this.email;
+        return this.getEmail();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.component;
+package br.edu.ifpb.dac.sistemadehorarios.entity.User.security;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
@@ -6,28 +6,24 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-/*Anotação genérica para qualquer componente gerenciado pelo Spring.
-Esta anotação faz com que o bean registrado no Spring possa ser utilizado em qualquer bean,
-seja ele um serviço, um DAO, um controller, etc.
-No nosso exemplo, ele será responsável por um Bean que representa uma entidade.*/
-@Component
-public class TokenComponent {
-    private final String USER_UUID = "userUuid";
-    private final String USER_EMAIL = "userEmail";
 
-    @Value("${jwt.expiration}")
-    private String expiration;
+@Getter
+@Setter
+public class TokenSecurity {
+    private long expiration = 60;
+    private String secret="&0M0e7@9n$#sl%1IG59Zwa7cvO0T541fcR$^";
 
-    @Value("${jwt.secret}")
-    private String secret;
+
+    public TokenSecurity() {
+    }
 
     public String generate(UserModel userModel){
         long expiration = Long.valueOf(this.expiration);
@@ -39,8 +35,8 @@ public class TokenComponent {
                 .builder()
                 .setExpiration(expirationDate)
                 .setSubject(userModel.getUuid())
-                .claim(USER_UUID,userModel.getUuid())
-                .claim(USER_EMAIL,userModel.getEmail())
+                .claim("userUuid",userModel.getUuid())
+                .claim("userEmail",userModel.getEmail())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
@@ -70,7 +66,7 @@ public class TokenComponent {
 
     public String getUserEmail(String token){
         Claims claims = this.getClaims(token);
-        return (String) claims.get(this.USER_EMAIL);
+        return (String) claims.get("userEmail");
     }
 
     public String get(HttpServletRequest request) throws UserInvalidException {

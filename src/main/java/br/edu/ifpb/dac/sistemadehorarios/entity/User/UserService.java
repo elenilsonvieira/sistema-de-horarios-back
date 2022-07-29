@@ -1,30 +1,43 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.User;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.security.EncryptPasswordSecurity;
+
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
+
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService extends ServiceTemplate implements UserDetailsService {
 
-
-    private final EncryptPasswordSecurity encryptPasswordSecurity;
     private final UserRepository repository;
+    private BCryptPasswordEncoder enconder;
+
+    @Value("${password.karlos}")
+    private String passwordKarlos;
 
     @Value("${password.victor}")
-    private String passwordKarlos;
-    @Value("${password.karlos}")
     private String passwordVictor;
 
-    public UserService(EncryptPasswordSecurity encryptPasswordSecurity, UserRepository repository) {
-        this.encryptPasswordSecurity = encryptPasswordSecurity;
+    public UserService(UserRepository repository) {
         this.repository = repository;
+        this.enconder = new BCryptPasswordEncoder();
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserModel userModel = this.findByEmail(username);
+
+        if(userModel == null){
+            throw new UsernameNotFoundException("O username não foi encontrado. User: "+ username);
+        }
+        return userModel;
     }
 
     public void createDefaultValues() throws UserInvalidException {
@@ -35,14 +48,14 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
         if(victor == null){
             victor = new UserModel();
-            victor.setPassword(this.passwordVictor);
+            victor.setPass(this.passwordVictor);
             victor.setName("João Victor Lacerda de Queiroz");
             victor.setEmail("victor.queiroz@academico.ifpb.edu.br");
             this.create(victor);
         }
         if(karlos == null){
             karlos = new UserModel();
-            karlos.setPassword(this.passwordKarlos);
+            karlos.setPass(this.passwordKarlos);
             karlos.setName("Karlos Macedo");
             karlos.setEmail("karlos.macedo@academico.ifpb.edu.br");
             this.create(karlos);
@@ -50,10 +63,22 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
     }
 
+    public UserModel login(String email, String password){
+        try{
+            UserModel userModel = this.findByEmail(email);
+            if(userModel!= null && this.enconder.matches(password, userModel.getPassword())){
+                return userModel;
+            }
+            return null;
+        }catch (Exception error){
+            return null;
+        }
+    }
+
     public UserModel create(UserModel userModel) throws UserInvalidException {
         try{
-            String password = this.encryptPasswordSecurity.encryptPassWord(userModel.getPassword());
-            userModel.setPassword(password);
+            String password = this.enconder.encode(userModel.getPassword());
+            userModel.setPass(password);
             super.create(userModel, repository);
             return userModel;
         }catch (Exception error){
@@ -63,21 +88,10 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
     public UserModel findByEmail(String email){
         try {
-            UserModel user = this.repository.findByEmail(email);
-            return user;
+            return this.repository.findByEmail(email);
         }catch (Exception error){
             return null;
         }
-    }
-
-    @Override
-    public UserModel loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel userModel = findByEmail(username);
-
-        if(userModel == null){
-            throw new UsernameNotFoundException("O username não foi encontrado. User: "+ username);
-        }
-        return userModel;
     }
 
     public UserModel findByUuid(String uuid){

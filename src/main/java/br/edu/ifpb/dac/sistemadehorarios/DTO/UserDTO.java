@@ -15,6 +15,7 @@ public class UserDTO {
     private String uuid;
     private String name;
     private String email;
+    private String token;
 
     public UserDTO(UserModel userModel) {
         this.uuid = userModel.getUuid();
