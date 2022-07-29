@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WeekDayRepository extends JpaRepository<WeekDayModel, String> {
 
+    public WeekDayModel findByWeekDay(String weekDay);
 }

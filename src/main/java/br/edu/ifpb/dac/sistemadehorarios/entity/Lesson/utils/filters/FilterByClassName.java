@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.utils.lessonFiltersChainOfResponsability;
+package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
