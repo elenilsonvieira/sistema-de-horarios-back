@@ -1,7 +1,6 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User.security.filters;
+package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.filters;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.security.TokenSecurity;
-import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.TokenSecurity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

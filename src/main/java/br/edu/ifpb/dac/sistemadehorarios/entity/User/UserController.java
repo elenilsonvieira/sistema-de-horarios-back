@@ -2,7 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.User;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TokenDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.security.TokenSecurity;
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.TokenSecurity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.configuration;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.security.filters.JWTValidationFIlter;
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.filters.JWTValidationFIlter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;

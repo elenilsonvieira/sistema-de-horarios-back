@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User.security;
+package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
