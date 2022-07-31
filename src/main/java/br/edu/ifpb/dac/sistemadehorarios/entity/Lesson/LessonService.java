@@ -1,18 +1,18 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;

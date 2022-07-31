@@ -1,8 +1,5 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
-import br.edu.ifpb.dac.sistemadehorarios.exception.interval.ShiftException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.interval.WeekDayException;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

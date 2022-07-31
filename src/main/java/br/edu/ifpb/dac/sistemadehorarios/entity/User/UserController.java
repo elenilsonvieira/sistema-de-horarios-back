@@ -4,9 +4,7 @@ import br.edu.ifpb.dac.sistemadehorarios.DTO.TokenDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.TokenSecurity;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +59,16 @@ public class UserController {
         }catch (Exception error){
             return ResponseEntity.status(401).body(error.getMessage());
         }
+    }
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<String> delete(@RequestHeader("secretKey") String secretKey, @PathVariable("uuid") String uuid){
+        if(secretKey.equals(this.secretKey)){
+            boolean result = this.service.delete(uuid);
+            if (result) {
+                return ResponseEntity.status(200).body("OK");
+            }
+            return ResponseEntity.status(404).body("NOT OK");
+        }
+        return ResponseEntity.status(403).body("Usuário identificado mas não autorizado");
     }
 }
