@@ -1,6 +1,6 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.filters;
+package br.edu.ifpb.dac.sistemadehorarios.filter;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.TokenSecurity;
+import br.edu.ifpb.dac.sistemadehorarios.component.TokenComponent;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class JWTValidationFIlter extends BasicAuthenticationFilter {
 
-    private TokenSecurity tokenSecurity;
+    private TokenComponent tokenComponent;
 
     public JWTValidationFIlter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
-        this.tokenSecurity=new TokenSecurity();
+        this.tokenComponent =new TokenComponent();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class JWTValidationFIlter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token){
-        String email = this.tokenSecurity.getUserEmail(token);
+        String email = this.tokenComponent.getUserEmail(token);
         if(email==null){
             return null;
         }

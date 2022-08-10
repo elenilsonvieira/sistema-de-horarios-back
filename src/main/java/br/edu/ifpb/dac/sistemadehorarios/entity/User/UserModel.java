@@ -23,6 +23,7 @@ public class UserModel implements UserDetails{
     @Column(unique = true)
     private String email;
     private String pass;
+    private String roleEnum;
     private Date create_at = new Date();
     @Column(updatable = true)
     private Date update_at;

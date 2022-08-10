@@ -2,7 +2,8 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.User;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TokenDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.TokenSecurity;
+import br.edu.ifpb.dac.sistemadehorarios.component.TokenComponent;
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.LoginDRO;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private TokenSecurity tokenSecurity;
+    private TokenComponent tokenComponent;
     private final UserService service;
     @Value("${secret.key}")
     private String secretKey;
 
     public UserController(UserService service) {
         this.service = service;
-        this.tokenSecurity = new TokenSecurity();
+        this.tokenComponent = new TokenComponent();
     }
 
 
@@ -30,7 +31,7 @@ public class UserController {
         UserModel userModel = service.login(email, password);
 
         if(userModel != null){
-            String token = this.tokenSecurity.generate(userModel);
+            String token = this.tokenComponent.generate(userModel);
             UserDTO userDTO = new UserDTO(userModel);
             userDTO.setToken(token);
             return ResponseEntity.status(202).body(userDTO);
@@ -54,7 +55,7 @@ public class UserController {
     @PostMapping("/validadeToken")
     public ResponseEntity isTokenValid(@RequestBody TokenDTO tokenDTO){
         try{
-            boolean isTokenValid = tokenSecurity.isValid(tokenDTO.getToken());
+            boolean isTokenValid = tokenComponent.isValid(tokenDTO.getToken());
             return ResponseEntity.status(isTokenValid ? 200: 403).body(isTokenValid);
         }catch (Exception error){
             return ResponseEntity.status(401).body(error.getMessage());

@@ -1,14 +1,13 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.LoginDRO;
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.LoginDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.MethodOrderer;

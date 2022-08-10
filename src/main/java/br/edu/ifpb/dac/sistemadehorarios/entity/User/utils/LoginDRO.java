@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User;
+package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils;
 
 import lombok.Getter;
 import lombok.Setter;

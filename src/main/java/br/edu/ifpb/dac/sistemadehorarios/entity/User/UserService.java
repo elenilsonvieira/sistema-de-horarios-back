@@ -47,12 +47,18 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
         UserModel victor = findByEmail("victor.queiroz@academico.ifpb.edu.br");
         UserModel karlos = findByEmail("karlos.macedo@academico.ifpb.edu.br");
+        String fullAcess = String.format("%s,%s,%s,%s",
+                RoleEnum.READ,
+                RoleEnum.EDIT,
+                RoleEnum.CREATE,
+                RoleEnum.ADM);
 
         if(victor == null){
             victor = new UserModel();
             victor.setPass(this.passwordVictor);
             victor.setName("João Victor Lacerda de Queiroz");
             victor.setEmail("victor.queiroz@academico.ifpb.edu.br");
+            victor.setRoleEnum(fullAcess);
             this.create(victor);
         }
         if(karlos == null){
@@ -60,6 +66,7 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
             karlos.setPass(this.passwordKarlos);
             karlos.setName("Karlos Macedo");
             karlos.setEmail("karlos.macedo@academico.ifpb.edu.br");
+            karlos.setRoleEnum(fullAcess);
             this.create(karlos);
         }
 

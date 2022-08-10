@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils;
+package br.edu.ifpb.dac.sistemadehorarios.component;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
@@ -17,16 +18,13 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class TokenSecurity {
+@Component
+public class TokenComponent {
     private long expiration = 60;
     private String secret="&0M0e7@9n$#sl%1IG59Zwa7cvO0T541fcR$^";
 
 
-    public TokenSecurity() {
-    }
-
     public String generate(UserModel userModel){
-        long expiration = Long.valueOf(this.expiration);
         LocalDateTime expirationLocalDateTime = LocalDateTime.now().plusMinutes(expiration);
         Instant expirationInstant = expirationLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date expirationDate = Date.from(expirationInstant);
@@ -36,7 +34,8 @@ public class TokenSecurity {
                 .setExpiration(expirationDate)
                 .setSubject(userModel.getUuid())
                 .claim("userUuid",userModel.getUuid())
-                .claim("userEmail",userModel.getEmail())
+                .claim("roles", userModel.getRoleEnum())
+                .claim("name", userModel.getName())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
