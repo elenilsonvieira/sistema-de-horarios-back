@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -23,6 +26,7 @@ public class UserModel implements UserDetails{
     @Column(unique = true)
     private String email;
     private String pass;
+    private String roles;
     private Date create_at = new Date();
     @Column(updatable = true)
     private Date update_at;
@@ -33,7 +37,13 @@ public class UserModel implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        ArrayList<String> authority = new ArrayList<String>(Arrays.asList(roles.split(",")));
+
+        Collection<GrantedAuthority> authorities = authority.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+
+        return authorities;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.CurricularComponentInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

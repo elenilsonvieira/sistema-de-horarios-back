@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService extends ServiceTemplate implements UserDetailsService {
 
@@ -45,12 +47,19 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
         UserModel victor = findByEmail("victor.queiroz@academico.ifpb.edu.br");
         UserModel karlos = findByEmail("karlos.macedo@academico.ifpb.edu.br");
+        String fullAcess = String.format("%s,%s,%s,%s",
+                RoleEnum.READ,
+                RoleEnum.EDIT,
+                RoleEnum.CREATE,
+                RoleEnum.ADM
+                );
 
         if(victor == null){
             victor = new UserModel();
             victor.setPass(this.passwordVictor);
             victor.setName("João Victor Lacerda de Queiroz");
             victor.setEmail("victor.queiroz@academico.ifpb.edu.br");
+            victor.setRoles(fullAcess);
             this.create(victor);
         }
         if(karlos == null){
@@ -58,6 +67,7 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
             karlos.setPass(this.passwordKarlos);
             karlos.setName("Karlos Macedo");
             karlos.setEmail("karlos.macedo@academico.ifpb.edu.br");
+            karlos.setRoles(fullAcess);
             this.create(karlos);
         }
 
@@ -96,5 +106,12 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
     public UserModel findByUuid(String uuid){
         return (UserModel) super.findByUuid(uuid, this.repository);
+    }
+
+    public boolean delete(String uuid){
+        return super.delete(uuid, this.repository);
+    }
+    public List<UserModel> read(){
+        return (List<UserModel>) super.read(this.repository);
     }
 }

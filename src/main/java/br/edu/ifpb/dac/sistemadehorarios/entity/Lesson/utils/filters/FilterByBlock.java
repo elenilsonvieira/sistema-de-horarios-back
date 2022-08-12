@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 
 import java.util.ArrayList;
 import java.util.List;

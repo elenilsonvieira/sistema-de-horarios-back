@@ -1,12 +1,12 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
 import com.fasterxml.uuid.Generators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

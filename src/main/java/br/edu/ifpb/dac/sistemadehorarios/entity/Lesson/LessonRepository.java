@@ -1,5 +1,4 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
