@@ -72,14 +72,14 @@ public class UserController {
 
     }
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<String> delete(@RequestHeader("secretKey") String secretKey, @PathVariable("uuid") String uuid){
-        if(secretKey.equals(this.secretKey)){
-            boolean result = this.service.delete(uuid);
-            if (result) {
-                return ResponseEntity.status(200).body("OK");
-            }
-            return ResponseEntity.status(404).body("NOT OK");
+    @PreAuthorize("hasAuthority('ADM')")
+    public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
+
+        boolean result = this.service.delete(uuid);
+        if (result) {
+            return ResponseEntity.status(200).body("OK");
         }
-        return ResponseEntity.status(403).body("Usuário identificado mas não autorizado");
+        return ResponseEntity.status(404).body("NOT OK");
+
     }
 }
