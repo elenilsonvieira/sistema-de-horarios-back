@@ -28,9 +28,6 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @Value("${secret.key}")
-    private String secretKey;
-
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDRO loginDRO){

@@ -33,9 +33,6 @@ public class UserIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("${secret.key}")
-    private String secretKey;
-
     @Value("${password.victor}")
     private String passwordVictor;
 
@@ -68,7 +65,6 @@ public class UserIntegrationTest {
         ResultActions result = mockMvc.perform(
                         post("/user")
                                 .contentType("application/json")
-                                .header("secretKey",secretKey)
                                 .content(this.objectMapper.writeValueAsString(userModel)))
                 .andExpect(status().is(403));
     }
@@ -108,7 +104,6 @@ public class UserIntegrationTest {
         mockMvc.perform(
                         post("/user")
                                 .contentType("application/json")
-                                .header("secretKey",secretKey)
                                 .header("Authorization", "Bearer "+UserIntegrationTest.token)
                                 .content(this.objectMapper.writeValueAsString(userModel)))
                 .andExpect(status().is(201));
@@ -119,7 +114,6 @@ public class UserIntegrationTest {
     public void deleteUser() throws Exception {
         mockMvc.perform(
                         delete("/user/"+UserIntegrationTest.userUuid)
-                                .header("secretKey",secretKey)
                                 .header("Authorization", "Bearer "+UserIntegrationTest.token))
                 .andExpect(status().is(200));
     }
