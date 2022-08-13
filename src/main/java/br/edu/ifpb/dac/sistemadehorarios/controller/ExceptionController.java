@@ -1,8 +1,10 @@
 package br.edu.ifpb.dac.sistemadehorarios.controller;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.ErrorProject;
 import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

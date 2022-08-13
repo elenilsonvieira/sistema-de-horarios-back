@@ -19,11 +19,8 @@ import java.util.stream.Collectors;
 @Data
 public class UserDTO {
 
-    private String uuid;
     private String name;
-    private String email;
     private String token;
-    private Collection<? extends GrantedAuthority> roles;
 
 
     public static List<UserDTO> convert(List<UserModel> userModel){
@@ -31,8 +28,6 @@ public class UserDTO {
         for (UserModel user: userModel) {
             UserDTO userDTO = UserDTO
                     .builder()
-                    .uuid(user.getUuid())
-                    .email(user.getEmail())
                     .name(user.getName())
                     .build();
             userDTOList.add(userDTO);
