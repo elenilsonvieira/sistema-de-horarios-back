@@ -34,6 +34,7 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
         shiftService.createDefaultValues();
         weekDayService.createDefaultValues();
         userService.createDefaultValues();
+
     }
 
 }
