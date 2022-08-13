@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class UserDTO {
 
     private String name;
+    private String uuid;
     private String token;
 
 
