@@ -27,7 +27,7 @@ public abstract class HealthCheckOfEndpointsIntegrationTest {
                         post("/user/login")
                                 .contentType("application/json")
                                 .content(objectMapper.writeValueAsString(login)))
-                .andExpect(status().is(202));
+                .andExpect(status().is(200));
 
         MvcResult mvcResult = result.andReturn();
         String response = mvcResult.getResponse().getContentAsString();

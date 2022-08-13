@@ -38,10 +38,7 @@ public class UserController {
             UserModel user = (UserModel) authentication.getPrincipal();
             String token = tokenService.generateTokenJwt(authentication);
             UserDTO userDTO = UserDTO.builder()
-                    .uuid(user.getUuid())
-                    .email(user.getEmail())
                     .name(user.getName())
-                    .roles(user.getAuthorities())
                     .token(token)
                     .build();
             userDTO.setToken(token);
@@ -54,6 +51,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADM')")
     public ResponseEntity create(@RequestBody UserModel user) throws UserInvalidException {
 
+        this.isUserValid(user);
         UserModel userModel =  this.service.create(user);
         if(userModel != null){
             return ResponseEntity.status(201).body(userModel);
@@ -68,15 +66,32 @@ public class UserController {
         return ResponseEntity.status(200).body(token);
 
     }
+
     @DeleteMapping("/{uuid}")
     @PreAuthorize("hasAuthority('ADM')")
-    public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
+    public ResponseEntity delete(@PathVariable("uuid") String uuid) throws UserInvalidException {
 
-        boolean result = this.service.delete(uuid);
-        if (result) {
+        boolean result =this.service.delete(uuid);
+        if(result){
             return ResponseEntity.status(200).body("OK");
         }
-        return ResponseEntity.status(404).body("NOT OK");
+        return ResponseEntity.status(400).body("Bad request");
+
+    }
+
+    private void isUserValid(UserModel userModel) throws UserInvalidException {
+        try{
+            if(userModel.getPassword() == null ||
+                    userModel.getName() == null ||
+                    userModel.getEmail() == null ||
+                    userModel.getAuthorities() == null){
+
+                throw new Exception("User é inválido");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new UserInvalidException(e.getMessage() == null? "User é inválido": e.getMessage(), 400);
+        }
 
     }
 }
