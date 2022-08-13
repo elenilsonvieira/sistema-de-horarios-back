@@ -39,6 +39,7 @@ public class UserController {
             String token = tokenService.generateTokenJwt(authentication);
             UserDTO userDTO = UserDTO.builder()
                     .name(user.getName())
+                    .uuid(user.getUuid())
                     .token(token)
                     .build();
             userDTO.setToken(token);
