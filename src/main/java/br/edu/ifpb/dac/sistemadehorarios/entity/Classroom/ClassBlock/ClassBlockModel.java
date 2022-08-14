@@ -17,8 +17,8 @@ import java.util.Date;
 @Entity(name="class_block")
 public class ClassBlockModel implements Serializable {
 
+    @Column(nullable = false)
     private String blockName;
-
     @Id
     private String uuid;
     private Date create_at = new Date();

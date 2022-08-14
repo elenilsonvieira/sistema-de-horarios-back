@@ -16,10 +16,12 @@ import java.util.Date;
 @Entity(name="corricular_component")
 public class CurricularComponentModel implements Serializable {
 
+    @Column(nullable = false)
     private byte workload;
+    @Column(nullable = false)
     private String name;
     @ManyToOne
-    @JoinColumn(name = "course_uuid")
+    @JoinColumn(name = "course_uuid", nullable = false)
     private CourseModel courseUuid;
     @Id
     private String uuid;

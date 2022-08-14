@@ -20,8 +20,6 @@ public class CourseModel implements Serializable  {
 
 	@Column(unique = true, nullable = false)
 	private String name;
-
-
 	@Id
 	private String uuid;
 	private Date create_at = new Date();

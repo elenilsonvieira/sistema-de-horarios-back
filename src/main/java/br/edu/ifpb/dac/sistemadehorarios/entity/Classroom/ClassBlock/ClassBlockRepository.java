@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClassBlockRepository extends JpaRepository<ClassBlockModel, String> {
+    public ClassBlockModel findByBlockName(String blockName);
 }
