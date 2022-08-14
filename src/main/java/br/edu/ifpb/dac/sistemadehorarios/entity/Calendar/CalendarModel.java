@@ -18,6 +18,7 @@ import java.util.Date;
 @Entity(name="calendar")
 public class CalendarModel  implements Serializable {
 
+    @Column(nullable = false)
     private String Semester;
     @Id
     private String uuid;

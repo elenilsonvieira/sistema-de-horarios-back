@@ -23,11 +23,11 @@ import java.util.Date;
 public class LessonModel implements Serializable  {
 
     @ManyToOne
-    @JoinColumn(name = "corricular_component_uuid")
+    @JoinColumn(name = "corricular_component_uuid",nullable = false)
     private CurricularComponentModel curricularComponentModel;
 
     @ManyToOne
-    @JoinColumn(name = "professor_uuid")
+    @JoinColumn(name = "professor_uuid",nullable = false)
     private ProfessorModel professorModel;
 
     @ManyToOne
@@ -35,19 +35,19 @@ public class LessonModel implements Serializable  {
     private IntervalModel intervalModel;
 
     @ManyToOne
-    @JoinColumn(name = "turma_uuid")
+    @JoinColumn(name = "turma_uuid",nullable = false)
     private TurmaModel turmaModel;
 
     @ManyToOne
-    @JoinColumn(name = "classroom_uuid")
+    @JoinColumn(name = "classroom_uuid",nullable = false)
     private ClassroomModel classroomModel;
 
     @ManyToOne
-    @JoinColumn(name = "calendar_uuid")
+    @JoinColumn(name = "calendar_uuid",nullable = false)
     private CalendarModel calendarModel;
 
     @ManyToOne
-    @JoinColumn(name = "course_uuid")
+    @JoinColumn(name = "course_uuid",nullable = false)
     private CourseModel courseModel;
 
     @Id

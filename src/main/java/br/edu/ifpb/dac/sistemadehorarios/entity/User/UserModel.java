@@ -22,10 +22,13 @@ public class UserModel implements UserDetails{
 
     @Id
     private String uuid;
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String pass;
+    @Column(nullable = false)
     private String roles;
     private Date create_at = new Date();
     @Column(updatable = true)

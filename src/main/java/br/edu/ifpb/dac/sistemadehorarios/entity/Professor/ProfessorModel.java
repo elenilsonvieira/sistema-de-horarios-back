@@ -15,10 +15,10 @@ import java.util.Date;
 @Entity(name = "professor")
 public class ProfessorModel implements Serializable {
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
     private String name;
+	@Column(nullable = false)
     private String area;
-
 	@Id
 	private String uuid;
 	private Date create_at = new Date();

@@ -17,6 +17,7 @@ import java.util.Date;
 @Entity(name="gap")
 public class GapModel implements Serializable {
 
+    @Column(nullable = false)
     private String gap;
     @Id
     private String uuid;

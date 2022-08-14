@@ -14,8 +14,6 @@ public class ProfessorService extends ServiceTemplate {
 
     @Autowired
     private ProfessorRepository repository;
-    @Autowired
-    private CourseService courseService;
 
     public ProfessorModel create(ProfessorModel professor) throws ProfessorInvalidException {
         try{

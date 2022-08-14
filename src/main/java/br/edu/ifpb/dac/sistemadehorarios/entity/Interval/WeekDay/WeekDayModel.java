@@ -17,8 +17,8 @@ import java.util.Date;
 @Entity(name="week_day")
 public class WeekDayModel implements Serializable {
 
+    @Column(nullable = false)
     private String weekDay;
-
     @Id
     private String uuid;
     private Date create_at = new Date();

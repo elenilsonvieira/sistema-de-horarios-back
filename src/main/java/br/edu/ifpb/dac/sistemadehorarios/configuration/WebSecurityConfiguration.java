@@ -31,15 +31,11 @@ import java.util.List;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private TokenService tokenService;
-
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private AuthenticationTokenFilterService authenticationTokenFilterService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 //Setando filtro de autenticação antes do filtro padrão do spring
-                .and().addFilterBefore(new AuthenticationTokenFilterService(tokenService, userService), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(authenticationTokenFilterService, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
