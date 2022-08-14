@@ -16,9 +16,10 @@ import javax.persistence.*;
 @Entity(name = "class_name")
 public class ClassNameModel implements Serializable {
 
+	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
 	private int capacity;
-
 	@Id
 	private String uuid;
 	private Date create_at = new Date();

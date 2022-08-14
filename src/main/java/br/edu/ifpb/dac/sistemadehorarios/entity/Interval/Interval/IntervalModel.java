@@ -19,15 +19,15 @@ import java.util.Date;
 public class IntervalModel implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "gap_uuid")
+    @JoinColumn(name = "gap_uuid", nullable = false)
     private GapModel gapModel;
 
     @ManyToOne
-    @JoinColumn(name = "shift_uuid")
+    @JoinColumn(name = "shift_uuid",nullable = false)
     private ShiftModel shiftModel;
 
     @ManyToOne
-    @JoinColumn(name = "week_day_uuid")
+    @JoinColumn(name = "week_day_uuid",nullable = false)
     private WeekDayModel weekDayModel;
 
     @Id

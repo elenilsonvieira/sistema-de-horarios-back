@@ -16,6 +16,7 @@ import java.util.Date;
 @Entity(name = "turma")
 public class TurmaModel implements Serializable {
 
+    @Column(nullable = false)
     private String name;
     @Id
     private String uuid;

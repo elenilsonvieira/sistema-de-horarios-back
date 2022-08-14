@@ -2,27 +2,30 @@ package br.edu.ifpb.dac.sistemadehorarios.service;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
+@Service
 public class AuthenticationTokenFilterService extends OncePerRequestFilter {
-    private TokenService tokenService;
 
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
     private UserService userService;
 
-    public AuthenticationTokenFilterService(TokenService tokenService, UserService userService) {
-        this.tokenService = tokenService;
-        this.userService = userService;
-    }
+//    public AuthenticationTokenFilterService(TokenService tokenService, UserService userService) {
+//        this.tokenService = tokenService;
+//        this.userService = userService;
+//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

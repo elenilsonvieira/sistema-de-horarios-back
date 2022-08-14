@@ -18,8 +18,8 @@ import java.util.Date;
 @Entity(name="shift")
 public class ShiftModel implements Serializable {
 
+    @Column(nullable = false)
     private String shift;
-
     @Id
     private String uuid;
     private Date create_at = new Date();

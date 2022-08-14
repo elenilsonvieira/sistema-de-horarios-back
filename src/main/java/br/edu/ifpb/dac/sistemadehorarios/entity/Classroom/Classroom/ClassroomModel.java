@@ -18,11 +18,11 @@ import java.util.Date;
 public class ClassroomModel implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "name")
+    @JoinColumn(name = "name", nullable = false)
     private ClassNameModel classNameModel;
 
     @ManyToOne
-    @JoinColumn(name = "block")
+    @JoinColumn(name = "block", nullable = false)
     private ClassBlockModel classBlockModel;
 
     @Id

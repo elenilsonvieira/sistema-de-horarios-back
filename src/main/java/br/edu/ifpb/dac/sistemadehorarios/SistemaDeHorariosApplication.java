@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
@@ -8,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
 
 @SpringBootApplication
 public class SistemaDeHorariosApplication implements CommandLineRunner {
@@ -22,6 +21,8 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
     private WeekDayService weekDayService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClassBlockService classBlockService;
 
     public static void main(String[] args) {
 
@@ -34,7 +35,7 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
         shiftService.createDefaultValues();
         weekDayService.createDefaultValues();
         userService.createDefaultValues();
-
+        classBlockService.createDefaultValues();
     }
 
 }
