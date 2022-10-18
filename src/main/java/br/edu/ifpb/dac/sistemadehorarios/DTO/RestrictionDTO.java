@@ -4,6 +4,7 @@ package br.edu.ifpb.dac.sistemadehorarios.DTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.edu.ifpb.dac.sistemadehorarios.DTO.interval.ShiftDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.interval.WeekDayDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class RestrictionDTO {
 
 	private ProfessorDTO professorDTO;
 	private WeekDayDTO weekDayDTO;
+	private ShiftDTO shiftDTO;
 	private String uuid;
 
 	
@@ -22,6 +24,7 @@ public class RestrictionDTO {
 		this.uuid = restrictionModel.getUuid();
 		this.weekDayDTO = new WeekDayDTO(restrictionModel.getWeekDayUuid());
 		this.professorDTO = new ProfessorDTO(restrictionModel.getProfessorUuid());
+		this.shiftDTO = new ShiftDTO(restrictionModel.getShiftUuid());
 		
 	}
 	

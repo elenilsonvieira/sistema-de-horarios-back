@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.uuid.Generators;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,10 @@ public class RestrictionModel implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "week_day_uuid",nullable = false)
     private WeekDayModel weekDayUuid;
+
+	@ManyToOne
+    @JoinColumn(name = "shift_uuid",nullable = false)
+    private ShiftModel shiftUuid;
 	
 	@Id
 	private String uuid;
