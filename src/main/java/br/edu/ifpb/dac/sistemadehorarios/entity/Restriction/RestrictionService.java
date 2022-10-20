@@ -43,13 +43,13 @@ public class RestrictionService extends ServiceTemplate {
         try {
             RestrictionModel result = this.repository.findByUuid(uuid);
 
-            ProfessorModel professorUuid = restrictionModel.getProfessorUuid()==null ? result.getProfessorUuid() : restrictionModel.getProfessorUuid();
-            WeekDayModel weekDayUuid = restrictionModel.getWeekDayUuid()==null ? result.getWeekDayUuid() : restrictionModel.getWeekDayUuid();
-            ShiftModel shiftUuid = restrictionModel.getShiftUuid()==null ? result.getShiftUuid() : restrictionModel.getShiftUuid();
+            ProfessorModel professorUuid = restrictionModel.getProfessorModel()==null ? result.getProfessorModel() : restrictionModel.getProfessorModel();
+            WeekDayModel weekDayUuid = restrictionModel.getWeekDayModel()==null ? result.getWeekDayModel() : restrictionModel.getWeekDayModel();
+            ShiftModel shiftUuid = restrictionModel.getShiftModel()==null ? result.getShiftModel() : restrictionModel.getShiftModel();
 
-            result.setProfessorUuid(professorUuid);
-            result.setWeekDayUuid(weekDayUuid);
-            result.setShiftUuid(shiftUuid);
+            result.setProfessorModel(professorUuid);
+            result.setWeekDayModel(weekDayUuid);
+            result.setShiftModel(shiftUuid);
             this.repository.save(result);
             return true;
         }catch (Exception error){

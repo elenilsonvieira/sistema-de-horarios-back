@@ -26,15 +26,15 @@ public class RestrictionModel implements Serializable {
 
 	@ManyToOne
     @JoinColumn(name = "professor_uuid", nullable = false)
-	private ProfessorModel professorUuid;
+	private ProfessorModel professorModel;
 	
 	@ManyToOne
     @JoinColumn(name = "week_day_uuid",nullable = false)
-    private WeekDayModel weekDayUuid;
+    private WeekDayModel weekDayModel;
 
 	@ManyToOne
     @JoinColumn(name = "shift_uuid",nullable = false)
-    private ShiftModel shiftUuid;
+    private ShiftModel shiftModel;
 	
 	@Id
 	private String uuid;
