@@ -22,9 +22,9 @@ public class RestrictionDTO {
 	
 	public RestrictionDTO (RestrictionModel restrictionModel) {
 		this.uuid = restrictionModel.getUuid();
-		this.weekDayDTO = new WeekDayDTO(restrictionModel.getWeekDayUuid());
-		this.professorDTO = new ProfessorDTO(restrictionModel.getProfessorUuid());
-		this.shiftDTO = new ShiftDTO(restrictionModel.getShiftUuid());
+		this.weekDayDTO = new WeekDayDTO(restrictionModel.getWeekDayModel());
+		this.professorDTO = new ProfessorDTO(restrictionModel.getProfessorModel());
+		this.shiftDTO = new ShiftDTO(restrictionModel.getShiftModel());
 		
 	}
 	

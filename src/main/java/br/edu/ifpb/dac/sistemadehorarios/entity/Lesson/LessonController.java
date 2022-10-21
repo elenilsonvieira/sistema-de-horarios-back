@@ -18,15 +18,13 @@ public class LessonController {
     private LessonService service;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody LessonDRO DRO) throws LessonInvalidException {
-
-        LessonModel result = this.service.create(DRO);
-        if(result != null) {
+    public ResponseEntity<LessonDTO> create(@RequestBody LessonDRO dro) throws LessonInvalidException {
+        LessonModel result = this.service.create(dro);
+        if(result != null) 
             return ResponseEntity.status(201).body(new LessonDTO(result));
-        }
-        return ResponseEntity.status(400).body(null);
 
-}
+        return ResponseEntity.status(400).body(null);
+    }
 
     @GetMapping
     public ResponseEntity <List<LessonDTO>> read(){
@@ -45,17 +43,27 @@ public class LessonController {
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
-        boolean result = this.service.delete(uuid);
-        if (result) {
+        if (this.service.delete(uuid)) {
             return ResponseEntity.status(200).body("OK");
         }
         return ResponseEntity.status(404).body("NOT OK");
+    }
+
+    @PutMapping("/{uuid}")
+    public ResponseEntity<LessonDTO> update(@RequestBody LessonModel lessonModel, @PathVariable("uuid") String uuid) {
+        LessonModel result = this.service.update(lessonModel, uuid);
+
+        if(result != null) {
+            return  ResponseEntity.status(200).body(new LessonDTO(result));
+        }
+        return ResponseEntity.status(404).body(null);
     }
 
     @GetMapping("/withInterval/{onOuOff}")
     public ResponseEntity<List<LessonDTO>> getWithoutInterval(@PathVariable("onOuOff") String onOuOff) throws LessonInvalidException {
 
         List<LessonModel> result;
+
         if(onOuOff.equals("on")){
             result = this.service.getWithInterval();
         }else if (onOuOff.equals("off")){
@@ -63,10 +71,11 @@ public class LessonController {
         }else {
             throw new LessonInvalidException("Esse endpoint não existe", 404);
         }
+        
         return ResponseEntity.status(200).body(LessonDTO.convert(result));
     }
     @GetMapping("/getWithFilters")
-    public ResponseEntity<List<LessonDTO>> getByCourseByBlockAndClass(@RequestHeader HttpHeaders headers) throws LessonInvalidException {
+    public ResponseEntity<List<LessonDTO>> getByCourseByBlockAndClass(@RequestHeader HttpHeaders headers) {
 
         String block = String.valueOf(headers.get("block")).replaceAll("\\[","").replaceAll("]","");
         String className = String.valueOf(headers.get("className")).replaceAll("\\[","").replaceAll("]","");

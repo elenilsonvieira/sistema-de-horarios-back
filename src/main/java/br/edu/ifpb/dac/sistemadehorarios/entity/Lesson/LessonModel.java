@@ -20,14 +20,14 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name = "lesson")
-public class LessonModel implements Serializable  {
+public class LessonModel implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "corricular_component_uuid",nullable = false)
+    @JoinColumn(name = "corricular_component_uuid", nullable = false)
     private CurricularComponentModel curricularComponentModel;
 
     @ManyToOne
-    @JoinColumn(name = "professor_uuid",nullable = false)
+    @JoinColumn(name = "professor_uuid", nullable = false)
     private ProfessorModel professorModel;
 
     @ManyToOne
@@ -35,19 +35,19 @@ public class LessonModel implements Serializable  {
     private IntervalModel intervalModel;
 
     @ManyToOne
-    @JoinColumn(name = "turma_uuid",nullable = false)
+    @JoinColumn(name = "turma_uuid", nullable = false)
     private TurmaModel turmaModel;
 
     @ManyToOne
-    @JoinColumn(name = "classroom_uuid",nullable = false)
+    @JoinColumn(name = "classroom_uuid", nullable = false)
     private ClassroomModel classroomModel;
 
     @ManyToOne
-    @JoinColumn(name = "calendar_uuid",nullable = false)
+    @JoinColumn(name = "calendar_uuid", nullable = false)
     private CalendarModel calendarModel;
 
     @ManyToOne
-    @JoinColumn(name = "course_uuid",nullable = false)
+    @JoinColumn(name = "course_uuid", nullable = false)
     private CourseModel courseModel;
 
     @Id
@@ -57,6 +57,6 @@ public class LessonModel implements Serializable  {
     private Date update_at;
 
     public LessonModel() {
-        this.uuid= Generators.randomBasedGenerator().generate().toString();
+        this.uuid = Generators.randomBasedGenerator().generate().toString();
     }
 }

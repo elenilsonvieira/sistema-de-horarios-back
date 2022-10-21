@@ -21,7 +21,7 @@ public class LessonDTO {
     private CalendarDTO calendar;
     private CourseDTO course;
 
-    public LessonDTO(LessonModel lessonModel){
+    public LessonDTO(LessonModel lessonModel) {
         this.uuid = lessonModel.getUuid();
         this.curricularComponent = new CurricularComponentDTO(lessonModel.getCurricularComponentModel());
         this.professor = new ProfessorDTO(lessonModel.getProfessorModel());
@@ -29,11 +29,11 @@ public class LessonDTO {
         this.classroom = new ClassroomDTO(lessonModel.getClassroomModel());
         this.calendar = new CalendarDTO(lessonModel.getCalendarModel());
         var intervalModel = lessonModel.getIntervalModel();
-        this.interval = intervalModel != null? new IntervalDTO(lessonModel.getIntervalModel()): null;
+        this.interval = intervalModel != null ? new IntervalDTO(lessonModel.getIntervalModel()) : null;
         this.course = new CourseDTO(lessonModel.getCourseModel());
     }
 
-    public static List<LessonDTO> convert(List<LessonModel> gaps){
-        return gaps.stream().map(LessonDTO::new).collect(Collectors.toList());
+    public static List<LessonDTO> convert(List<LessonModel> lessons) {
+        return lessons.stream().map(LessonDTO::new).collect(Collectors.toList());
     }
 }

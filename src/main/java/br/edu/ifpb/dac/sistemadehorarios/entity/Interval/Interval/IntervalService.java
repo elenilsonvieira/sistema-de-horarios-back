@@ -45,7 +45,7 @@ public class IntervalService extends ServiceTemplate {
             ShiftModel shift = this.shiftService.findByUuid(intervalDRO.getShiftUuid());
             WeekDayModel weekDay = this.weekDayService.findByUuid(intervalDRO.getWeekDayUuid());
 
-            if(gap != null || shift != null || weekDay != null || lesson != null){
+            if(gap != null || shift != null || weekDay != null) {
                 IntervalModel intervalModel = new IntervalModel();
 
                 intervalModel.setGapModel(gap);
@@ -55,12 +55,12 @@ public class IntervalService extends ServiceTemplate {
                 lesson.setIntervalModel(intervalModel);
                 lesson.setUpdate_at(new Date());
                 boolean resultInterval = super.create(intervalModel, this.repository);
-                boolean resultLesson = this.lessonService.update(lesson);
-                return (resultInterval && resultLesson) ? intervalModel : null;
+                LessonModel resultLesson = this.lessonService.update(lesson, lesson.getUuid());
+                return (resultInterval && resultLesson != null) ? intervalModel : null;
             }
             throw new IntervalInvalidException("Houve um problema para criar um Interval. Algum valor inválido foi informado", 400);
 
-        }catch (Exception error){
+        } catch (Exception error){
             System.out.println(error);
             throw new IntervalInvalidException("Houve um problema para criar um Interval. Erro: "+error.getMessage(), 400);
         }
@@ -73,9 +73,9 @@ public class IntervalService extends ServiceTemplate {
         LessonModel lesson = this.lessonService.findByUuid(lessonUuid);
         lesson.setIntervalModel(null);
         lesson.setUpdate_at(new Date());
-        boolean resultLesson = this.lessonService.update(lesson);
+        LessonModel resultLesson = this.lessonService.update(lesson, lesson.getUuid());
         boolean resultInterval = super.delete(uuid, this.repository);
-        return resultInterval && resultLesson;
+        return resultInterval && resultLesson != null;
     }
 
     public IntervalModel findByUuid(String uuid) {
