@@ -38,6 +38,10 @@ public class RestrictionService extends ServiceTemplate {
     public RestrictionModel findByUuid(String uuid) {
         return (RestrictionModel) super.findByUuid(uuid, this.repository);
     }
+    
+    public List<RestrictionModel> findByProfessorModel(ProfessorModel professorModel) {
+        return repository.findByProfessorModel(professorModel);
+    }
 
     public boolean update(RestrictionModel restrictionModel, String uuid) {
         try {

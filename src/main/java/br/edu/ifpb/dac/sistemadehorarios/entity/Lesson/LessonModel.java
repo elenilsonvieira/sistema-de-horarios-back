@@ -27,7 +27,7 @@ public class LessonModel implements Serializable {
     private CurricularComponentModel curricularComponentModel;
 
     @ManyToOne
-    @JoinColumn(name = "professor_uuid", nullable = false)
+    @JoinColumn(name = "professor_uuid", nullable = true)
     private ProfessorModel professorModel;
 
     @ManyToOne

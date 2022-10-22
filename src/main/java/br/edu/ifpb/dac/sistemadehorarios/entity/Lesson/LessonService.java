@@ -2,8 +2,14 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
@@ -31,26 +37,26 @@ public class LessonService extends ServiceTemplate {
     @Autowired
     private CurricularComponentService curricularComponentService;
     @Autowired
-    private ProfessorService professorService;
-    @Autowired
     private ClassroomService classroomService;
     @Autowired
     private CalendarService calendarService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private RestrictionService restrictionService;
+    @Autowired
+    private ShiftService shiftService;
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
             TurmaModel turmaModel = this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
             CurricularComponentModel curricularComponentModel = this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
-            ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
             ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
             CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
             CourseModel courseModel = this.courseService.findByUuid(lessonDRO.getCourseUuid());
 
             if (turmaModel == null ||
                     curricularComponentModel == null ||
-                    professorModel == null ||
                     classroomModel == null ||
                     calendarModel == null ||
                     courseModel == null) {
@@ -60,7 +66,6 @@ public class LessonService extends ServiceTemplate {
             LessonModel lessonModel = new LessonModel();
             lessonModel.setTurmaModel(turmaModel);
             lessonModel.setCurricularComponentModel(curricularComponentModel);
-            lessonModel.setProfessorModel(professorModel);
             lessonModel.setClassroomModel(classroomModel);
             lessonModel.setCalendarModel(calendarModel);
             lessonModel.setCourseModel(courseModel);
@@ -121,6 +126,9 @@ public class LessonService extends ServiceTemplate {
             ProfessorModel professorModel = lessonModel.getProfessorModel() == null
                     ? result.getProfessorModel()
                     : lessonModel.getProfessorModel();
+            IntervalModel intervalModel = lessonModel.getProfessorModel() == null
+                    ? result.getIntervalModel()
+                    : lessonModel.getIntervalModel();
             ClassroomModel classroomModel = lessonModel.getClassroomModel() == null
                     ? result.getClassroomModel()
                     : lessonModel.getClassroomModel();
@@ -131,9 +139,30 @@ public class LessonService extends ServiceTemplate {
                     ? result.getCourseModel()
                     : lessonModel.getCourseModel();
 
+            if(intervalModel != null && professorModel != null) {
+            	List<RestrictionModel> restrictions = restrictionService.findByProfessorModel(professorModel);
+            	boolean check = true;
+            	for(RestrictionModel restrictionModel: restrictions) {
+            		if(restrictionModel.getWeekDayModel().equals(intervalModel.getWeekDayModel())) {
+                		if(restrictionModel.getShiftModel().equals(intervalModel.getShiftModel()) 
+                			||restrictionModel.getShiftModel().equals(shiftService.findByShift("Dia todo"))) {
+                            result.setProfessorModel(professorModel);
+                            result.setIntervalModel(intervalModel);
+                            check = false;
+                		}
+                	}        		
+            	}
+            	if(check) {
+            		throw new LessonInvalidException("Professor não pode ser escalado para este horario", 400);
+            	}
+            }else if(intervalModel != null) {
+            	result.setIntervalModel(intervalModel);
+            }else {
+            	result.setProfessorModel(professorModel);
+            }
+            
             result.setTurmaModel(turmaModel);
             result.setCurricularComponentModel(curricularComponentModel);
-            result.setProfessorModel(professorModel);
             result.setClassroomModel(classroomModel);
             result.setCalendarModel(calendarModel);
             result.setCourseModel(courseModel);

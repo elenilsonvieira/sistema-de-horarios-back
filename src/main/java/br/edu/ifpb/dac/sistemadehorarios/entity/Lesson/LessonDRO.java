@@ -8,7 +8,6 @@ import lombok.Setter;
 public class LessonDRO {
     private String turmaUuid;
     private String curricularComponentUuid;
-    private String professorUuid;
     private String classroomUuid;
     private String calendarUuid;
     private String courseUuid;

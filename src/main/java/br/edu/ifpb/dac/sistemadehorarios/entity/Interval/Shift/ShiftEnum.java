@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum ShiftEnum {
     MORNING("Manhã"),
     AFTERNOON("Tarde"),
-    NIGHT("Noite");
+    NIGHT("Noite"),
+    ALL_DAY("Dia todo");
 
     private String name;
     ShiftEnum(String name) {
