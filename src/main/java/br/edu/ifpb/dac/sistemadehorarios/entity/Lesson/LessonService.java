@@ -157,7 +157,7 @@ public class LessonService extends ServiceTemplate {
             	}
             }else if(intervalModel != null) {
             	result.setIntervalModel(intervalModel);
-            }else {
+            }else if(professorModel != null) {
             	result.setProfessorModel(professorModel);
             }
             
