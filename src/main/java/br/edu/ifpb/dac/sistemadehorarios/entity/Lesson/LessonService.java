@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
@@ -46,6 +47,8 @@ public class LessonService extends ServiceTemplate {
     private RestrictionService restrictionService;
     @Autowired
     private ShiftService shiftService;
+    @Autowired
+    private IntervalRepository intervalRepository;
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
@@ -126,7 +129,7 @@ public class LessonService extends ServiceTemplate {
             ProfessorModel professorModel = lessonModel.getProfessorModel() == null
                     ? result.getProfessorModel()
                     : lessonModel.getProfessorModel();
-            IntervalModel intervalModel = lessonModel.getProfessorModel() == null
+            IntervalModel intervalModel = lessonModel.getIntervalModel() == null
                     ? result.getIntervalModel()
                     : lessonModel.getIntervalModel();
             ClassroomModel classroomModel = lessonModel.getClassroomModel() == null
@@ -139,12 +142,14 @@ public class LessonService extends ServiceTemplate {
                     ? result.getCourseModel()
                     : lessonModel.getCourseModel();
 
+            intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
+
             if(intervalModel != null && professorModel != null) {
             	List<RestrictionModel> restrictions = restrictionService.findByProfessorModel(professorModel);
             	boolean check = true;
             	for(RestrictionModel restrictionModel: restrictions) {
-            		if(restrictionModel.getWeekDayModel().equals(intervalModel.getWeekDayModel())) {
-                		if(restrictionModel.getShiftModel().equals(intervalModel.getShiftModel()) 
+            		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
+                		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
                 			||restrictionModel.getShiftModel().equals(shiftService.findByShift("Dia todo"))) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
