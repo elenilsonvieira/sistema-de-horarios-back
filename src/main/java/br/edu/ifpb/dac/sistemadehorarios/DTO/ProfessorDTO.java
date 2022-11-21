@@ -10,15 +10,16 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProfessorDTO {
+	
+    private String uuid;
     private String name;
-    private String area;
-	private String uuid;
+    private ProfileDTO profileDTO;
 
 	public ProfessorDTO(ProfessorModel professor) {
-
-        this.name = professor.getName();
-        this.area = professor.getArea();
+        
 		this.uuid = professor.getUuid();
+        this.name = professor.getName();
+        this.profileDTO = new ProfileDTO(professor.getProfileModel());
     }
 
 	public static List<ProfessorDTO> convert(List<ProfessorModel> professor){

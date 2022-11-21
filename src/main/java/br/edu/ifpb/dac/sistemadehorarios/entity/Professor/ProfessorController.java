@@ -17,7 +17,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorModel professor) throws ProfessorInvalidException {
+    public ResponseEntity<ProfessorDTO> create(@RequestBody ProfessorDRO professor) throws ProfessorInvalidException {
         ProfessorModel result = this.professorService.create(professor);
         if(result!=null) {
             return ResponseEntity.status(201).body(new ProfessorDTO(result));

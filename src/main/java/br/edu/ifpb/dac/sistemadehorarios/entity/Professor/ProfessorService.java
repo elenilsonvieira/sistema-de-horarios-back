@@ -1,7 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Professor;
 
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileRepository;
 import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,24 @@ public class ProfessorService extends ServiceTemplate {
     @Autowired
     private ProfessorRepository repository;
 
-    public ProfessorModel create(ProfessorModel professor) throws ProfessorInvalidException {
+    @Autowired
+    private ProfileRepository profileRepository;
+
+    public ProfessorModel create(ProfessorDRO professor) throws ProfessorInvalidException {
         try{
-            boolean create = super.create(professor, this.repository);
-            if(create){
-                return professor;
+            ProfileModel profile = profileRepository.findByUuid(professor.getProfileUuid());
+            
+            if(profile != null){
+                ProfessorModel professorModel = new ProfessorModel();
+
+                professorModel.setName(professor.getName());
+                professorModel.setProfileModel(profile);
+
+                boolean result = super.create(professorModel, this.repository);
+                return result ? professorModel : null;
             }
-            return null;
+            throw new ProfessorInvalidException("Houve um problema para criar uma Classroom. Algum valor inválido foi informado", 400);
+
         }catch (Exception error) {
             throw new ProfessorInvalidException("Houve um problema para criar um Professor. Error: "+error.getMessage(), 400);
         }
@@ -44,9 +56,9 @@ public class ProfessorService extends ServiceTemplate {
             ProfessorModel result = this.repository.findByUuid(uuid);
 
             String name =professorModel.getName()==null? result.getName() : professorModel.getName();
-            String area = professorModel.getArea()==null? result.getArea() : professorModel.getArea();
+            ProfileModel profile = professorModel.getProfileModel()==null? result.getProfileModel() : professorModel.getProfileModel();
             result.setName(name);
-            result.setArea(area);
+            result.setProfileModel(profile);
             this.repository.save(result);
             return true;
         }catch (Exception error){

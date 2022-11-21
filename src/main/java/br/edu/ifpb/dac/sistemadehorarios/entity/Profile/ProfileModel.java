@@ -1,6 +1,5 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.Professor;
+package br.edu.ifpb.dac.sistemadehorarios.entity.Profile;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import com.fasterxml.uuid.Generators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,23 +12,21 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "professor")
-public class ProfessorModel implements Serializable {
+@Entity(name = "profile")
+public class ProfileModel implements Serializable {
 
-	@Column(unique = true, nullable = false)
-    private String name;
-	
-	@ManyToOne
-    @JoinColumn(name = "profile", nullable = false)
-    private ProfileModel profileModel;
-	
+	@Column(nullable = false)
+    private String field;
+	@Column(nullable = false)
+    private Integer standard;
+    
 	@Id
 	private String uuid;
 	private Date create_at = new Date();
 	@Column(updatable = true)
 	private Date update_at;
 
-	public ProfessorModel() {
+	public ProfileModel() {
 		this.uuid= Generators.randomBasedGenerator().generate().toString();
 	}
 }
