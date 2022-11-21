@@ -109,7 +109,7 @@ class IntervalServiceUnityTest {
 	void deleteRestriction() {
 		try {
 			String id = "id-mock";
-			boolean check = intervalService.delete(id, lessonMock.getUuid());
+			boolean check = intervalService.delete(id);
 			assertTrue(check);
 			
 		} catch (Exception e) {
