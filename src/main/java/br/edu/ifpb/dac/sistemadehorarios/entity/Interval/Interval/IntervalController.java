@@ -48,9 +48,9 @@ public class IntervalController {
         return ResponseEntity.status(404).body(null);
     }
 	
-	@DeleteMapping("/{uuid}/{lessonUuid}")
-	public ResponseEntity<String> delete(@PathVariable("uuid") String uuid, @PathVariable("lessonUuid") String lessonUuid){
-		boolean result = this.service.delete(uuid, lessonUuid);
+	@DeleteMapping("/{uuid}")
+	public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
+		boolean result = this.service.delete(uuid);
 		if (result) {
 			return ResponseEntity.status(200).body("OK");
 		}

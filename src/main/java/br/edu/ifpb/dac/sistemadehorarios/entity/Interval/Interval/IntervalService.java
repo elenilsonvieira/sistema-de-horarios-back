@@ -1,15 +1,12 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval;
 
-import java.util.Date;
 import java.util.List;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.interval.IntervalInvalidException;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonService;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
@@ -31,16 +28,9 @@ public class IntervalService extends ServiceTemplate {
     @Autowired
     private WeekDayService weekDayService;
 
-    @Autowired
-    private LessonService lessonService;
 	
 	public IntervalModel create(IntervalDRO intervalDRO) throws IntervalInvalidException {
         try{
-            LessonModel lesson = this.lessonService.findByUuid(intervalDRO.getLessonUuid());
-            if(lesson.getIntervalModel() != null){
-                throw new IntervalInvalidException("Houve um problema para criar um Interval. Já existe um intervalo nessa aula", 400);
-
-            }
             GapModel gap = this.gapService.findByUuid(intervalDRO.getGapUuid());
             ShiftModel shift = this.shiftService.findByUuid(intervalDRO.getShiftUuid());
             WeekDayModel weekDay = this.weekDayService.findByUuid(intervalDRO.getWeekDayUuid());
@@ -52,11 +42,8 @@ public class IntervalService extends ServiceTemplate {
                 intervalModel.setShiftModel(shift);
                 intervalModel.setWeekDayModel(weekDay);
 
-                lesson.setIntervalModel(intervalModel);
-                lesson.setUpdate_at(new Date());
                 boolean resultInterval = super.create(intervalModel, this.repository);
-                LessonModel resultLesson = this.lessonService.update(lesson, lesson.getUuid());
-                return (resultInterval && resultLesson != null) ? intervalModel : null;
+                return resultInterval == true ? intervalModel : null;
             }
             throw new IntervalInvalidException("Houve um problema para criar um Interval. Algum valor inválido foi informado", 400);
 
@@ -69,19 +56,14 @@ public class IntervalService extends ServiceTemplate {
 	public List<IntervalModel> read() {
         return (List<IntervalModel>) super.read(this.repository);
     }
-    public boolean delete(String uuid, String lessonUuid) {
-        LessonModel lesson = this.lessonService.findByUuid(lessonUuid);
-        lesson.setIntervalModel(null);
-        lesson.setUpdate_at(new Date());
-        LessonModel resultLesson = this.lessonService.update(lesson, lesson.getUuid());
+
+    public boolean delete(String uuid) {
         boolean resultInterval = super.delete(uuid, this.repository);
-        return resultInterval && resultLesson != null;
+        return resultInterval;
     }
 
     public IntervalModel findByUuid(String uuid) {
         return (IntervalModel) super.findByUuid(uuid, this.repository);
     }
-
-
 
 }
