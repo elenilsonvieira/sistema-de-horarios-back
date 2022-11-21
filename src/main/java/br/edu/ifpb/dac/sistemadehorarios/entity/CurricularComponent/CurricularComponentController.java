@@ -41,9 +41,9 @@ public class CurricularComponentController {
 
     @PutMapping("/{uuid}")
     public ResponseEntity<CurricularComponentDTO> update(@RequestBody CurricularComponentModel curricularComponentModel, @PathVariable("uuid") String uuid){
-        boolean result = this.service.update(curricularComponentModel, uuid);
-        if (result) {
-            return ResponseEntity.status(200).body(new CurricularComponentDTO(curricularComponentModel));
+        CurricularComponentModel result = this.service.update(curricularComponentModel, uuid);
+        if (result != null) {
+            return ResponseEntity.status(200).body(new CurricularComponentDTO(result));
         }
         return ResponseEntity.status(404).body(null);
     }

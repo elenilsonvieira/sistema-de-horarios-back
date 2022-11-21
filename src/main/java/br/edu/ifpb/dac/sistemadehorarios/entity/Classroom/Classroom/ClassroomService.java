@@ -55,7 +55,7 @@ public class ClassroomService extends ServiceTemplate {
         return (ClassroomModel) super.findByUuid(uuid, this.repository);
     }
 	
-	public boolean update(ClassroomModel classroom, String uuid) {
+	public ClassroomModel update(ClassroomModel classroom, String uuid) {
         try {
             ClassroomModel result = this.repository.findByUuid(uuid);
             ClassNameModel name = classroom.getClassNameModel()==null? result.getClassNameModel() : classroom.getClassNameModel();
@@ -63,10 +63,9 @@ public class ClassroomService extends ServiceTemplate {
 
             result.setClassNameModel(name);
             result.setClassBlockModel(block);
-            this.repository.save(result);
-            return true;
+            return this.repository.save(result);
         }catch (Exception error){
-            return false;
+            return null;
         }
     }
 

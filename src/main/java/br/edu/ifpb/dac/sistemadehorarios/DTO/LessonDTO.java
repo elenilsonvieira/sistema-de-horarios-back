@@ -23,14 +23,19 @@ public class LessonDTO {
 
     public LessonDTO(LessonModel lessonModel) {
         this.uuid = lessonModel.getUuid();
+
         this.curricularComponent = new CurricularComponentDTO(lessonModel.getCurricularComponentModel());
-        this.professor = new ProfessorDTO(lessonModel.getProfessorModel());
         this.turma = new TurmaDTO(lessonModel.getTurmaModel());
         this.classroom = new ClassroomDTO(lessonModel.getClassroomModel());
         this.calendar = new CalendarDTO(lessonModel.getCalendarModel());
-        var intervalModel = lessonModel.getIntervalModel();
-        this.interval = intervalModel != null ? new IntervalDTO(lessonModel.getIntervalModel()) : null;
         this.course = new CourseDTO(lessonModel.getCourseModel());
+
+        var professorModel = lessonModel.getProfessorModel();
+        this.professor = professorModel != null ? new ProfessorDTO(professorModel) : null;
+
+
+        var intervalModel = lessonModel.getIntervalModel();
+        this.interval = intervalModel != null ? new IntervalDTO(intervalModel) : null;
     }
 
     public static List<LessonDTO> convert(List<LessonModel> lessons) {

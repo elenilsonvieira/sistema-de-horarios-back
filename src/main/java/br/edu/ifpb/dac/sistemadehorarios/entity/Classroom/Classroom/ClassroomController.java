@@ -54,10 +54,9 @@ public class ClassroomController {
 	@PutMapping("/{uuid}")
 	public ResponseEntity<Object> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
 		try{
-
-			boolean result = this.service.update(classroom, uuid);
-			if (result) {
-				return ResponseEntity.status(200).body(new ClassroomDTO(classroom));
+			ClassroomModel result = this.service.update(classroom, uuid);
+			if (result != null) {
+				return ResponseEntity.status(200).body(new ClassroomDTO(result));
 			}
 			return ResponseEntity.status(404).body(null);
 		}catch(Exception error){

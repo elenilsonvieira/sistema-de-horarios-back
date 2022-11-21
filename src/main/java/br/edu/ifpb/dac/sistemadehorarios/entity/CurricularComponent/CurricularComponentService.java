@@ -40,7 +40,7 @@ public class CurricularComponentService extends ServiceTemplate {
        return (List<CurricularComponentModel>) super.read(this.repository);
     }
 
-    public boolean update(CurricularComponentModel curricularComponentModel, String uuid) {
+    public CurricularComponentModel update(CurricularComponentModel curricularComponentModel, String uuid) {
         try {
             CurricularComponentModel result = this.repository.findByUuid(uuid);
 
@@ -49,10 +49,9 @@ public class CurricularComponentService extends ServiceTemplate {
             result.setName(name);
             result.setWorkload(workload);
 
-            this.repository.save(result);
-            return true;
+            return this.repository.save(result);
         }catch (Exception error){
-            return false;
+            return null;
         }
     }
 

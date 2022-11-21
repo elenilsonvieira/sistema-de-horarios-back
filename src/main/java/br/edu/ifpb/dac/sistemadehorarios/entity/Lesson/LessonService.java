@@ -150,7 +150,7 @@ public class LessonService extends ServiceTemplate {
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
                 		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
-                			||restrictionModel.getShiftModel().equals(shiftService.findByShift("Dia todo"))) {
+                			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByShift("Dia todo").getUuid())) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
                             check = false;
