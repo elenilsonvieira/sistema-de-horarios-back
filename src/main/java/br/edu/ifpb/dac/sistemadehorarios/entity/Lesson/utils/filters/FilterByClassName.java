@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 
 import java.util.ArrayList;
@@ -19,8 +18,7 @@ public class FilterByClassName extends Filter {
             List<LessonModel> listLesson = new ArrayList<LessonModel>();
             for (LessonModel lesson: list) {
                 ClassroomModel classroomModel = lesson.getClassroomModel();
-                ClassNameModel classNameModel = classroomModel.getClassNameModel();
-                if(classNameModel.getName().equals(this.filter)){
+                if(classroomModel.getName().equals(this.filter)){
                     listLesson.add(lesson);
                 }
             }

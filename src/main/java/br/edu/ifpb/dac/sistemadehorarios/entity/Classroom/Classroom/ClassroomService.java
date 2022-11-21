@@ -3,14 +3,12 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom;
 import java.util.List;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.classroom.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 
 @Service
 public class ClassroomService extends ServiceTemplate {
@@ -21,18 +19,18 @@ public class ClassroomService extends ServiceTemplate {
     @Autowired
     private ClassBlockService classBlockService;
 
-    @Autowired
-    private ClassNameService classNameService;
 
 	public ClassroomModel create(ClassroomDRO classroomDRO) throws ClassroomInvalidException {
         try{
             ClassBlockModel classBlockModel = this.classBlockService.findByUuid(classroomDRO.getClassBlockUuid());
-            ClassNameModel classNameModel = this.classNameService.findByUuid(classroomDRO.getClassNameUuid());
-
-            if(classNameModel != null || classBlockModel != null) {
+            
+            if(classBlockModel != null) {
                 ClassroomModel classroomModel = new ClassroomModel();
+                
                 classroomModel.setClassBlockModel(classBlockModel);
-                classroomModel.setClassNameModel(classNameModel);
+                classroomModel.setName(classroomDRO.getName());
+                classroomModel.setCapacity(classroomDRO.getCapacity());
+
                 boolean result = super.create(classroomModel, this.repository);
                 return result ? classroomModel : null;
             }
@@ -58,10 +56,13 @@ public class ClassroomService extends ServiceTemplate {
 	public ClassroomModel update(ClassroomModel classroom, String uuid) {
         try {
             ClassroomModel result = this.repository.findByUuid(uuid);
-            ClassNameModel name = classroom.getClassNameModel()==null? result.getClassNameModel() : classroom.getClassNameModel();
+
+            String name = classroom.getName()==null? result.getName() : classroom.getName();
+            Integer capacity = classroom.getCapacity()==null? result.getCapacity() : classroom.getCapacity();
             ClassBlockModel block = classroom.getClassBlockModel()==null? result.getClassBlockModel() : classroom.getClassBlockModel();
 
-            result.setClassNameModel(name);
+            result.setName(name);
+            result.setCapacity(capacity);
             result.setClassBlockModel(block);
             return this.repository.save(result);
         }catch (Exception error){

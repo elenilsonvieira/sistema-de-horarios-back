@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonService;
@@ -23,15 +22,13 @@ public class LessonUnityTest {
 
     private LessonService lessonService = mock(LessonService.class);
 
-    private ClassroomModel classroomBuilder(String block, String name){
+    private ClassroomModel classroomBuilder(String block, String name, Integer capacity){
         ClassBlockModel classBlockModel = new ClassBlockModel();
         classBlockModel.setBlockName(block);
 
-        ClassNameModel classNameModel = new ClassNameModel();
-        classNameModel.setName(name);
-
         ClassroomModel classroomModel = new ClassroomModel();
-        classroomModel.setClassNameModel(classNameModel);
+        classroomModel.setName(name);
+        classroomModel.setCapacity(capacity);
         classroomModel.setClassBlockModel(classBlockModel);
         return classroomModel;
     }
@@ -39,16 +36,16 @@ public class LessonUnityTest {
     private List<LessonModel> getLessonsMock(){
 
         LessonModel lessonModel1 = new LessonModel();
-        lessonModel1.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 1"));
+        lessonModel1.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 1", 40));
 
         LessonModel lessonModel2 = new LessonModel();
-        lessonModel2.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 2"));
+        lessonModel2.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 2", 40));
 
         LessonModel lessonModel3 = new LessonModel();
-        lessonModel3.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 3"));
+        lessonModel3.setClassroomModel(this.classroomBuilder("Bloco A", "Sala 3", 40));
 
         LessonModel lessonModel4 = new LessonModel();
-        lessonModel4.setClassroomModel(this.classroomBuilder("Bloco B", "Sala 4"));
+        lessonModel4.setClassroomModel(this.classroomBuilder("Bloco B", "Sala 4", 40));
 
         ArrayList<LessonModel> lessonModelArrayList = new ArrayList<LessonModel>();
 

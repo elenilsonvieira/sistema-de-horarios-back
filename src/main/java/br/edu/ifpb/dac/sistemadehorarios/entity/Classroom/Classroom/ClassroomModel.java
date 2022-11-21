@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassName.ClassNameModel;
 import com.fasterxml.uuid.Generators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +16,10 @@ import java.util.Date;
 @Entity(name = "classroom")
 public class ClassroomModel implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "name", nullable = false)
-    private ClassNameModel classNameModel;
+    @Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private Integer capacity;
 
     @ManyToOne
     @JoinColumn(name = "block", nullable = false)

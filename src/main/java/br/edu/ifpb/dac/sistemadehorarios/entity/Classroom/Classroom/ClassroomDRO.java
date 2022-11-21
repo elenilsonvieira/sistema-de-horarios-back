@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassroomDRO {
-    private String classNameUuid;
+    private String name;
+    private Integer capacity;
     private String classBlockUuid;
 }

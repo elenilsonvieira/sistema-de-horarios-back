@@ -12,12 +12,14 @@ import lombok.Setter;
 public class ClassroomDTO {
 
 	private String uuid;
-	private ClassNameDTO classNameDTO;
+	private String name;
+    private Integer capacity;
 	private ClassBlockDTO classBlockDTO;
 	
 	public ClassroomDTO(ClassroomModel classroom) {
 		this.uuid = classroom.getUuid();
-		this.classNameDTO = new ClassNameDTO(classroom.getClassNameModel());
+		this.name = classroom.getName();
+		this.capacity = classroom.getCapacity();
 		this.classBlockDTO = new ClassBlockDTO(classroom.getClassBlockModel());
 	}
 	
