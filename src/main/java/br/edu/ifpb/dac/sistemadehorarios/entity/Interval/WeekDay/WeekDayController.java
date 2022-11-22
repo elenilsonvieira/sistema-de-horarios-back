@@ -29,6 +29,15 @@ public class WeekDayController {
         return ResponseEntity.status(404).body(null);
     }
 
+    @GetMapping("/get-by-displayName/{displayName}")
+    public ResponseEntity<WeekDayDTO> findByDisplayName(@PathVariable("displayName") String displayName) {
+        WeekDayModel result = this.service.findByDisplayName(displayName);
+        if(result !=  null){
+            return  ResponseEntity.status(200).body(new WeekDayDTO(result));
+        }
+        return ResponseEntity.status(404).body(null);
+    }
+
     @DeleteMapping("/{uuid}")
     public ResponseEntity<String> delete(@PathVariable("uuid") String uuid){
         boolean result = this.service.delete(uuid);

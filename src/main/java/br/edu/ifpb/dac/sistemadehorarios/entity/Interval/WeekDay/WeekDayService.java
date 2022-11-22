@@ -5,19 +5,27 @@ import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class WeekDayService extends ServiceTemplate {
+    
     @Autowired
     private WeekDayRepository repository;
 
     public void createDefaultValues() throws WeekDayException {
-        for (WeekDayEnum weekDayEnum: WeekDayEnum.values()) {
-            WeekDayModel weekDayModel = this.findByWeekDay(weekDayEnum.getName());
+        for (DayOfWeek day : DayOfWeek.values()) {
+            WeekDayModel weekDayModel = this.findByWeekDay(day);
+
             if(weekDayModel == null){
                 weekDayModel = new WeekDayModel();
-                weekDayModel.setWeekDay(weekDayEnum.getName());
+                weekDayModel.setDayOfWeek(day);
+                weekDayModel.setDisplayName(day.getDisplayName(
+                    TextStyle.FULL, Locale.forLanguageTag("pt")));
+
                 this.create(weekDayModel);
             }
         }
@@ -41,7 +49,11 @@ public class WeekDayService extends ServiceTemplate {
         return (WeekDayModel) super.findByUuid(uuid, this.repository);
     }
 
-    public WeekDayModel findByWeekDay(String weekDay){
-        return this.repository.findByWeekDay(weekDay);
+    public WeekDayModel findByWeekDay(DayOfWeek weekDay){
+        return this.repository.findByDayOfWeek(weekDay);
+    }
+
+    public WeekDayModel findByDisplayName(String displayName){
+        return this.repository.findByDisplayName(displayName);
     }
 }
