@@ -20,7 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name = "lesson")
-public class LessonModel implements Serializable {
+public class LessonModel implements Serializable, Comparable<LessonModel> {
 
     @ManyToOne
     @JoinColumn(name = "corricular_component_uuid", nullable = false)
@@ -58,5 +58,10 @@ public class LessonModel implements Serializable {
 
     public LessonModel() {
         this.uuid = Generators.randomBasedGenerator().generate().toString();
+    }
+
+    @Override
+    public int compareTo(LessonModel o) {
+        return intervalModel.compareTo(o.getIntervalModel());
     }
 }

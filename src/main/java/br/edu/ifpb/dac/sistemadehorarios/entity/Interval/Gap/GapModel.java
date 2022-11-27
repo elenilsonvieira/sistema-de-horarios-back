@@ -15,7 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name="gap")
-public class GapModel implements Serializable {
+public class GapModel implements Serializable, Comparable<GapModel> {
 
     @Column(nullable = false)
     private String gap;
@@ -27,5 +27,10 @@ public class GapModel implements Serializable {
 
     public GapModel() {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
+
+    @Override
+    public int compareTo(GapModel o) {    
+        return GapEnum.valueOf(this.gap).compareTo(GapEnum.valueOf(o.getGap()));
     }
 }

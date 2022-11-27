@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name="shift")
-public class ShiftModel implements Serializable {
+public class ShiftModel implements Serializable, Comparable<ShiftModel> {
 
     @Column(nullable = false)
     private String shift;
@@ -28,5 +28,10 @@ public class ShiftModel implements Serializable {
 
     public ShiftModel() {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
+
+    @Override
+    public int compareTo(ShiftModel o) {
+        return ShiftEnum.valueOf(this.shift).compareTo(ShiftEnum.valueOf(o.getShift()));
     }
 }

@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
@@ -27,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Service
 public class LessonService extends ServiceTemplate {
@@ -49,6 +52,8 @@ public class LessonService extends ServiceTemplate {
     private ShiftService shiftService;
     @Autowired
     private IntervalRepository intervalRepository;
+    @Autowired
+    private GapService gapService;
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
@@ -165,18 +170,44 @@ public class LessonService extends ServiceTemplate {
             }else if(professorModel != null) {
             	result.setProfessorModel(professorModel);
             }
-            
-            result.setTurmaModel(turmaModel);
-            result.setCurricularComponentModel(curricularComponentModel);
-            result.setClassroomModel(classroomModel);
-            result.setCalendarModel(calendarModel);
-            result.setCourseModel(courseModel);
 
-            if(super.update(result, this.repository))
-                return result;
+            if(validateExtremeHours(result)){
+                result.setTurmaModel(turmaModel);
+                result.setCurricularComponentModel(curricularComponentModel);
+                result.setClassroomModel(classroomModel);
+                result.setCalendarModel(calendarModel);
+                result.setCourseModel(courseModel);
+
+                if(super.update(result, this.repository))
+                    return result;
+            }else{
+                throw new LessonInvalidException("Não recomendado alocar aula neste horario com o professor "+result.getProfessorModel().getName(), 400);
+            }  
         } catch (Exception e) {
             return null;
         }
         return null;
+    }
+
+    private boolean validateExtremeHours (LessonModel newLesson){
+        List<LessonModel> result = repository.getByProfessorModelFilter(newLesson.getProfessorModel().getUuid());
+        SortedSet<LessonModel> lessons = new TreeSet<LessonModel>();
+        for(LessonModel lesson: result){
+            if(lesson.getIntervalModel() != null && !lesson.getUuid().equals(newLesson.getUuid())){
+                lessons.add(lesson);
+            }
+        }
+        lessons.add(newLesson);
+        if((newLesson.getUuid().equals(lessons.first().getUuid()) 
+        || newLesson.getUuid().equals(lessons.last().getUuid())) 
+        && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
+            if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0
+            && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0)
+            || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0
+            && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0)){
+                return false;
+            }
+        }
+        return true;
     }
 }
