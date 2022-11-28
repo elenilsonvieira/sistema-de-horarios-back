@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.Lesson;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
@@ -11,6 +12,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
@@ -27,6 +29,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Service
 public class LessonService extends ServiceTemplate {
@@ -49,6 +53,8 @@ public class LessonService extends ServiceTemplate {
     private ShiftService shiftService;
     @Autowired
     private IntervalRepository intervalRepository;
+    @Autowired
+    private GapService gapService;
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
@@ -116,7 +122,7 @@ public class LessonService extends ServiceTemplate {
         return Filter.getResult(filters, list);
     }
 
-    public LessonModel update(LessonModel lessonModel, String uuid) {
+    public LessonDTO update(LessonModel lessonModel, String uuid) {
         try {
             LessonModel result = this.repository.findByUuid(uuid);
 
@@ -165,18 +171,49 @@ public class LessonService extends ServiceTemplate {
             }else if(professorModel != null) {
             	result.setProfessorModel(professorModel);
             }
-            
+
             result.setTurmaModel(turmaModel);
             result.setCurricularComponentModel(curricularComponentModel);
             result.setClassroomModel(classroomModel);
             result.setCalendarModel(calendarModel);
             result.setCourseModel(courseModel);
-
-            if(super.update(result, this.repository))
-                return result;
+            if(super.update(result, this.repository)){
+                LessonDTO resultDTO = new LessonDTO(result);
+                if(validateExtremeHours(result)){
+                    return resultDTO;
+                }else{
+                    resultDTO.setTipMessage("Este horario não está bom para o professor:" +result.getProfessorModel().getName());
+                    return resultDTO;
+                }
+            }  
         } catch (Exception e) {
             return null;
         }
         return null;
+    }
+
+    private boolean validateExtremeHours (LessonModel newLesson){
+        List<LessonModel> result = repository.getByProfessorModelFilter(newLesson.getProfessorModel().getUuid());
+        SortedSet<LessonModel> lessons = new TreeSet<LessonModel>();
+        for(LessonModel lesson: result){
+            if(lesson.getIntervalModel() != null && !lesson.getUuid().equals(newLesson.getUuid())){
+                lessons.add(lesson);
+            }
+        }
+        lessons.add(newLesson);
+        if(lessons.size() > 1){
+            if((newLesson.getUuid().equals(lessons.first().getUuid()) 
+            || newLesson.getUuid().equals(lessons.last().getUuid())) 
+            && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
+                if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0)
+                || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0)){
+                    return true;
+                }
+                return false;
+            }
+        }
+        return true;
     }
 }

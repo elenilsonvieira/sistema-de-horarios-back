@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
@@ -144,7 +145,7 @@ class LessonServiceUnityTest {
 	void updateLesson() {
 		try {
 			String id = "id-mock";
-			LessonModel lessonModelTeste = lessonService.update(lessonMock, id);
+			LessonDTO lessonModelTeste = lessonService.update(lessonMock, id);
 			assertNotEquals(lessonModelTeste, null);
 			
 		} catch (Exception e) {

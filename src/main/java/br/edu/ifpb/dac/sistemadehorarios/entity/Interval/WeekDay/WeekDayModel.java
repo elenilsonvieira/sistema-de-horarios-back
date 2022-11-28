@@ -18,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name="week_day")
-public class WeekDayModel implements Serializable {
+public class WeekDayModel implements Serializable, Comparable<WeekDayModel> {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -35,5 +35,10 @@ public class WeekDayModel implements Serializable {
 
     public WeekDayModel() {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
+
+    @Override
+    public int compareTo(WeekDayModel o) {
+        return this.dayOfWeek.compareTo(o.getDayOfWeek());
     }
 }

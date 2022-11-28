@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name="interval_time") // se colocar só interval da erro
-public class IntervalModel implements Serializable {
+public class IntervalModel implements Serializable, Comparable<IntervalModel> {
 
     @ManyToOne
     @JoinColumn(name = "gap_uuid", nullable = false)
@@ -38,5 +38,28 @@ public class IntervalModel implements Serializable {
 
     public IntervalModel() {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
+
+    @Override
+    public int compareTo(IntervalModel o) {
+        if(this.weekDayModel.compareTo(o.getWeekDayModel()) < 0){
+            return -1;
+        }else if(this.weekDayModel.compareTo(o.getWeekDayModel()) > 0){
+            return 1;
+        }else{
+            if(this.shiftModel.compareTo(o.getShiftModel()) < 0){
+                return -1;
+            } else if(this.shiftModel.compareTo(o.getShiftModel()) > 0){
+                return 1;
+            } else {
+                if(this.gapModel.compareTo(o.getGapModel()) < 0){
+                    return -1;
+                } else if(this.gapModel.compareTo(o.getGapModel()) > 0){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
     }
 }
