@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,13 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ShiftDTO {
-    private String shift;
+    private ShiftEnum shift;
+    private String displayName;
     private String uuid;
 
     public ShiftDTO(ShiftModel shiftModel) {
-        this.shift = shiftModel.getShift();
+        this.shift = shiftModel.getShiftEnum();
+        this.displayName = shiftModel.getDisplayName();
         this.uuid = shiftModel.getUuid();
     }
 

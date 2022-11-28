@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +20,11 @@ import java.util.Date;
 public class GapModel implements Serializable, Comparable<GapModel> {
 
     @Column(nullable = false)
-    private String gap;
+    @Enumerated(EnumType.STRING)
+    private GapEnum gapEnum;
+
+    @Column(nullable = false)
+    private String displayName;
     @Id
     private String uuid;
     private Date create_at = new Date();
@@ -31,6 +37,6 @@ public class GapModel implements Serializable, Comparable<GapModel> {
 
     @Override
     public int compareTo(GapModel o) {    
-        return GapEnum.valueOf(this.gap).compareTo(GapEnum.valueOf(o.getGap()));
+        return this.gapEnum.compareTo(o.getGapEnum());
     }
 }

@@ -156,7 +156,7 @@ public class LessonService extends ServiceTemplate {
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
                 		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
-                			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByShift("Dia todo").getUuid())) {
+                			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByDisplayName("Dia todo").getUuid())) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
                             check = false;
@@ -205,10 +205,10 @@ public class LessonService extends ServiceTemplate {
             if((newLesson.getUuid().equals(lessons.first().getUuid()) 
             || newLesson.getUuid().equals(lessons.last().getUuid())) 
             && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
-                if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0
-                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0)
-                || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0
-                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0)){
+                if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) <= 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) > 0)
+                || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) > 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) <= 0)){
                     return true;
                 }
                 return false;
