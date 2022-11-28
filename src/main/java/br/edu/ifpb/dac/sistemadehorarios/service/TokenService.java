@@ -3,14 +3,10 @@ package br.edu.ifpb.dac.sistemadehorarios.service;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -39,36 +35,24 @@ public class TokenService {
         try {
             Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
             return true;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
 
-    public String generateTokenJwt(Authentication authentication) throws JsonProcessingException {
+    public String generateTokenJwt(Authentication authentication) {
         UserModel user = (UserModel) authentication.getPrincipal();
-        LocalDateTime expirationLocalDateTime = LocalDateTime.now().plusMinutes(Long.parseLong(expiration));
-        Instant expirationInstant = expirationLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        Date expirationDate = Date.from(expirationInstant);
-        return Jwts.builder()
-                .setIssuer("sistemaDeHorarios")
-                .setSubject(user.getUuid())
-                .claim("roles", user.getAuthorities())
-                .claim("email", user.getEmail())
-                .claim("name", user.getName())
-                .setIssuedAt(expirationDate)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+        return generateTokenJwt(user);
     }
+
     public String generateTokenJwt(UserModel user) {
         LocalDateTime expirationLocalDateTime = LocalDateTime.now().plusMinutes(Long.parseLong(expiration));
         Instant expirationInstant = expirationLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date expirationDate = Date.from(expirationInstant);
         return Jwts.builder()
                 .setIssuer("sistemaDeHorarios")
-                .setSubject(user.getUuid())
+                .setSubject(user.getEnrollment())
                 .claim("roles", user.getAuthorities())
-                .claim("email", user.getEmail())
                 .claim("name", user.getName())
                 .setIssuedAt(expirationDate)
                 .setExpiration(expirationDate)
@@ -88,14 +72,12 @@ public class TokenService {
         Claims claims = this.getClaims(token);
         return (Collection<? extends GrantedAuthority>) claims.get("roles");
     }
-    public String getEmail(String token) {
-        Claims claims = this.getClaims(token);
-        return (String) claims.get("email");
-    }
+
     public String getUuid(String token) {
         Claims claims = this.getClaims(token);
         return claims.getSubject();
     }
+
     public String getName(String token) {
         Claims claims = this.getClaims(token);
         return (String) claims.get("name");
@@ -105,17 +87,18 @@ public class TokenService {
         this.getClaims(token);
     }
 
-    private UserModel getUserByUserUuid(String uuid){
+    private UserModel getUserByUserUuid(String uuid) {
         return service.findByUuid(uuid);
     }
+
     public String refresh(String token, String uuid) throws UserInvalidException {
-        try{
+        try {
             this.isExpiration(token);
             return token;
-        }catch (ExpiredJwtException error){
+        } catch (ExpiredJwtException error) {
             UserModel user = this.getUserByUserUuid(uuid);
             return this.generateTokenJwt(user);
-        }catch (Exception error){
+        } catch (Exception error) {
             throw new UserInvalidException("Esse token é inválido", 400);
         }
     }

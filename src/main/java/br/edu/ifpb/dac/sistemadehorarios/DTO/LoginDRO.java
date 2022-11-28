@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.entity.User.utils;
+package br.edu.ifpb.dac.sistemadehorarios.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Getter
 @Setter
 public class LoginDRO {
-    private String email;
+    private String enrollment;
     private String pass;
 
     public UsernamePasswordAuthenticationToken converter() {
-        return new UsernamePasswordAuthenticationToken(email, pass);
+        return new UsernamePasswordAuthenticationToken(enrollment, pass);
     }
 }

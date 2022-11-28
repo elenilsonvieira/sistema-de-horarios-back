@@ -22,13 +22,9 @@ public class AuthenticationTokenFilterService extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
-//    public AuthenticationTokenFilterService(TokenService tokenService, UserService userService) {
-//        this.tokenService = tokenService;
-//        this.userService = userService;
-//    }
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String token = getToken(request);
         boolean isValid = this.tokenService.isValidToken(token);
 
@@ -41,10 +37,11 @@ public class AuthenticationTokenFilterService extends OncePerRequestFilter {
     private void authenticateClient(String token) {
         String uuid = tokenService.getUuid(token);
         UserModel user = userService.findByUuid(uuid);
-        if(user==null){
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+                user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
