@@ -20,6 +20,7 @@ public class LessonDTO {
     private ClassroomDTO classroom;
     private CalendarDTO calendar;
     private CourseDTO course;
+    private String tipMessage;
 
     public LessonDTO(LessonModel lessonModel) {
         this.uuid = lessonModel.getUuid();

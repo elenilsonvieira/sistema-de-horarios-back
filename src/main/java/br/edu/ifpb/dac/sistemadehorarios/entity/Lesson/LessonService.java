@@ -12,6 +12,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
@@ -121,7 +122,7 @@ public class LessonService extends ServiceTemplate {
         return Filter.getResult(filters, list);
     }
 
-    public LessonModel update(LessonModel lessonModel, String uuid) {
+    public LessonDTO update(LessonModel lessonModel, String uuid) {
         try {
             LessonModel result = this.repository.findByUuid(uuid);
 
@@ -171,17 +172,19 @@ public class LessonService extends ServiceTemplate {
             	result.setProfessorModel(professorModel);
             }
 
-            if(validateExtremeHours(result)){
-                result.setTurmaModel(turmaModel);
-                result.setCurricularComponentModel(curricularComponentModel);
-                result.setClassroomModel(classroomModel);
-                result.setCalendarModel(calendarModel);
-                result.setCourseModel(courseModel);
-
-                if(super.update(result, this.repository))
-                    return result;
-            }else{
-                throw new LessonInvalidException("Não recomendado alocar aula neste horario com o professor "+result.getProfessorModel().getName(), 400);
+            result.setTurmaModel(turmaModel);
+            result.setCurricularComponentModel(curricularComponentModel);
+            result.setClassroomModel(classroomModel);
+            result.setCalendarModel(calendarModel);
+            result.setCourseModel(courseModel);
+            if(super.update(result, this.repository)){
+                LessonDTO resultDTO = new LessonDTO(result);
+                if(validateExtremeHours(result)){
+                    return resultDTO;
+                }else{
+                    resultDTO.setTipMessage("Este horario não está bom para o professor:" +result.getProfessorModel().getName());
+                    return resultDTO;
+                }
             }  
         } catch (Exception e) {
             return null;
@@ -198,13 +201,16 @@ public class LessonService extends ServiceTemplate {
             }
         }
         lessons.add(newLesson);
-        if((newLesson.getUuid().equals(lessons.first().getUuid()) 
-        || newLesson.getUuid().equals(lessons.last().getUuid())) 
-        && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
-            if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0
-            && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0)
-            || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0
-            && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0)){
+        if(lessons.size() > 1){
+            if((newLesson.getUuid().equals(lessons.first().getUuid()) 
+            || newLesson.getUuid().equals(lessons.last().getUuid())) 
+            && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
+                if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0)
+                || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) > 0
+                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByGap("Terceira Aula")) <= 0)){
+                    return true;
+                }
                 return false;
             }
         }

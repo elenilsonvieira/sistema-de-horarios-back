@@ -51,10 +51,10 @@ public class LessonController {
 
     @PutMapping("/{uuid}")
     public ResponseEntity<LessonDTO> update(@RequestBody LessonModel lessonModel, @PathVariable("uuid") String uuid) {
-        LessonModel result = this.service.update(lessonModel, uuid);
+        LessonDTO result = this.service.update(lessonModel, uuid);
 
         if(result != null) {
-            return  ResponseEntity.status(200).body(new LessonDTO(result));
+            return  ResponseEntity.status(200).body(result);
         }
         return ResponseEntity.status(404).body(null);
     }
