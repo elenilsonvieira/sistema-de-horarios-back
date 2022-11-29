@@ -13,13 +13,16 @@ public class ProfessorDTO {
 	
     private String uuid;
     private String name;
-    private ProfileDTO profileDTO;
+    private ProfileDTO profile;
 
 	public ProfessorDTO(ProfessorModel professor) {
         
 		this.uuid = professor.getUuid();
         this.name = professor.getName();
-        this.profileDTO = new ProfileDTO(professor.getProfileModel());
+
+        var profileModel = professor.getProfileModel();
+        this.profile = profileModel != null ? new ProfileDTO(profileModel) : null;
+
     }
 
 	public static List<ProfessorDTO> convert(List<ProfessorModel> professor){
