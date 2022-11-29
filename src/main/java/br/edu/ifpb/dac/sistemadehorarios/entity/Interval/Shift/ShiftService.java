@@ -14,10 +14,11 @@ public class ShiftService extends ServiceTemplate {
 
     public void createDefaultValues() throws ShiftException {
         for (ShiftEnum shiftEnum: ShiftEnum.values()) {
-            ShiftModel shiftModel = this.findByShift(shiftEnum.getName());
+            ShiftModel shiftModel = this.findByDisplayName(shiftEnum.name());
             if(shiftModel == null){
                 shiftModel = new ShiftModel();
-                shiftModel.setShift(shiftEnum.getName());
+                shiftModel.setShiftEnum(shiftEnum);
+                shiftModel.setDisplayName(shiftEnum.getName());
                 this.create(shiftModel);
             }
         }
@@ -41,7 +42,11 @@ public class ShiftService extends ServiceTemplate {
         return (ShiftModel) super.findByUuid(uuid, this.repository);
     }
 
-    public ShiftModel findByShift(String shiftName){
-        return repository.findByShift(shiftName);
+    public ShiftModel findByShiftEnum(ShiftEnum shift){
+        return repository.findByShiftEnum(shift);
+    }
+
+    public ShiftModel findByDisplayName(String displayName){
+        return this.repository.findByDisplayName(displayName);
     }
 }

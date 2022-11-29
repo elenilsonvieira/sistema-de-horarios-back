@@ -14,10 +14,11 @@ public class GapService extends ServiceTemplate {
 
     public void createDefaultValues() throws GapException {
         for (GapEnum gapEnum: GapEnum.values()) {
-            GapModel gap = this.findByGap(gapEnum.getName());
+            GapModel gap = this.findByDisplayName(gapEnum.getName());
             if(gap == null){
                 gap = new GapModel();
-                gap.setGap(gapEnum.getName());
+                gap.setGapEnum(gapEnum);
+                gap.setDisplayName(gapEnum.getName());
                 this.create(gap);
             }
         }
@@ -42,7 +43,11 @@ public class GapService extends ServiceTemplate {
         return (GapModel) super.findByUuid(uuid, this.repository);
     }
 
-    public GapModel findByGap(String name){
-        return repository.findByGap(name);
+    public GapModel findByGapEnum(GapEnum gap){
+        return repository.findByGapEnum(gap);
+    }
+
+    public GapModel findByDisplayName(String displayName){
+        return this.repository.findByDisplayName(displayName);
     }
 }

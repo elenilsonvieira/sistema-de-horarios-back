@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +21,11 @@ import java.util.Date;
 public class ShiftModel implements Serializable, Comparable<ShiftModel> {
 
     @Column(nullable = false)
-    private String shift;
+    @Enumerated(EnumType.STRING)
+    private ShiftEnum shiftEnum;
+
+    @Column(nullable = false)
+    private String displayName;
     @Id
     private String uuid;
     private Date create_at = new Date();
@@ -32,6 +38,6 @@ public class ShiftModel implements Serializable, Comparable<ShiftModel> {
 
     @Override
     public int compareTo(ShiftModel o) {
-        return ShiftEnum.valueOf(this.shift).compareTo(ShiftEnum.valueOf(o.getShift()));
+        return this.shiftEnum.compareTo(o.getShiftEnum());
     }
 }

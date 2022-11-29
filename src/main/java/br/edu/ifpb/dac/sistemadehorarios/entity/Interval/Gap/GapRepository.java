@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GapRepository extends JpaRepository<GapModel, String> {
-    public GapModel findByGap(String gap);
+    
+    public GapModel findByGapEnum(GapEnum gap);
+    public GapModel findByDisplayName(String displayName);
 }

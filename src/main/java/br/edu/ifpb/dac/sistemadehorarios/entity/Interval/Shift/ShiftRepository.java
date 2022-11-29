@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShiftRepository extends JpaRepository<ShiftModel, String> {
-    public ShiftModel findByShift(String shift);
+    
+    public ShiftModel findByShiftEnum(ShiftEnum shift);
+    public ShiftModel findByDisplayName(String displayName);
 }

@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.DTO.interval;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,13 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class GapDTO {
-    private String gap;
+    private GapEnum gap;
+    private String displayName;
     private String uuid;
 
     public GapDTO(GapModel gapModel) {
-        this.gap = gapModel.getGap();
+        this.gap = gapModel.getGapEnum();
+        this.displayName = gapModel.getDisplayName();
         this.uuid = gapModel.getUuid();
     }
 
