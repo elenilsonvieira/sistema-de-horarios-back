@@ -178,39 +178,51 @@ public class LessonService extends ServiceTemplate {
             result.setClassroomModel(classroomModel);
             result.setCalendarModel(calendarModel);
             result.setCourseModel(courseModel);
-            if(super.update(result, this.repository)){
+
+            result = repository.save(result);
+            if (result != null) {
                 LessonDTO resultDTO = new LessonDTO(result);
-                if(intervalModel != null && professorModel != null) {
-                    if(!validateExtremeHours(result)){
-                        resultDTO.setTipMessage("Este horario não está bom para o professor:" +result.getProfessorModel().getName());
-                    }
+                if (intervalModel != null && professorModel != null && !validateExtremeHours(result)) {
+                    resultDTO.setTipMessage("Este horario não está bom para o professor: " + result.getProfessorModel().getName());
                 }
                 return resultDTO;
-            }  
+            }
         } catch (Exception e) {
             return null;
         }
         return null;
     }
 
-    private boolean validateExtremeHours (LessonModel newLesson){
+    private boolean validateExtremeHours(LessonModel newLesson) {
         List<LessonModel> result = repository.getByProfessorModelFilter(newLesson.getProfessorModel().getUuid());
+
         SortedSet<LessonModel> lessons = new TreeSet<>();
-        for(LessonModel lesson: result){
-            if(lesson.getIntervalModel() != null && !lesson.getUuid().equals(newLesson.getUuid())){
+        for (LessonModel lesson : result) {
+            if (lesson.getIntervalModel() != null && !lesson.getUuid().equals(newLesson.getUuid())) {
                 lessons.add(lesson);
             }
         }
         lessons.add(newLesson);
-        if(lessons.size() > 1){
-            if((newLesson.getUuid().equals(lessons.first().getUuid()) 
-            || newLesson.getUuid().equals(lessons.last().getUuid()))){
-                if((lessons.first().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0) 
-                 && (lessons.last().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.NIGHT)) != 0)){
+
+        if (lessons.size() > 1) {
+            LessonModel first = lessons.first();
+            LessonModel last = lessons.last();
+
+            if ((newLesson == first) || newLesson == last) {
+                boolean firstOnMorningShift = first.getIntervalModel().getShiftModel()
+                        .compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0;
+                boolean lastOnNightShift = last.getIntervalModel().getShiftModel()
+                        .compareTo(shiftService.findByShiftEnum(ShiftEnum.NIGHT)) == 0;
+
+                if (firstOnMorningShift && !lastOnNightShift) {
                     return true;
-                } else if((lessons.first().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) != 0) 
-                && (lessons.last().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) != 0)){
-                    return true;
+                } else {
+                    boolean lastOnMorningShift = last.getIntervalModel().getShiftModel()
+                            .compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0;
+
+                    if (!firstOnMorningShift && !lastOnMorningShift) {
+                        return true;
+                    }
                 }
                 return false;
             }
