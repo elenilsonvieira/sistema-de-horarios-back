@@ -180,12 +180,12 @@ public class LessonService extends ServiceTemplate {
             result.setCourseModel(courseModel);
             if(super.update(result, this.repository)){
                 LessonDTO resultDTO = new LessonDTO(result);
-                if(validateExtremeHours(result)){
-                    return resultDTO;
-                }else{
-                    resultDTO.setTipMessage("Este horario não está bom para o professor:" +result.getProfessorModel().getName());
-                    return resultDTO;
+                if(intervalModel != null && professorModel != null) {
+                    if(!validateExtremeHours(result)){
+                        resultDTO.setTipMessage("Este horario não está bom para o professor:" +result.getProfessorModel().getName());
+                    }
                 }
+                return resultDTO;
             }  
         } catch (Exception e) {
             return null;
@@ -204,12 +204,9 @@ public class LessonService extends ServiceTemplate {
         lessons.add(newLesson);
         if(lessons.size() > 1){
             if((newLesson.getUuid().equals(lessons.first().getUuid()) 
-            || newLesson.getUuid().equals(lessons.last().getUuid())) 
-            && (lessons.first().getIntervalModel().getShiftModel().getUuid().equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
-                if((lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) <= 0
-                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) > 0)
-                || (lessons.first().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) > 0
-                && lessons.last().getIntervalModel().getGapModel().compareTo(gapService.findByDisplayName("Terceira Aula")) <= 0)){
+            || newLesson.getUuid().equals(lessons.last().getUuid()))){
+                if((lessons.first().getIntervalModel().getShiftModel().getUuid()
+                .equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
                     return true;
                 }
                 return false;
