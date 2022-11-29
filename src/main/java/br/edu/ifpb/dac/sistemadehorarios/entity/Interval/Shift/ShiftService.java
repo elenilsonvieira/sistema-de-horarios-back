@@ -14,7 +14,7 @@ public class ShiftService extends ServiceTemplate {
 
     public void createDefaultValues() throws ShiftException {
         for (ShiftEnum shiftEnum: ShiftEnum.values()) {
-            ShiftModel shiftModel = this.findByDisplayName(shiftEnum.name());
+            ShiftModel shiftModel = this.findByShiftEnum(shiftEnum);
             if(shiftModel == null){
                 shiftModel = new ShiftModel();
                 shiftModel.setShiftEnum(shiftEnum);

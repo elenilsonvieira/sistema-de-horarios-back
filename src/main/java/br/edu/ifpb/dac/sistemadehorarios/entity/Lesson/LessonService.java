@@ -6,6 +6,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
@@ -156,7 +157,7 @@ public class LessonService extends ServiceTemplate {
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
                 		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
-                			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByDisplayName("Dia todo").getUuid())) {
+                			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByShiftEnum(ShiftEnum.ALL_DAY).getUuid())) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
                             check = false;
@@ -194,7 +195,7 @@ public class LessonService extends ServiceTemplate {
 
     private boolean validateExtremeHours (LessonModel newLesson){
         List<LessonModel> result = repository.getByProfessorModelFilter(newLesson.getProfessorModel().getUuid());
-        SortedSet<LessonModel> lessons = new TreeSet<LessonModel>();
+        SortedSet<LessonModel> lessons = new TreeSet<>();
         for(LessonModel lesson: result){
             if(lesson.getIntervalModel() != null && !lesson.getUuid().equals(newLesson.getUuid())){
                 lessons.add(lesson);
