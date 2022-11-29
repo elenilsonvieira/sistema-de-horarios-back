@@ -205,8 +205,11 @@ public class LessonService extends ServiceTemplate {
         if(lessons.size() > 1){
             if((newLesson.getUuid().equals(lessons.first().getUuid()) 
             || newLesson.getUuid().equals(lessons.last().getUuid()))){
-                if((lessons.first().getIntervalModel().getShiftModel().getUuid()
-                .equals(lessons.last().getIntervalModel().getShiftModel().getUuid()))){
+                if((lessons.first().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0) 
+                 && (lessons.last().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.NIGHT)) != 0)){
+                    return true;
+                } else if((lessons.first().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) != 0) 
+                && (lessons.last().getIntervalModel().getShiftModel().compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) != 0)){
                     return true;
                 }
                 return false;
