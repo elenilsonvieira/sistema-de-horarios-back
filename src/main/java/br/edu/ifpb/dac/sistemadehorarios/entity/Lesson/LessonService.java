@@ -28,10 +28,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomSer
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 @Service
 public class LessonService extends ServiceTemplate {
@@ -150,10 +147,11 @@ public class LessonService extends ServiceTemplate {
                     : lessonModel.getCourseModel();
 
             intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
+            List<RestrictionModel> restrictions = null;
 
             if(intervalModel != null && professorModel != null) {
-            	List<RestrictionModel> restrictions = restrictionService.findByProfessorModel(professorModel);
-            	boolean check = true;
+            	restrictions = restrictionService.findByProfessorModel(professorModel);
+                boolean check = true;
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
                 		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
@@ -182,7 +180,7 @@ public class LessonService extends ServiceTemplate {
             result = repository.save(result);
             if (result != null) {
                 LessonDTO resultDTO = new LessonDTO(result);
-                if (intervalModel != null && professorModel != null && !validateExtremeHours(result)) {
+                if (intervalModel != null && professorModel != null && !validateExtremeHours(result, restrictions)) {
                     resultDTO.setTipMessage("Este horario não está bom para o professor: " + result.getProfessorModel().getName());
                 }
                 return resultDTO;
@@ -193,8 +191,9 @@ public class LessonService extends ServiceTemplate {
         return null;
     }
 
-    private boolean validateExtremeHours(LessonModel newLesson) {
+    private boolean validateExtremeHours(LessonModel newLesson, List<RestrictionModel> restrictions) {
         List<LessonModel> result = repository.getByProfessorModelFilter(newLesson.getProfessorModel().getUuid());
+        Collections.sort(restrictions);
 
         SortedSet<LessonModel> lessons = new TreeSet<>();
         for (LessonModel lesson : result) {
@@ -207,24 +206,19 @@ public class LessonService extends ServiceTemplate {
         if (lessons.size() > 1) {
             LessonModel first = lessons.first();
             LessonModel last = lessons.last();
+            RestrictionModel lastRestriction = restrictions.get(restrictions.size() -1);
 
             if ((newLesson == first) || newLesson == last) {
                 boolean firstOnMorningShift = first.getIntervalModel().getShiftModel()
                         .compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0;
                 boolean lastOnNightShift = last.getIntervalModel().getShiftModel()
                         .compareTo(shiftService.findByShiftEnum(ShiftEnum.NIGHT)) == 0;
+                boolean lastRestrictionOnLastLesson = lastRestriction.getWeekDayModel()
+                        .compareTo(last.getIntervalModel().getWeekDayModel()) == 0;
 
-                if (firstOnMorningShift && !lastOnNightShift) {
-                    return true;
-                } else {
-                    boolean lastOnMorningShift = last.getIntervalModel().getShiftModel()
-                            .compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0;
-
-                    if (!firstOnMorningShift && !lastOnMorningShift) {
-                        return true;
-                    }
+                if (firstOnMorningShift && lastOnNightShift && lastRestrictionOnLastLesson) {
+                    return false;
                 }
-                return false;
             }
         }
         return true;

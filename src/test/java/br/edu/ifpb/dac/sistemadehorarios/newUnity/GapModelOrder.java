@@ -94,5 +94,27 @@ public class GapModelOrder {
         }
     }
 
+    @Test
+	@Order(3)
+    @Tag("order")
+    @DisplayName("Gap get index")
+    void testeListGetIndex() {
+        List<GapModel> gapModels = new ArrayList<GapModel>();
+
+        GapModel gap1 = new GapModel();
+        gap1.setGapEnum(GapEnum.valueOf("THIRD"));
+        GapModel gap2 = new GapModel();
+        gap2.setGapEnum(GapEnum.valueOf("FRIST"));
+        GapModel gap3 = new GapModel();
+        gap3.setGapEnum(GapEnum.valueOf("SECOND"));
+
+        gapModels.add(gap1);
+        gapModels.add(gap2);
+        gapModels.add(gap3);
+
+        Collections.sort(gapModels);
+        assertEquals(gapModels.get(gapModels.size() -1).getGapEnum(), GapEnum.valueOf("THIRD"));
+    }
+
 
 }
