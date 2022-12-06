@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "restriction")
-public class RestrictionModel implements Serializable {
+public class RestrictionModel implements Serializable, Comparable<RestrictionModel> {
 
 	@ManyToOne
     @JoinColumn(name = "professor_uuid", nullable = false)
@@ -45,5 +45,22 @@ public class RestrictionModel implements Serializable {
 	public RestrictionModel() {
 		this.uuid= Generators.randomBasedGenerator().generate().toString();
 	}
+
+	@Override
+    public int compareTo(RestrictionModel o) {
+        if(this.weekDayModel.compareTo(o.getWeekDayModel()) < 0){
+            return -1;
+        }else if(this.weekDayModel.compareTo(o.getWeekDayModel()) > 0){
+            return 1;
+        }else{
+            if(this.shiftModel.compareTo(o.getShiftModel()) < 0){
+                return -1;
+            } else if(this.shiftModel.compareTo(o.getShiftModel()) > 0){
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
 	
 }
