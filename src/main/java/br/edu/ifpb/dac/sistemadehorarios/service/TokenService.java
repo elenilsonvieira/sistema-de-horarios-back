@@ -51,7 +51,8 @@ public class TokenService {
         Date expirationDate = Date.from(expirationInstant);
         return Jwts.builder()
                 .setIssuer("sistemaDeHorarios")
-                .setSubject(user.getEnrollment())
+                .setSubject(user.getUuid())
+                .claim("enrollment", user.getEnrollment())
                 .claim("roles", user.getAuthorities())
                 .claim("name", user.getName())
                 .setIssuedAt(expirationDate)

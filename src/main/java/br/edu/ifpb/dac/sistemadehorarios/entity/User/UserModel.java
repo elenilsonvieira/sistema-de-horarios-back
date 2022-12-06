@@ -2,11 +2,12 @@ package br.edu.ifpb.dac.sistemadehorarios.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.uuid.Generators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,12 +17,13 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "system_user")
 public class UserModel implements UserDetails {
 
     @Id
+    private String uuid;
+    @Column(nullable = false)
     private String enrollment;
     @Column(nullable = false)
     private String name;
@@ -30,6 +32,10 @@ public class UserModel implements UserDetails {
     private Date create_at = new Date();
     @Column(updatable = true)
     private Date update_at;
+
+    public UserModel() {
+        this.uuid= Generators.randomBasedGenerator().generate().toString();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

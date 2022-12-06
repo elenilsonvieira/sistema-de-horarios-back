@@ -27,10 +27,10 @@ public class LoginService {
     public UserModel login(String enrollment, String password) {
         try {
 
-            if (userService.existsByUuid(enrollment)) {
+            if (userService.existsByEnrollment(enrollment)) {
                 // Will throw exception if SUAP login fails
                 this.suapToken = suapLogin(enrollment, password);
-                return userService.findByUuid(enrollment);
+                return userService.findByEnrollment(enrollment);
             }
             throw new Exception("Você não tem permissão para acessar esse sistema");
         } catch (Exception error) {

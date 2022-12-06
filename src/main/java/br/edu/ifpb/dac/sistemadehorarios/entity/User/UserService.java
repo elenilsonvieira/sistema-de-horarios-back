@@ -22,7 +22,7 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String enrollment) throws UsernameNotFoundException {
-        UserModel userModel = this.findByUuid(enrollment);
+        UserModel userModel = this.findByEnrollment(enrollment);
 
         if (userModel == null) {
             throw new UsernameNotFoundException("A matrícula não foi encontrada: " + enrollment);
@@ -31,8 +31,8 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
     }
 
     public void createDefaultValues() {
-        UserModel jan = findByUuid("202025020010");
-        UserModel iri = findByUuid("202025020005");
+        UserModel jan = findByEnrollment("202025020010");
+        UserModel iri = findByEnrollment("202025020005");
 
         String fullAcess = String.format("%s,%s,%s,%s",
                 RoleEnum.READ,
@@ -82,12 +82,24 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
         }
     }
 
+    public UserModel findByEnrollment(String enrollment) {
+        try {
+            return this.repository.findByEnrollment(enrollment);
+        } catch (Exception error) {
+            return null;
+        }
+    }
+
     public UserModel findByUuid(String uuid) {
         return (UserModel) super.findByUuid(uuid, this.repository);
     }
 
     public boolean existsByUuid(String uuid) {
         return repository.existsById(uuid);
+    }
+
+    public boolean existsByEnrollment(String enrollment) {
+        return repository.existsByEnrollment(enrollment);
     }
 
     public boolean delete(String uuid) {
