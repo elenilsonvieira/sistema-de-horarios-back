@@ -206,6 +206,7 @@ public class LessonService extends ServiceTemplate {
         if (lessons.size() > 1) {
             LessonModel first = lessons.first();
             LessonModel last = lessons.last();
+            RestrictionModel firstRestriction = restrictions.get(0);
             RestrictionModel lastRestriction = restrictions.get(restrictions.size() -1);
 
             if ((newLesson == first) || newLesson == last) {
@@ -213,10 +214,13 @@ public class LessonService extends ServiceTemplate {
                         .compareTo(shiftService.findByShiftEnum(ShiftEnum.MORNING)) == 0;
                 boolean lastOnNightShift = last.getIntervalModel().getShiftModel()
                         .compareTo(shiftService.findByShiftEnum(ShiftEnum.NIGHT)) == 0;
+                
+                boolean firstRestrictionOnFirstLesson = firstRestriction.getWeekDayModel()
+                        .compareTo(first.getIntervalModel().getWeekDayModel()) == 0;
                 boolean lastRestrictionOnLastLesson = lastRestriction.getWeekDayModel()
                         .compareTo(last.getIntervalModel().getWeekDayModel()) == 0;
 
-                if (firstOnMorningShift && lastOnNightShift && lastRestrictionOnLastLesson) {
+                if (firstOnMorningShift && lastOnNightShift && (lastRestrictionOnLastLesson || firstRestrictionOnFirstLesson)) {
                     return false;
                 }
             }
