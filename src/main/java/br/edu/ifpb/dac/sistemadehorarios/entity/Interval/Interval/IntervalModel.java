@@ -62,4 +62,20 @@ public class IntervalModel implements Serializable, Comparable<IntervalModel> {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof IntervalModel)) {
+            return false;
+        }else{
+            final IntervalModel intervalComp = (IntervalModel) obj;
+            if(this.getGapModel().getGapEnum().equals(intervalComp.getGapModel().getGapEnum())
+                && this.getShiftModel().getShiftEnum().equals(intervalComp.getShiftModel().getShiftEnum())
+                && this.getWeekDayModel().getDayOfWeek().equals(intervalComp.getWeekDayModel().getDayOfWeek())){
+                return true;
+            }
+            return false;
+        }   
+    }
+    
 }

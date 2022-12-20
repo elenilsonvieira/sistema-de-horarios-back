@@ -4,7 +4,9 @@ import java.util.List;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.interval.IntervalInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
@@ -28,7 +30,66 @@ public class IntervalService extends ServiceTemplate {
     @Autowired
     private WeekDayService weekDayService;
 
+    public void createDefaultValues() throws IntervalInvalidException {
+        List<IntervalModel> intervalList = this.read();
+        int minimumAmount = 96;
+
+        if(intervalList.size() < minimumAmount ){
+            List<GapModel> gapList = gapService.read();
+            List<WeekDayModel> weekDayList = weekDayService.read();
+
+            ShiftModel shiftMorning = shiftService.findByShiftEnum(ShiftEnum.MORNING);
+            ShiftModel shiftAfternoon = shiftService.findByShiftEnum(ShiftEnum.AFTERNOON);
+            ShiftModel shiftNight = shiftService.findByShiftEnum(ShiftEnum.NIGHT);
+        
+            for(WeekDayModel weekday: weekDayList){
+                for(GapModel gap: gapList){
+                    IntervalModel interval = new IntervalModel();
+                    interval.setGapModel(gap);
+                    interval.setWeekDayModel(weekday);
+                    interval.setShiftModel(shiftMorning);
+                    if(!intervalList.contains(interval)){
+                        this.create(interval);
+                    }
+                }
+            }
+
+            for(WeekDayModel weekday: weekDayList){
+                for(GapModel gap: gapList){
+                    IntervalModel interval = new IntervalModel();
+                    interval.setGapModel(gap);
+                    interval.setWeekDayModel(weekday);
+                    interval.setShiftModel(shiftAfternoon);
+                    if(!intervalList.contains(interval)){
+                        this.create(interval);
+                    }
+                }
+            }
+
+            for(WeekDayModel weekday: weekDayList){
+                for(GapModel gap: gapList){
+                    if(gap.getGapEnum().compareTo(GapEnum.FOURTH) < 1){
+                        IntervalModel interval = new IntervalModel();
+                        interval.setGapModel(gap);
+                        interval.setWeekDayModel(weekday);
+                        interval.setShiftModel(shiftNight);
+                        if(!intervalList.contains(interval)){
+                            this.create(interval);
+                        }
+                    }
+                }
+            }
+        }
+    }
 	
+    public boolean create(IntervalModel intervalModel) throws IntervalInvalidException {
+        try{
+            return super.create(intervalModel, this.repository);
+        }catch (Exception error){
+            throw new IntervalInvalidException("Houve um problema para criar um Interval. Erro: "+error.getMessage(), 400);
+        }
+    }
+
 	public IntervalModel create(IntervalDRO intervalDRO) throws IntervalInvalidException {
         try{
             GapModel gap = this.gapService.findByUuid(intervalDRO.getGapUuid());
