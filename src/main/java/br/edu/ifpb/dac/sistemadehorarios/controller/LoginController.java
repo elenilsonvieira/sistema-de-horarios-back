@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
-import br.edu.ifpb.dac.sistemadehorarios.DTO.LoginDRO;
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LoginDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TokenDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
@@ -28,9 +28,9 @@ public class LoginController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDRO loginDRO) {
+    public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
         try {
-            UserModel user = loginService.login(loginDRO.getEnrollment(), loginDRO.getPass());
+            UserModel user = loginService.login(loginDTO.getEnrollment(), loginDTO.getPass());
             String token = tokenService.generateTokenJwt(user);
 
             UserDTO userDTO = UserDTO.builder()
