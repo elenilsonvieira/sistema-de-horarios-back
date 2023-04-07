@@ -55,7 +55,7 @@ public class ProfessorService extends ServiceTemplate {
         try {
             ProfessorModel result = this.repository.findByUuid(uuid);
 
-            String name =professorModel.getName()==null? result.getName() : professorModel.getName();
+            String name = professorModel.getName()==null? result.getName() : professorModel.getName();
             ProfileModel profile = professorModel.getProfileModel()==null? result.getProfileModel() : professorModel.getProfileModel();
             result.setName(name);
             result.setProfileModel(profile);
