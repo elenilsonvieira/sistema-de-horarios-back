@@ -33,7 +33,7 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(1)
     @DisplayName("should be created a new profile")
-    void createNewProfile() {
+    public void createNewProfile() {
         try {
             assertNotEquals(profileService.create(profileModel), null);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(2)
     @DisplayName("should be listed profiles")
-    void readProfiles() {
+    public void readProfiles() {
         try {
             List<ProfileModel> profileModels = profileService.read();
             profileModels.add(profileModel);
@@ -57,7 +57,7 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(3)
     @DisplayName("should be founded a profile")
-    void findOneProfileById() {
+    public void findOneProfileById() {
         try {
             String id = "id-test";
             ProfileModel profileModel = profileService.findByUuid(id);
@@ -70,7 +70,7 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(4)
     @DisplayName("should be updated a profile")
-    void updateOneProfileById() {
+    public void updateOneProfileById() {
         try {
             String id = "id-test";
             profileModel.setStandard(2);
@@ -83,7 +83,7 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(5)
     @DisplayName("should be deleted a profile")
-    void deleteOneProfileById() {
+    public void deleteOneProfileById() {
         try {
             String id = "id-test";
             assertNotEquals(profileService.delete(id), false);
