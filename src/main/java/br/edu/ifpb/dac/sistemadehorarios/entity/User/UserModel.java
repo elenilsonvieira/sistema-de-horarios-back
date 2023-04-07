@@ -51,6 +51,14 @@ public class UserModel implements UserDetails {
         return null;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
     public String getUsername() {
         return this.getEnrollment();
