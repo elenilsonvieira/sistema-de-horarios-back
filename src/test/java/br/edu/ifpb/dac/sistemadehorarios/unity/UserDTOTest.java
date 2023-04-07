@@ -20,6 +20,10 @@ public class UserDTOTest {
 
         List<UserDTO> listDTO = new ArrayList<UserDTO>();
         listDTO.add(new UserDTO(user));
-        assertEquals(listDTO , UserDTO.convert(listUser));
+
+        assertEquals(listDTO.get(0).getName() , UserDTO.convert(listUser).get(0).getName());
+        assertEquals(listDTO.get(0).getEnrollment() , UserDTO.convert(listUser).get(0).getEnrollment());
+        assertEquals(listDTO.get(0).getToken() , UserDTO.convert(listUser).get(0).getToken());
+
     }
 }
