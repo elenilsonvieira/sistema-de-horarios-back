@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LoginDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.RoleEnum;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.LoginDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -45,10 +45,10 @@ public class UserIntegrationTest {
     @Order(1)
     public void postUserWithoutSecretKeyAndWithoutToken() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setEmail("4e0a8fdc-22cd-4fe6-8129-559b1236c86c");
+        userModel.setEnrollment("312231");
         userModel.setName("João Victor Lacerda");
         userModel.setRoles(String.format("%s,%s", RoleEnum.READ, RoleEnum.EDIT));
-        userModel.setPass("123456");
+
 
         mockMvc.perform(
                 post("/user")
@@ -60,8 +60,8 @@ public class UserIntegrationTest {
     @Test
     @Order(3)
     public void login() throws Exception {
-        LoginDRO login = new LoginDRO();
-        login.setEmail("victor.queiroz@academico.ifpb.edu.br");
+        LoginDTO login = new LoginDTO();
+        login.setEnrollment("21313231");
         login.setPass(this.passwordVictor);
 
         ResultActions result = mockMvc.perform(
@@ -84,10 +84,9 @@ public class UserIntegrationTest {
     public void postUserWithSecretKeyAndToken() throws Exception {
 
         UserModel userModel = new UserModel();
-        userModel.setEmail("4e0a8fdc-22cd-4fe6-8129-559b1236c86c");
+        userModel.setEnrollment("213123123");
         userModel.setName("Fulano");
         userModel.setRoles(String.format("%s,%s", RoleEnum.READ, RoleEnum.EDIT));
-        userModel.setPass("123456");
         userModel.setCreate_at(null);
 
         UserIntegrationTest.userUuid = userModel.getUuid();

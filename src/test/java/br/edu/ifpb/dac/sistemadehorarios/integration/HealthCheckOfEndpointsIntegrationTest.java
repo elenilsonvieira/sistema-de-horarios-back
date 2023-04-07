@@ -1,7 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
+import br.edu.ifpb.dac.sistemadehorarios.DTO.LoginDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.utils.LoginDRO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,8 +19,7 @@ public abstract class HealthCheckOfEndpointsIntegrationTest {
     public static String token;
 
     public void login(MockMvc mockMvc, ObjectMapper objectMapper, String passwordVictor) throws Exception {
-        LoginDRO login = new LoginDRO();
-        login.setEmail("victor.queiroz@academico.ifpb.edu.br");
+        LoginDTO login = new LoginDTO();
         login.setPass(passwordVictor);
 
         ResultActions result = mockMvc.perform(
