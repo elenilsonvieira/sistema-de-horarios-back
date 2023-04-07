@@ -2,6 +2,8 @@ package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,29 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProfileServiceUnityTest {
+public class TurmaServiceUnityTest {
 
     @Autowired
-    private ProfileService profileService;
+    private TurmaService turmaService;
 
-    private static ProfileModel profileModel;
+    private static TurmaModel turmaModel;
 
     @BeforeAll
     public static void setUp() {
-        profileModel = new ProfileModel();
-        profileModel.setUuid("id-test");
-        profileModel.setField("Field");
-        profileModel.setCreate_at(new Date());
-        profileModel.setStandard(1);
+        turmaModel = new TurmaModel();
+        turmaModel.setName("Turma Teste");
+        turmaModel.setUuid("id-test");
+        turmaModel.setCreate_at(new Date());
     }
 
 
     @Test
     @Order(1)
-    @DisplayName("should be created a new profile")
-    void createNewProfile() {
+    @DisplayName("should be created a new turma")
+    void createNewTurma() {
         try {
-            assertNotEquals(profileService.create(profileModel), null);
+            assertNotEquals(turmaService.create(turmaModel), null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,12 +44,12 @@ public class ProfileServiceUnityTest {
 
     @Test
     @Order(2)
-    @DisplayName("should be listed profiles")
-    void readProfiles() {
+    @DisplayName("should be listed turmas")
+    void readTurma() {
         try {
-            List<ProfileModel> profileModels = profileService.read();
-            profileModels.add(profileModel);
-            assertNotEquals(profileModels.size(), 0);
+            List<TurmaModel> turmaModels = turmaService.read();
+            turmaModels.add(turmaModel);
+            assertNotEquals(turmaModels.size(), 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,12 +57,11 @@ public class ProfileServiceUnityTest {
 
     @Test
     @Order(3)
-    @DisplayName("should be founded a profile")
-    void findOneProfileById() {
+    @DisplayName("should be founded a turma")
+    void findOneTurmaById() {
         try {
             String id = "id-test";
-            ProfileModel profileModel = profileService.findByUuid(id);
-            assertNotEquals(profileModel, null);
+            assertNotEquals(turmaService.findByUuid(id), null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,12 +69,12 @@ public class ProfileServiceUnityTest {
 
     @Test
     @Order(4)
-    @DisplayName("should be updated a profile")
-    void updateOneProfileById() {
+    @DisplayName("should be updated a turma")
+    void updateOneTurmaById() {
         try {
             String id = "id-test";
-            profileModel.setStandard(2);
-            assertNotEquals(profileService.update(profileModel, id), false);
+            turmaModel.setName("Turma Teste 2");
+            assertNotEquals(turmaService.update(turmaModel, id), false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,13 +82,14 @@ public class ProfileServiceUnityTest {
 
     @Test
     @Order(5)
-    @DisplayName("should be deleted a profile")
-    void deleteOneProfileById() {
+    @DisplayName("should be deleted a turma")
+    void deleteOneTurmaById() {
         try {
             String id = "id-test";
-            assertNotEquals(profileService.delete(id), false);
+            assertNotEquals(turmaService.delete(id), false);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
