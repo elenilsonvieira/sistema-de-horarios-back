@@ -19,6 +19,7 @@ public class UserDTOTest {
         listUser.add(user);
 
         List<UserDTO> listDTO = new ArrayList<UserDTO>();
+        listDTO.add(new UserDTO(user));
         assertEquals(listDTO , UserDTO.convert(listUser));
     }
 }
