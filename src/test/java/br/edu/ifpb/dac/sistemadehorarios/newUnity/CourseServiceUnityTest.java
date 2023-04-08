@@ -2,8 +2,6 @@ package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +27,7 @@ public class CourseServiceUnityTest {
         courseModel.setUuid("id-test");
         courseModel.setCreate_at(new Date());
     }
+
 
     @Test
     @Order(1)

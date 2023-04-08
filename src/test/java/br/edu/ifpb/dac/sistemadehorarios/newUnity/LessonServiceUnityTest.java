@@ -17,19 +17,28 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 
 @SpringBootTest

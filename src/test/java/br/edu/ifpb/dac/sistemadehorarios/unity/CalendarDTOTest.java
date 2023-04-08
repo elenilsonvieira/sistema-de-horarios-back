@@ -3,7 +3,6 @@ package br.edu.ifpb.dac.sistemadehorarios.unity;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CalendarDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CalendarDTOTest {
 
     @Test
-    @DisplayName("Conversion Test")
     public void convertTest() {
         List<CalendarModel> listCalendar = new ArrayList<CalendarModel>();
         CalendarModel calendarModel = new CalendarModel();

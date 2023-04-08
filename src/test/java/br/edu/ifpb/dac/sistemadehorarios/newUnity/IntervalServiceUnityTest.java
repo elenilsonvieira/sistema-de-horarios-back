@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
