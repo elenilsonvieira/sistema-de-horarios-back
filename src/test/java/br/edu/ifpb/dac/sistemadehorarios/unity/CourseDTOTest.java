@@ -5,6 +5,7 @@ import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CourseDTOTest {
 
     @Test
+    @DisplayName("Test Conversion Model to DTO")
     public void convertTest(){
         List<CourseModel> listCourses = new ArrayList<CourseModel>();
         CourseModel courseModel = new CourseModel();
