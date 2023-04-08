@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.unity;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TurmaDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClassDTOTest {
     @Test
+    @DisplayName("Conversion Test")
     public void convertTest(){
         List<TurmaModel> listClass = new ArrayList<TurmaModel>();
         TurmaModel classs = new TurmaModel();
