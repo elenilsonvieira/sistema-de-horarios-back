@@ -5,7 +5,6 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
-import br.edu.ifpb.dac.sistemadehorarios.exception.ProfileInvalidException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +28,6 @@ public class ProfessorServiceUnityTest {
 
     private static ProfessorModel professorModel;
 
-    private ProfileModel profileModel;
-
     @BeforeAll
     public static void setUp() {
         professorDRO = new ProfessorDRO();
@@ -45,7 +42,7 @@ public class ProfessorServiceUnityTest {
     @DisplayName("should be created a new professor")
     public void createNewProfessor() {
         try {
-            profileModel = new ProfileModel();
+            ProfileModel profileModel = new ProfileModel();
             profileModel.setUuid("id-test2");
             profileModel.setField("Field");
             profileModel.setCreate_at(new Date());
