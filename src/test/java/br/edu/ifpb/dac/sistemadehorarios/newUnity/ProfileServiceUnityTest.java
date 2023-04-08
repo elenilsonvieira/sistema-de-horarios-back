@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
 import org.junit.jupiter.api.*;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

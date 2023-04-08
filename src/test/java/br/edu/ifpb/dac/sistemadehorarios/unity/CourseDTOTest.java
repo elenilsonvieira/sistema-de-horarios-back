@@ -1,9 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.CourseDTO;
-import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
