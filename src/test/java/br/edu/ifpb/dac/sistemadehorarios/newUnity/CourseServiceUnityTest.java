@@ -30,7 +30,6 @@ public class CourseServiceUnityTest {
         courseModel.setCreate_at(new Date());
     }
 
-
     @Test
     @Order(1)
     @DisplayName("should be created a new course")

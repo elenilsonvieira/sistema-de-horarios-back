@@ -2,7 +2,6 @@ package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
