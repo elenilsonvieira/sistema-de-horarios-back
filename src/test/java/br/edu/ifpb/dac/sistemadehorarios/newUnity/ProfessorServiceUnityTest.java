@@ -5,6 +5,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
+import br.edu.ifpb.dac.sistemadehorarios.exception.ProfileInvalidException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,23 +22,36 @@ public class ProfessorServiceUnityTest {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private ProfileService profileService;
+
     private static ProfessorDRO professorDRO;
 
     private static ProfessorModel professorModel;
+
+    private ProfileModel profileModel;
 
     @BeforeAll
     public static void setUp() {
         professorDRO = new ProfessorDRO();
         professorDRO.setName("Fernando");
-        professorDRO.setProfileUuid("id-test");
+        professorDRO.setProfileUuid("id-test2");
+
     }
 
 
     @Test
     @Order(1)
     @DisplayName("should be created a new professor")
-    public void createNewProfile() {
+    public void createNewProfessor() {
         try {
+            profileModel = new ProfileModel();
+            profileModel.setUuid("id-test2");
+            profileModel.setField("Field");
+            profileModel.setCreate_at(new Date());
+            profileModel.setStandard(1);
+            profileService.create(profileModel);
+
             professorModel = professorService.create(professorDRO);
             assertNotEquals(professorModel, null);
         } catch (Exception e) {
@@ -48,7 +62,7 @@ public class ProfessorServiceUnityTest {
     @Test
     @Order(2)
     @DisplayName("should be listed professors")
-    public void readAndFundedProfiles() {
+    public void readAndFundedProfessors() {
         try {
             List<ProfessorModel> professorModels = professorService.read();
             professorModels.add(professorModel);
@@ -62,11 +76,10 @@ public class ProfessorServiceUnityTest {
     @Test
     @Order(3)
     @DisplayName("should be updated a professor")
-    public void updateOneProfileById() {
+    public void updateOneProfessorById() {
         try {
-            String id = "id-test";
             professorModel.setName("Junior");
-            assertNotEquals(professorService.update(professorModel, id), false);
+            assertNotEquals(professorService.update(professorModel, professorModel.getUuid()), false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,11 +88,9 @@ public class ProfessorServiceUnityTest {
     @Test
     @Order(4)
     @DisplayName("should be deleted a professor")
-    public void deleteOneProfileById() {
+    public void deleteOneProfessorById() {
         try {
-            String id = "id-test";
-            System.out.println(professorModel.getUuid());
-            assertNotEquals(professorService.delete(id), false);
+            assertNotEquals(professorService.delete(professorModel.getUuid()), false);
         } catch (Exception e) {
             e.printStackTrace();
         }

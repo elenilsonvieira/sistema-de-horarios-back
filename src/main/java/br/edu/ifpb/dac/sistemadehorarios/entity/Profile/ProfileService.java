@@ -22,7 +22,7 @@ public class  ProfileService extends ServiceTemplate {
             }
             return null;
         }catch (Exception error) {
-            throw new ProfileInvalidException("Houve um problema para criar um Profile. Error: "+error.getMessage(), 400);
+            throw new ProfileInvalidException("Houve um problema para criar um Profile. Error: " + error.getMessage(), 400);
         }
     }
 
