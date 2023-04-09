@@ -31,6 +31,4 @@ import org.junit.platform.suite.api.Suite;
         LessonDTOTest.class
 
 })
-public class TestSuite {
-
-}
+public class TestSuite {}

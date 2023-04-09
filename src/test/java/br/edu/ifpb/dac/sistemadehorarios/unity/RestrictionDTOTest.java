@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class RestrictionDTOTest {
 
@@ -65,5 +66,7 @@ public class RestrictionDTOTest {
         assertEquals(listDTO.get(0).getShiftDTO().getUuid() , RestrictionDTO.convert(listRestriction).get(0).getShiftDTO().getUuid());
         assertEquals(listDTO.get(0).getProfessorDTO().getUuid() , RestrictionDTO.convert(listRestriction).get(0).getProfessorDTO().getUuid());
         assertEquals(listDTO.get(0).getWeekDayDTO().getUuid(), RestrictionDTO.convert(listRestriction).get(0).getWeekDayDTO().getUuid());
+
+        assertNotEquals(-1, RestrictionDTO.convert(listRestriction).get(0).getUuid());
     }
 }

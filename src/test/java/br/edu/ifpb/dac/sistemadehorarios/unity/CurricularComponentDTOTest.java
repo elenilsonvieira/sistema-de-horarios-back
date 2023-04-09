@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CurricularComponentDTOTest {
 
@@ -52,6 +53,6 @@ public class CurricularComponentDTOTest {
         assertEquals(listDTO.get(0).getWorkload() , CurricularComponentDTO.convert(listCurricularComponentModels).get(0).getWorkload());
         assertEquals(listDTO.get(0).getName() , CurricularComponentDTO.convert(listCurricularComponentModels).get(0).getName());
         assertEquals(listDTO.get(0).getCourse().getUuid() , CurricularComponentDTO.convert(listCurricularComponentModels).get(0).getCourse().getUuid());
-
+        assertNotEquals(-1, CurricularComponentDTO.convert(listCurricularComponentModels).get(0).getUuid());
     }
 }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class IntervalDTOSTest {
 
@@ -63,11 +64,11 @@ public class IntervalDTOSTest {
         assertEquals(listDTO.get(0).getUuid() , WeekDayDTO.convert(listWeek).get(0).getUuid());
         assertEquals(listDTO.get(0).getDayOfWeek().getValue() , WeekDayDTO.convert(listWeek).get(0).getDayOfWeek().getValue());
         assertEquals(listDTO.get(0).getDisplayName() , WeekDayDTO.convert(listWeek).get(0).getDisplayName());
-
+        assertNotEquals(-1, WeekDayDTO.convert(listWeek).get(0).getUuid());
     }
 
     @Test
-    @Order(1)
+    @Order(2)
     @DisplayName("Conversion ShiftModel to ShiftDTO")
     public void convertShift(){
         List<ShiftModel> listShift = new ArrayList<ShiftModel>();
@@ -79,10 +80,11 @@ public class IntervalDTOSTest {
         assertEquals(listDTO.get(0).getUuid() , ShiftDTO.convert(listShift).get(0).getUuid());
         assertEquals(listDTO.get(0).getShift().getName() , ShiftDTO.convert(listShift).get(0).getShift().getName());
         assertEquals(listDTO.get(0).getDisplayName() , ShiftDTO.convert(listShift).get(0).getDisplayName());
+        assertNotEquals(-1, ShiftDTO.convert(listShift).get(0).getUuid());
     }
 
     @Test
-    @Order(1)
+    @Order(3)
     @DisplayName("Conversion GapModel to GapDTO")
     public void convertGap(){
         List<GapModel> listGap = new ArrayList<GapModel>();
@@ -94,10 +96,11 @@ public class IntervalDTOSTest {
         assertEquals(listDTO.get(0).getUuid() , GapDTO.convert(listGap).get(0).getUuid());
         assertEquals(listDTO.get(0).getGap().getName() , GapDTO.convert(listGap).get(0).getGap().getName());
         assertEquals(listDTO.get(0).getDisplayName() , GapDTO.convert(listGap).get(0).getDisplayName());
+        assertNotEquals(-1, GapDTO.convert(listGap).get(0).getUuid());
     }
 
     @Test
-    @Order(1)
+    @Order(4)
     @DisplayName("Conversion IntervalModel to IntervalDTO")
     public void convertInterval(){
         List<IntervalModel> listInterval = new ArrayList<IntervalModel>();
@@ -110,5 +113,6 @@ public class IntervalDTOSTest {
         assertEquals(listDTO.get(0).getGapDTO().getUuid() , IntervalDTO.convert(listInterval).get(0).getGapDTO().getUuid());
         assertEquals(listDTO.get(0).getShiftDTO().getUuid() , IntervalDTO.convert(listInterval).get(0).getShiftDTO().getUuid());
         assertEquals(listDTO.get(0).getWeekDayDTO().getUuid() , IntervalDTO.convert(listInterval).get(0).getWeekDayDTO().getUuid());
+        assertNotEquals(-1, IntervalDTO.convert(listInterval).get(0).getUuid());
     }
 }

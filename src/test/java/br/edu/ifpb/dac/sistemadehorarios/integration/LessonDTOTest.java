@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class LessonDTOTest {
 
@@ -106,7 +107,6 @@ public class LessonDTOTest {
     }
 
     @Test
-    @Order(1)
     @DisplayName("Conversion Model to DTO")
     public void convert(){
         List<LessonModel> listLessons = new ArrayList<LessonModel>();
@@ -122,6 +122,6 @@ public class LessonDTOTest {
         assertEquals(listDTO.get(0).getInterval().getUuid() , LessonDTO.convert(listLessons).get(0).getInterval().getUuid());
         assertEquals(listDTO.get(0).getTurma().getUuid() , LessonDTO.convert(listLessons).get(0).getTurma().getUuid());
         assertEquals(listDTO.get(0).getCurricularComponent().getUuid() , LessonDTO.convert(listLessons).get(0).getCurricularComponent().getUuid());
-
+        assertNotEquals(-1, LessonDTO.convert(listLessons).get(0).getUuid());
     }
 }

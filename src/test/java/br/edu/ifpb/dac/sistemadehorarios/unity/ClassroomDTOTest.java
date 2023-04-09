@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ClassroomDTOTest {
 
@@ -34,5 +35,6 @@ public class ClassroomDTOTest {
 
         assertEquals(listDTO.get(0).getUuid() , ClassroomDTO.convert(listClass).get(0).getUuid());
         assertEquals(listDTO.get(0).getName() , ClassroomDTO.convert(listClass).get(0).getName());
+        assertNotEquals(-1, ClassroomDTO.convert(listClass).get(0).getUuid());
     }
 }
