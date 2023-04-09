@@ -26,6 +26,7 @@ public class ProfileDTOTest {
         List<ProfileDTO> listDTO = new ArrayList<ProfileDTO>();
         listDTO.add(new ProfileDTO(profileModel));
 
+        assertEquals(listDTO.get(0).getUuid() , ProfileDTO.convert(listProfile).get(0).getUuid());
         assertEquals(listDTO.get(0).getStandard() , ProfileDTO.convert(listProfile).get(0).getStandard());
         assertEquals(listDTO.get(0).getField() , ProfileDTO.convert(listProfile).get(0).getField());
 

@@ -23,6 +23,7 @@ public class CourseDTOTest {
         List<CourseDTO> listDTO = new ArrayList<CourseDTO>();
         listDTO.add(new CourseDTO(courseModel));
 
+        assertEquals(listDTO.get(0).getUuid() , CourseDTO.convert(listCourses).get(0).getUuid());
         assertEquals(listDTO.get(0).getName() , CourseDTO.convert(listCourses).get(0).getName());
 
     }
