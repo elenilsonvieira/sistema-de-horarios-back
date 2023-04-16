@@ -26,5 +26,6 @@ public class CalendarDTOTest {
 
         assertEquals(listDTO.get(0).getUuid() , CalendarDTO.convert(listCalendar).get(0).getUuid());
         assertEquals(listDTO.get(0).getSemester() , CalendarDTO.convert(listCalendar).get(0).getSemester());
+        assertNotEquals(-1, CalendarDTO.convert(listCalendar).get(0).getUuid());
     }
 }

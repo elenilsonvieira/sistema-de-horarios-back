@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ProfileDTOTest {
 
@@ -26,8 +27,9 @@ public class ProfileDTOTest {
         List<ProfileDTO> listDTO = new ArrayList<ProfileDTO>();
         listDTO.add(new ProfileDTO(profileModel));
 
+        assertEquals(listDTO.get(0).getUuid() , ProfileDTO.convert(listProfile).get(0).getUuid());
         assertEquals(listDTO.get(0).getStandard() , ProfileDTO.convert(listProfile).get(0).getStandard());
         assertEquals(listDTO.get(0).getField() , ProfileDTO.convert(listProfile).get(0).getField());
-
+        assertNotEquals(-1, ProfileDTO.convert(listProfile).get(0).getUuid());
     }
 }

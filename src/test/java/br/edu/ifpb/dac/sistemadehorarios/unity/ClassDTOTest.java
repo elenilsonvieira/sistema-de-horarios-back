@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ClassDTOTest {
     @Test
@@ -25,5 +26,6 @@ public class ClassDTOTest {
 
         assertEquals(listDTO.get(0).getUuid() , TurmaDTO.convert(listClass).get(0).getUuid());
         assertEquals(listDTO.get(0).getName() , TurmaDTO.convert(listClass).get(0).getName());
+        assertNotEquals(-1, TurmaDTO.convert(listClass).get(0).getUuid());
     }
 }
