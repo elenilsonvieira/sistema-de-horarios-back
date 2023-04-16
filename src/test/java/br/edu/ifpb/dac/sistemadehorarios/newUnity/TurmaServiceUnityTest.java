@@ -46,7 +46,7 @@ public class TurmaServiceUnityTest implements ServiceUnityTest {
     @Order(2)
     @DisplayName("should be listed turmas")
     @Override
-    public void testReadAndFundedEntities() {
+    public void testReadEntities() {
         try {
             List<TurmaModel> turmaModels = turmaService.read();
             turmaModels.add(turmaModel);

@@ -46,7 +46,7 @@ public class CourseServiceUnityTest implements ServiceUnityTest {
     @Order(2)
     @DisplayName("should be listed courses")
     @Override
-    public void testReadAndFundedEntities() {
+    public void testReadEntities() {
         try {
             List<CourseModel> courseModels = courseService.read();
             courseModels.add(courseModel);

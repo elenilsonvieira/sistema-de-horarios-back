@@ -62,7 +62,7 @@ public class ProfessorServiceUnityTest implements ServiceUnityTest {
     @Order(2)
     @DisplayName("should be listed professors")
     @Override
-    public void testReadAndFundedEntities() {
+    public void testReadEntities() {
         try {
             List<ProfessorModel> professorModels = professorService.read();
             professorModels.add(professorModel);

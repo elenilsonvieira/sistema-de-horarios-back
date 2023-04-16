@@ -47,7 +47,7 @@ public class ProfileServiceUnityTest implements ServiceUnityTest {
     @Order(2)
     @DisplayName("should be listed profiles")
     @Override
-    public void testReadAndFundedEntities() {
+    public void testReadEntities() {
         try {
             List<ProfileModel> profileModels = profileService.read();
             profileModels.add(profileModel);
