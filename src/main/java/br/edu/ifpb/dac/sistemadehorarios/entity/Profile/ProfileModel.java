@@ -14,18 +14,15 @@ import java.util.Date;
 @Setter
 @Entity(name = "profile")
 public class ProfileModel implements Serializable {
-
 	@Column(nullable = false)
     private String field;
 	@Column(nullable = false)
     private Integer standard;
-    
 	@Id
 	private String uuid;
 	private Date create_at = new Date();
 	@Column(updatable = true)
 	private Date update_at;
-
 	public ProfileModel() {
 		this.uuid= Generators.randomBasedGenerator().generate().toString();
 	}

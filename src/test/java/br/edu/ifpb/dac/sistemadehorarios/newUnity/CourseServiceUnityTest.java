@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceUnityTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CourseServiceUnityTest {
+public class CourseServiceUnityTest implements ServiceUnityTest {
 
     @Autowired
     private CourseService courseService;
@@ -28,11 +29,11 @@ public class CourseServiceUnityTest {
         courseModel.setCreate_at(new Date());
     }
 
-
     @Test
     @Order(1)
     @DisplayName("should be created a new course")
-    public void createNewProfile() {
+    @Override
+    public void testCreateNewEntity() {
         try {
             assertNotEquals(courseService.create(courseModel), null);
         } catch (Exception e) {
@@ -40,10 +41,12 @@ public class CourseServiceUnityTest {
         }
     }
 
+
     @Test
     @Order(2)
     @DisplayName("should be listed courses")
-    public void readProfiles() {
+    @Override
+    public void testReadAndFundedEntities() {
         try {
             List<CourseModel> courseModels = courseService.read();
             courseModels.add(courseModel);
@@ -53,10 +56,12 @@ public class CourseServiceUnityTest {
         }
     }
 
+
     @Test
     @Order(3)
-    @DisplayName("should be founded a course")
-    public void findOneProfileById() {
+    @DisplayName("should be found a course")
+    @Override
+    public void testFindOneEntityById() {
         try {
             String id = "id-test";
             assertNotEquals(courseService.findByUuid(id), null);
@@ -68,7 +73,8 @@ public class CourseServiceUnityTest {
     @Test
     @Order(4)
     @DisplayName("should be updated a course")
-    public void updateOneProfileById() {
+    @Override
+    public void testUpdateOneEntityById() {
         try {
             String id = "id-test";
             courseModel.setName("Curso 2");
@@ -81,7 +87,8 @@ public class CourseServiceUnityTest {
     @Test
     @Order(5)
     @DisplayName("should be deleted a course")
-    public void deleteOneProfileById() {
+    @Override
+    public void testDeleteOneEntityById() {
         try {
             String id = "id-test";
             assertNotEquals(courseService.delete(id), false);
@@ -89,4 +96,5 @@ public class CourseServiceUnityTest {
             e.printStackTrace();
         }
     }
+
 }

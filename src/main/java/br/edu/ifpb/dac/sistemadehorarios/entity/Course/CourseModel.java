@@ -17,7 +17,6 @@ import javax.persistence.Id;
 @Setter
 @Entity(name="course")
 public class CourseModel implements Serializable  {
-
 	@Column(unique = true, nullable = false)
 	private String name;
 	@Id
@@ -25,11 +24,7 @@ public class CourseModel implements Serializable  {
 	private Date create_at = new Date();
 	@Column(updatable = true)
 	private Date update_at;
-
 	public CourseModel() {
 		this.uuid= Generators.randomBasedGenerator().generate().toString();
 	}
-
-
-
 }

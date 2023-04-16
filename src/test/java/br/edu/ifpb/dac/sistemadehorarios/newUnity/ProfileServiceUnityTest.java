@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceUnityTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProfileServiceUnityTest {
+public class ProfileServiceUnityTest implements ServiceUnityTest {
 
     @Autowired
     private ProfileService profileService;
@@ -33,7 +34,8 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(1)
     @DisplayName("should be created a new profile")
-    public void createNewProfile() {
+    @Override
+    public void testCreateNewEntity() {
         try {
             assertNotEquals(profileService.create(profileModel), null);
         } catch (Exception e) {
@@ -44,7 +46,8 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(2)
     @DisplayName("should be listed profiles")
-    public void readProfiles() {
+    @Override
+    public void testReadAndFundedEntities() {
         try {
             List<ProfileModel> profileModels = profileService.read();
             profileModels.add(profileModel);
@@ -56,8 +59,9 @@ public class ProfileServiceUnityTest {
 
     @Test
     @Order(3)
-    @DisplayName("should be founded a profile")
-    public void findOneProfileById() {
+    @DisplayName("should be found a profile")
+    @Override
+    public void testFindOneEntityById() {
         try {
             String id = "id-test";
             ProfileModel profileModel = profileService.findByUuid(id);
@@ -70,7 +74,8 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(4)
     @DisplayName("should be updated a profile")
-    public void updateOneProfileById() {
+    @Override
+    public void testUpdateOneEntityById() {
         try {
             String id = "id-test";
             profileModel.setStandard(2);
@@ -83,7 +88,8 @@ public class ProfileServiceUnityTest {
     @Test
     @Order(5)
     @DisplayName("should be deleted a profile")
-    public void deleteOneProfileById() {
+    @Override
+    public void testDeleteOneEntityById() {
         try {
             String id = "id-test";
             assertNotEquals(profileService.delete(id), false);

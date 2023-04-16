@@ -1,9 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.newUnity;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceUnityTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TurmaServiceUnityTest {
+public class TurmaServiceUnityTest implements ServiceUnityTest {
 
     @Autowired
     private TurmaService turmaService;
@@ -34,7 +33,8 @@ public class TurmaServiceUnityTest {
     @Test
     @Order(1)
     @DisplayName("should be created a new turma")
-    void createNewTurma() {
+    @Override
+    public void testCreateNewEntity() {
         try {
             assertNotEquals(turmaService.create(turmaModel), null);
         } catch (Exception e) {
@@ -45,7 +45,8 @@ public class TurmaServiceUnityTest {
     @Test
     @Order(2)
     @DisplayName("should be listed turmas")
-    void readTurma() {
+    @Override
+    public void testReadAndFundedEntities() {
         try {
             List<TurmaModel> turmaModels = turmaService.read();
             turmaModels.add(turmaModel);
@@ -57,8 +58,9 @@ public class TurmaServiceUnityTest {
 
     @Test
     @Order(3)
-    @DisplayName("should be founded a turma")
-    void findOneTurmaById() {
+    @DisplayName("should be found a turma")
+    @Override
+    public void testFindOneEntityById() {
         try {
             String id = "id-test";
             assertNotEquals(turmaService.findByUuid(id), null);
@@ -70,7 +72,8 @@ public class TurmaServiceUnityTest {
     @Test
     @Order(4)
     @DisplayName("should be updated a turma")
-    void updateOneTurmaById() {
+    @Override
+    public void testUpdateOneEntityById() {
         try {
             String id = "id-test";
             turmaModel.setName("Turma Teste 2");
@@ -83,7 +86,8 @@ public class TurmaServiceUnityTest {
     @Test
     @Order(5)
     @DisplayName("should be deleted a turma")
-    void deleteOneTurmaById() {
+    @Override
+    public void testDeleteOneEntityById() {
         try {
             String id = "id-test";
             assertNotEquals(turmaService.delete(id), false);
