@@ -4,17 +4,16 @@ import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.DisplayName;
-
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class TeacherDTOTest {
+public class TeacherDTOTest implements DTOTest {
 
     private static ProfileModel profileModel = new ProfileModel();
 
@@ -30,8 +29,9 @@ public class TeacherDTOTest {
     }
 
     @Test
+    @Override
     @DisplayName("Test Conversion Model to DTO")
-    public void convertTest(){
+    public void convert(){
         List<ProfessorModel> listTeatcher = new ArrayList<ProfessorModel>();
 
         professorModel.setProfileModel(profileModel);

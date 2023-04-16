@@ -1,9 +1,8 @@
 package br.edu.ifpb.dac.sistemadehorarios.unity;
 
-import br.edu.ifpb.dac.sistemadehorarios.DTO.CalendarDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.classroom.ClassBlockDTO;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class ClassBlockDTOTest {
+public class ClassBlockDTOTest implements DTOTest {
 
     @Test
+    @Override
     @DisplayName("Test Conversion Model to DTO")
-    public void convertTest() {
+    public void convert() {
         List<ClassBlockModel> listBlock = new ArrayList<ClassBlockModel>();
         ClassBlockModel blockModel = new ClassBlockModel();
         blockModel.setBlockName("D");

@@ -13,6 +13,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -25,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class CurricularComponentDTOTest {
+public class CurricularComponentDTOTest implements DTOTest {
 
     private static CourseModel courseModel = new CourseModel();
 
@@ -41,6 +42,7 @@ public class CurricularComponentDTOTest {
     }
 
     @Test
+    @Override
     @DisplayName("Conversion Model to DTO")
     public void convert(){
         List<CurricularComponentModel> listCurricularComponentModels = new ArrayList<CurricularComponentModel>();

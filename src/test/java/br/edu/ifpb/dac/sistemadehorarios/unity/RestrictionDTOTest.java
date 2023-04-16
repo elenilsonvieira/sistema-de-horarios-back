@@ -10,6 +10,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class RestrictionDTOTest {
+public class RestrictionDTOTest implements DTOTest {
 
     private static ProfessorModel professorModel = new ProfessorModel();
 
@@ -53,8 +54,9 @@ public class RestrictionDTOTest {
     }
 
     @Test
+    @Override
     @DisplayName("Test Conversion Model to DTO")
-    public void convertTest(){
+    public void convert(){
         List<RestrictionModel> listRestriction = new ArrayList<RestrictionModel>();
 
         listRestriction.add(restrictionModel);
