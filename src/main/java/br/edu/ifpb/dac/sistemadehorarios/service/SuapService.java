@@ -38,11 +38,14 @@ public class SuapService {
 
 	public String login(String username, String password) {
 		Map<String, String> body = Map.of(USERNAME_JSON_FIELD, username, PASSWORD_JSON_FIELD, password);
-
 		String json = gson.toJson(body);
-
 		try {
-			HttpRequest url = generatePostUrl(OBTAIN_TOKEN_URL, null, json);
+			HttpRequest url = generatePostUrl(OBTAIN_TOKEN_URL, DEFAULT_HEADERS, json);
+			System.out.println(url.method());
+			System.out.println(url.uri());
+			System.out.println(url.bodyPublisher());
+			System.out.println(url.expectContinue());
+
 			return sendRequest(url);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

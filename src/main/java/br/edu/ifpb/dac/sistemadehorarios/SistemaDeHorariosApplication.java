@@ -41,5 +41,4 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
         classBlockService.createDefaultValues();
         intervalService.createDefaultValues();
     }
-
 }

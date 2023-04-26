@@ -26,7 +26,6 @@ public class LoginService {
 
     public UserModel login(String enrollment, String password) {
         try {
-
             if (userService.existsByEnrollment(enrollment)) {
                 // Will throw exception if SUAP login fails
                 this.suapToken = suapLogin(enrollment, password);
@@ -41,7 +40,6 @@ public class LoginService {
     private String suapLogin(String enrollment, String password) {
         JsonElement jsonElement = JsonParser.parseString(suapService.login(enrollment, password));
         String token = jsonElement.getAsJsonObject().get("token").getAsString();
-
         if (token == null) {
             throw new IllegalArgumentException("Incorrect Email or Password");
         }
