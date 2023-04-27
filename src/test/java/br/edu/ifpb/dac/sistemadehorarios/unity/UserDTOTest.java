@@ -5,16 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserModel;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTOTest {
+public class UserDTOTest implements DTOTest {
     @Test
+    @Override
     @DisplayName("Test Conversion Model to DTO")
-    public void convertTest(){
+    public void convert(){
         List<UserModel> listUser = new ArrayList<UserModel>();
         UserModel user = new UserModel();
         user.setName("Fulano");

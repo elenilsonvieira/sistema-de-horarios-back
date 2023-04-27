@@ -31,8 +31,8 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
     }
 
     public void createDefaultValues() {
-        UserModel jan = findByEnrollment("202025020010");
-        UserModel iri = findByEnrollment("202025020005");
+        UserModel wes = findByEnrollment("202115020008");
+        UserModel art = findByEnrollment("202115020022");
 
         String fullAcess = String.format("%s,%s,%s,%s",
                 RoleEnum.READ,
@@ -40,19 +40,19 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
                 RoleEnum.CREATE,
                 RoleEnum.ADM);
 
-        if (jan == null) {
-            jan = new UserModel();
-            jan.setEnrollment("202025020010");
-            jan.setName("Jan Joris Tomé de Lira");
-            jan.setRoles(fullAcess);
-            repository.save(jan);
+        if (wes == null) {
+            wes = new UserModel();
+            wes.setEnrollment("202115020008");
+            wes.setName("Wesley Alencar Souza");
+            wes.setRoles(fullAcess);
+            repository.save(wes);
         }
-        if (iri == null) {
-            iri = new UserModel();
-            iri.setEnrollment("202025020005");
-            iri.setName("Iriedson Souto Maior de Moraes Vilar");
-            iri.setRoles(fullAcess);
-            repository.save(iri);
+        if (art == null) {
+            art = new UserModel();
+            art.setEnrollment("202115020022");
+            art.setName("Arthur Pereira da silva");
+            art.setRoles(fullAcess);
+            repository.save(art);
         }
     }
 

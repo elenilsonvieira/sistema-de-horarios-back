@@ -38,21 +38,19 @@ public class SuapService {
 
 	public String login(String username, String password) {
 		Map<String, String> body = Map.of(USERNAME_JSON_FIELD, username, PASSWORD_JSON_FIELD, password);
-
 		String json = gson.toJson(body);
+		try{
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(URI.create(OBTAIN_TOKEN_URL))
+					.header("Content-Type", "application/json")
+					.method("POST", HttpRequest.BodyPublishers.ofString(json))
+					.build();
+			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			return response.body().split(":")[2].substring(1).split("\"")[0];
 
-		try {
-			HttpRequest url = generatePostUrl(OBTAIN_TOKEN_URL, null, json);
-			return sendRequest(url);
-		} catch (URISyntaxException e) {
+		}catch(Exception e){
 			e.printStackTrace();
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		} catch (InterruptedException e3) {
-			Thread.currentThread().interrupt();
-			e3.printStackTrace();
 		}
-
 		return null;
 	}
 
