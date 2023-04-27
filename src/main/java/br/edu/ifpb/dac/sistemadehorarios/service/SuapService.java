@@ -46,13 +46,11 @@ public class SuapService {
 					.method("POST", HttpRequest.BodyPublishers.ofString(json))
 					.build();
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			System.out.println(response.body());
 			return response.body().split(":")[2].substring(1).split("\"")[0];
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		System.out.println("DSADASDADASDS");
 		return null;
 	}
 
