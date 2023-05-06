@@ -123,6 +123,8 @@ public class LessonService extends ServiceTemplate {
     public LessonDTO update(LessonModel lessonModel, String uuid) {
         try {
             LessonModel result = this.repository.findByUuid(uuid);
+            System.out.println("Início: " + result);
+            System.out.println("Parâmetro: " + lessonModel);
 
             TurmaModel turmaModel = lessonModel.getTurmaModel() == null
                     ? result.getTurmaModel()
@@ -146,10 +148,17 @@ public class LessonService extends ServiceTemplate {
                     ? result.getCourseModel()
                     : lessonModel.getCourseModel();
 
+            System.out.println("Intermédio: " + result.getIntervalModel().getUuid());
+
+            System.out.println("Aqui: " + intervalModel.getUuid());
+
             intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
             List<RestrictionModel> restrictions = null;
 
+            System.out.println("Interval tá com problema?");
+
             if(intervalModel != null && professorModel != null) {
+                System.out.println("Null eles?");
             	restrictions = restrictionService.findByProfessorModel(professorModel);
                 boolean check = true;
             	for(RestrictionModel restrictionModel: restrictions) {
@@ -162,14 +171,20 @@ public class LessonService extends ServiceTemplate {
                 		}
                 	}        		
             	}
+
             	if(check) {
             		throw new LessonInvalidException("Professor não pode ser escalado para este horario", 400);
             	}
-            }else if(intervalModel != null) {
+
+            } else if(intervalModel != null) {
+                System.out.println("Só o interval");
             	result.setIntervalModel(intervalModel);
-            }else if(professorModel != null) {
+            } else if(professorModel != null) {
+                System.out.println("Só o professor");
             	result.setProfessorModel(professorModel);
             }
+
+            System.out.println("Chegou aqui, parceiro");
 
             result.setTurmaModel(turmaModel);
             result.setCurricularComponentModel(curricularComponentModel);
@@ -178,17 +193,16 @@ public class LessonService extends ServiceTemplate {
             result.setCourseModel(courseModel);
 
             result = repository.save(result);
-            if (result != null) {
-                LessonDTO resultDTO = new LessonDTO(result);
-                if (intervalModel != null && professorModel != null && !validateExtremeHours(result, restrictions)) {
-                    resultDTO.setTipMessage("Este horario não está bom para o professor: " + result.getProfessorModel().getName());
-                }
-                return resultDTO;
+
+            LessonDTO resultDTO = new LessonDTO(result);
+            if (intervalModel != null && professorModel != null && !validateExtremeHours(result, restrictions)) {
+                resultDTO.setTipMessage("Este horario não está bom para o professor: " + result.getProfessorModel().getName());
             }
+
+            return resultDTO;
         } catch (Exception e) {
             return null;
         }
-        return null;
     }
 
     private boolean validateExtremeHours(LessonModel newLesson, List<RestrictionModel> restrictions) {
