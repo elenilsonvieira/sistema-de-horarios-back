@@ -11,6 +11,5 @@ public class LessonDRO {
     private String classroomUuid;
     private String calendarUuid;
     private String courseUuid;
-    private String intervalId;
-    private String professorId;
+    private String professorUuid;
 }

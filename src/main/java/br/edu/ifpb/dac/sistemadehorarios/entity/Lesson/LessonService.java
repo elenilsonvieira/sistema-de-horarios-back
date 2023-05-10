@@ -68,14 +68,13 @@ public class LessonService extends ServiceTemplate {
             ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
             CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
             CourseModel courseModel = this.courseService.findByUuid(lessonDRO.getCourseUuid());
-            ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorId());
-            IntervalModel intervalModel = this.intervalService.findByUuid(lessonDRO.getIntervalId());
+            ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
 
             if (turmaModel == null ||
                     curricularComponentModel == null ||
                     classroomModel == null ||
                     calendarModel == null ||
-                    courseModel == null || intervalModel == null || professorModel == null) {
+                    courseModel == null || professorModel == null) {
 
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
@@ -86,7 +85,6 @@ public class LessonService extends ServiceTemplate {
             lessonModel.setCalendarModel(calendarModel);
             lessonModel.setCourseModel(courseModel);
             lessonModel.setProfessorModel(professorModel);
-            lessonModel.setIntervalModel(intervalModel);
 
             if (super.create(lessonModel, repository))
                 return lessonModel;
