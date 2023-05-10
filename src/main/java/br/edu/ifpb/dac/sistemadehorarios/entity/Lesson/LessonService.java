@@ -129,55 +129,53 @@ public class LessonService extends ServiceTemplate {
         return Filter.getResult(filters, list);
     }
 
-    public LessonDTO update(LessonModel lessonModel, String uuid) {
+    public LessonDTO update(LessonDRO lessonDRO, String uuid) {
         try {
             LessonModel result = this.repository.findByUuid(uuid);
+            System.out.println("Penis grande");
+            System.out.println(lessonDRO);
 
-            TurmaModel turmaModel = lessonModel.getTurmaModel() == null
+            TurmaModel turmaModel = lessonDRO.getTurmaUuid() == null
                     ? result.getTurmaModel()
-                    : lessonModel.getTurmaModel();
+                    : this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
 
             System.out.println(turmaModel);
 
-            CurricularComponentModel curricularComponentModel = lessonModel.getCurricularComponentModel() == null
+            CurricularComponentModel curricularComponentModel = lessonDRO.getCurricularComponentUuid() == null
                     ? result.getCurricularComponentModel()
-                    : lessonModel.getCurricularComponentModel();
+                    : this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
 
             System.out.println(curricularComponentModel);
 
-            ProfessorModel professorModel = lessonModel.getProfessorModel() == null
+            ProfessorModel professorModel = lessonDRO.getProfessorUuid() == null
                     ? result.getProfessorModel()
-                    : lessonModel.getProfessorModel();
+                    : this.professorService.findByUuid(lessonDRO.getProfessorUuid());
 
             System.out.println(professorModel);
 
-            IntervalModel intervalModel = lessonModel.getIntervalModel() == null
+            IntervalModel intervalModel = lessonDRO.getIntervalUuid() == null
                     ? result.getIntervalModel()
-                    : lessonModel.getIntervalModel();
+                    : this.intervalService.findByUuid(lessonDRO.getIntervalUuid());
 
             System.out.println(intervalModel);
 
-            ClassroomModel classroomModel = lessonModel.getClassroomModel() == null
+            ClassroomModel classroomModel = lessonDRO.getClassroomUuid() == null
                     ? result.getClassroomModel()
-                    : lessonModel.getClassroomModel();
+                    : this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
 
             System.out.println(classroomModel);
 
-            CalendarModel calendarModel = lessonModel.getCalendarModel() == null
+            CalendarModel calendarModel = lessonDRO.getCalendarUuid() == null
                     ? result.getCalendarModel()
-                    : lessonModel.getCalendarModel();
+                    : this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
 
             System.out.println(classroomModel);
 
-            CourseModel courseModel = lessonModel.getCourseModel() == null
+            CourseModel courseModel = lessonDRO.getCourseUuid() == null
                     ? result.getCourseModel()
-                    : lessonModel.getCourseModel();
+                    : this.courseService.findByUuid(lessonDRO.getCourseUuid());
 
             System.out.println(courseModel);
-
-            System.out.println("Intermédio: " + result.getIntervalModel().getUuid());
-
-            System.out.println("Aqui: " + intervalModel.getUuid());
 
             intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
             List<RestrictionModel> restrictions = null;
