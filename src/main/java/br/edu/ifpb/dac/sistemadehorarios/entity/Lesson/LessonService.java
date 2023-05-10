@@ -11,6 +11,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.utils.filters.*;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
@@ -49,10 +50,16 @@ public class LessonService extends ServiceTemplate {
     private RestrictionService restrictionService;
     @Autowired
     private ShiftService shiftService;
+
+    @Autowired
+    private ProfessorService professorService;
+
+    @Autowired
+    private IntervalService intervalService;
+
     @Autowired
     private IntervalRepository intervalRepository;
-    @Autowired
-    private GapService gapService;
+
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
@@ -61,12 +68,14 @@ public class LessonService extends ServiceTemplate {
             ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
             CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
             CourseModel courseModel = this.courseService.findByUuid(lessonDRO.getCourseUuid());
+            ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorId());
+            IntervalModel intervalModel = this.intervalService.findByUuid(lessonDRO.getIntervalId());
 
             if (turmaModel == null ||
                     curricularComponentModel == null ||
                     classroomModel == null ||
                     calendarModel == null ||
-                    courseModel == null) {
+                    courseModel == null || intervalModel == null || professorModel == null) {
 
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
@@ -76,6 +85,8 @@ public class LessonService extends ServiceTemplate {
             lessonModel.setClassroomModel(classroomModel);
             lessonModel.setCalendarModel(calendarModel);
             lessonModel.setCourseModel(courseModel);
+            lessonModel.setProfessorModel(professorModel);
+            lessonModel.setIntervalModel(intervalModel);
 
             if (super.create(lessonModel, repository))
                 return lessonModel;
@@ -123,30 +134,48 @@ public class LessonService extends ServiceTemplate {
     public LessonDTO update(LessonModel lessonModel, String uuid) {
         try {
             LessonModel result = this.repository.findByUuid(uuid);
-            System.out.println("Início: " + result);
-            System.out.println("Parâmetro: " + lessonModel);
 
             TurmaModel turmaModel = lessonModel.getTurmaModel() == null
                     ? result.getTurmaModel()
                     : lessonModel.getTurmaModel();
+
+            System.out.println(turmaModel);
+
             CurricularComponentModel curricularComponentModel = lessonModel.getCurricularComponentModel() == null
                     ? result.getCurricularComponentModel()
                     : lessonModel.getCurricularComponentModel();
+
+            System.out.println(curricularComponentModel);
+
             ProfessorModel professorModel = lessonModel.getProfessorModel() == null
                     ? result.getProfessorModel()
                     : lessonModel.getProfessorModel();
+
+            System.out.println(professorModel);
+
             IntervalModel intervalModel = lessonModel.getIntervalModel() == null
                     ? result.getIntervalModel()
                     : lessonModel.getIntervalModel();
+
+            System.out.println(intervalModel);
+
             ClassroomModel classroomModel = lessonModel.getClassroomModel() == null
                     ? result.getClassroomModel()
                     : lessonModel.getClassroomModel();
+
+            System.out.println(classroomModel);
+
             CalendarModel calendarModel = lessonModel.getCalendarModel() == null
                     ? result.getCalendarModel()
                     : lessonModel.getCalendarModel();
+
+            System.out.println(classroomModel);
+
             CourseModel courseModel = lessonModel.getCourseModel() == null
                     ? result.getCourseModel()
                     : lessonModel.getCourseModel();
+
+            System.out.println(courseModel);
 
             System.out.println("Intermédio: " + result.getIntervalModel().getUuid());
 

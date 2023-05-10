@@ -61,6 +61,22 @@ public class LessonModel implements Serializable, Comparable<LessonModel> {
     }
 
     @Override
+    public String toString() {
+        return "LessonModel{" +
+                "curricularComponentModel=" + curricularComponentModel + "\n" +
+                ", professorModel=" + professorModel + "\n" +
+                ", intervalModel=" + intervalModel + "\n" +
+                ", turmaModel=" + turmaModel + "\n" +
+                ", classroomModel=" + classroomModel + "\n" +
+                ", calendarModel=" + calendarModel + "\n" +
+                ", courseModel=" + courseModel + "\n" +
+                ", uuid='" + uuid + '\'' + "\n" +
+                ", create_at=" + create_at + "\n" +
+                ", update_at=" + update_at + "\n" +
+                '}';
+    }
+
+    @Override
     public int compareTo(LessonModel o) {
         return intervalModel.compareTo(o.getIntervalModel());
     }

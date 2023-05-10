@@ -52,11 +52,7 @@ public class LessonController {
     @PutMapping("/{uuid}")
     public ResponseEntity<LessonDTO> update(@RequestBody LessonModel lessonModel, @PathVariable("uuid") String uuid) {
         LessonDTO result = this.service.update(lessonModel, uuid);
-
-        if(result != null) {
-            return  ResponseEntity.status(200).body(result);
-        }
-        return ResponseEntity.status(404).body(null);
+        return  result != null ? ResponseEntity.status(200).body(result) : ResponseEntity.status(404).body(null);
     }
 
     @GetMapping("/withInterval/{onOuOff}")
