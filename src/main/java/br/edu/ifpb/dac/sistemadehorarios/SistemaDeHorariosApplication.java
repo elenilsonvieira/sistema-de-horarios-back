@@ -5,6 +5,7 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,8 +28,10 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
     @Autowired
     private IntervalService intervalService;
 
-    public static void main(String[] args) {
+    @Autowired
+    private TurmaService turmaService;
 
+    public static void main(String[] args) {
         SpringApplication.run(SistemaDeHorariosApplication.class, args);
     }
 
@@ -40,5 +43,6 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
         userService.createDefaultValues();
         classBlockService.createDefaultValues();
         intervalService.createDefaultValues();
+        turmaService.createDefaultValues();
     }
 }

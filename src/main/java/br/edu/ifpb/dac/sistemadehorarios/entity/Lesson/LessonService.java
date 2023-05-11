@@ -63,15 +63,13 @@ public class LessonService extends ServiceTemplate {
 
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
-            TurmaModel turmaModel = this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
             CurricularComponentModel curricularComponentModel = this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
             ClassroomModel classroomModel = this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
             CalendarModel calendarModel = this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
             CourseModel courseModel = this.courseService.findByUuid(lessonDRO.getCourseUuid());
             ProfessorModel professorModel = this.professorService.findByUuid(lessonDRO.getProfessorUuid());
 
-            if (turmaModel == null ||
-                    curricularComponentModel == null ||
+            if (curricularComponentModel == null ||
                     classroomModel == null ||
                     calendarModel == null ||
                     courseModel == null || professorModel == null) {
@@ -79,7 +77,7 @@ public class LessonService extends ServiceTemplate {
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
             LessonModel lessonModel = new LessonModel();
-            lessonModel.setTurmaModel(turmaModel);
+            lessonModel.setTurmaModel(null);
             lessonModel.setCurricularComponentModel(curricularComponentModel);
             lessonModel.setClassroomModel(classroomModel);
             lessonModel.setCalendarModel(calendarModel);
