@@ -1,18 +1,16 @@
 package br.edu.ifpb.dac.sistemadehorarios.suite;
 
-import br.edu.ifpb.dac.sistemadehorarios.integration.IntervalDTOSTest;
-import br.edu.ifpb.dac.sistemadehorarios.integration.LessonDTOTest;
-import br.edu.ifpb.dac.sistemadehorarios.integration.ProfessorServiceIntegrationTest;
+import br.edu.ifpb.dac.sistemadehorarios.integration.*;
 import br.edu.ifpb.dac.sistemadehorarios.unity.*;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-                ProfileServiceTest.class,
+                ProfileServiceIntegrationTest.class,
                 ProfessorServiceIntegrationTest.class,
-                CourseServiceTest.class,
-                TurmaServiceTest.class,
+                CourseServiceIntegrationTest.class,
+                TurmaServiceIntegrationTest.class,
                 TeacherDTOTest.class,
                 CalendarDTOTest.class,
                 ClassBlockDTOTest.class,

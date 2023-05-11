@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
@@ -11,10 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CourseServiceTest implements ServiceTest {
+public class CourseServiceIntegrationTest implements ServiceTest {
 
     @Autowired
     private CourseService courseService;
@@ -31,6 +32,16 @@ public class CourseServiceTest implements ServiceTest {
 
     @Test
     @Order(1)
+    @DisplayName("Attributes are not null")
+    @Override
+    public void attributesAreNotNull() {
+        assertNotNull(courseModel.getName());
+        assertNotNull(courseModel.getUuid());
+        assertNotNull(courseModel.getCreate_at());
+    }
+
+    @Test
+    @Order(2)
     @DisplayName("should be created a new course")
     @Override
     public void testCreateNewEntity() {
@@ -42,7 +53,7 @@ public class CourseServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("should be listed courses")
     @Override
     public void testReadEntities() {
@@ -56,7 +67,7 @@ public class CourseServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("should be found a course")
     @Override
     public void testFindOneEntityById() {
@@ -69,7 +80,7 @@ public class CourseServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("should be updated a course")
     @Override
     public void testUpdateOneEntityById() {
@@ -83,7 +94,7 @@ public class CourseServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("should be deleted a course")
     @Override
     public void testDeleteOneEntityById() {

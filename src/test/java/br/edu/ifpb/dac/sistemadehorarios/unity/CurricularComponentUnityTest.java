@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 public class CurricularComponentUnityTest {
     @Autowired
     private CurricularComponentService curricularComponentService = mock(CurricularComponentService.class);
+
     private CourseService courseService = mock(CourseService.class);
 
     @Test

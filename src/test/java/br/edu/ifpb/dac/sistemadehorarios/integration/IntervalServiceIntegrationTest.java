@@ -49,6 +49,15 @@ public class IntervalServiceIntegrationTest implements ServiceTest {
 
     @Test
     @Order(1)
+    @DisplayName("Attributes are not null")
+    @Override
+    public void attributesAreNotNull() {
+        assertNotNull(intervalModel.getUuid());
+        assertNotNull(intervalModel.getCreate_at());
+    }
+
+    @Test
+    @Order(2)
     @DisplayName("Create from intervalService")
     @Override
     public void testCreateNewEntity() {
@@ -70,7 +79,7 @@ public class IntervalServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("List IntervalModel from intervalService")
     @Override
     public void testReadEntities() {
@@ -83,7 +92,7 @@ public class IntervalServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("Return IntervalModel from intervalService")
     @Override
     public void testFindOneEntityById() {
@@ -102,10 +111,9 @@ public class IntervalServiceIntegrationTest implements ServiceTest {
     public void testUpdateOneEntityById() { }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("Delete IntervalModel from intervalService")
     @Override
-    @Ignore
     public void testDeleteOneEntityById() {
         try {
             String id = "id-test";

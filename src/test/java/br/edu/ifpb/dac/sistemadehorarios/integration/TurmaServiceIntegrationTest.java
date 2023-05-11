@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
@@ -11,10 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TurmaServiceTest implements ServiceTest {
+public class TurmaServiceIntegrationTest implements ServiceTest {
 
     @Autowired
     private TurmaService turmaService;
@@ -31,6 +32,15 @@ public class TurmaServiceTest implements ServiceTest {
 
     @Test
     @Order(1)
+    @DisplayName("Attributes are not null")
+    @Override
+    public void attributesAreNotNull() {
+        assertNotNull(turmaModel.getName());
+        assertNotNull(turmaModel.getUuid());
+    }
+
+    @Test
+    @Order(2)
     @DisplayName("should be created a new turma")
     @Override
     public void testCreateNewEntity() {
@@ -42,7 +52,7 @@ public class TurmaServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("should be listed turmas")
     @Override
     public void testReadEntities() {
@@ -56,7 +66,7 @@ public class TurmaServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("should be found a turma")
     @Override
     public void testFindOneEntityById() {
@@ -69,7 +79,7 @@ public class TurmaServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("should be updated a turma")
     @Override
     public void testUpdateOneEntityById() {
@@ -83,7 +93,7 @@ public class TurmaServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("should be deleted a turma")
     @Override
     public void testDeleteOneEntityById() {

@@ -35,26 +35,18 @@ public class ProfessorServiceIntegrationTest implements ServiceTest {
         professorDRO = new ProfessorDRO();
         professorDRO.setName("Fernando");
         professorDRO.setProfileUuid("id-test2");
-
     }
 
     @Test
     @Order(1)
-    @DisplayName("Name is not null")
-    public void testNameIsNotNull() {
+    @DisplayName("Attributes are not null")
+    public void attributesAreNotNull() {
         assertNotNull(professorDRO.getName());
+        assertNotNull(professorDRO.getProfileUuid());
     }
 
     @Test
     @Order(2)
-    @DisplayName("Id is not null")
-    public void testIdIsNotNull() {
-        assertNotNull(professorDRO.getProfileUuid());
-    }
-
-
-    @Test
-    @Order(3)
     @DisplayName("should be created a new professor")
     @Override
     public void testCreateNewEntity() {
@@ -74,7 +66,7 @@ public class ProfessorServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     @DisplayName("should be listed professors")
     @Override
     public void testReadEntities() {
@@ -88,7 +80,7 @@ public class ProfessorServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     @DisplayName("should be found a professor")
     @Override
     public void testFindOneEntityById() {
@@ -100,7 +92,7 @@ public class ProfessorServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(6)
+    @Order(5)
     @DisplayName("should be updated a professor")
     @Override
     public void testUpdateOneEntityById() {
@@ -113,7 +105,7 @@ public class ProfessorServiceIntegrationTest implements ServiceTest {
     }
 
     @Test
-    @Order(7)
+    @Order(6)
     @DisplayName("should be deleted a professor")
     @Override
     public void testDeleteOneEntityById() {

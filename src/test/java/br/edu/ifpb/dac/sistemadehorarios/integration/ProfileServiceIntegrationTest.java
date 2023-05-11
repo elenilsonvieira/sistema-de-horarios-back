@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
@@ -11,10 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProfileServiceTest implements ServiceTest {
+public class ProfileServiceIntegrationTest implements ServiceTest {
 
     @Autowired
     private ProfileService profileService;
@@ -32,6 +33,17 @@ public class ProfileServiceTest implements ServiceTest {
 
     @Test
     @Order(1)
+    @DisplayName("Attributes are not null")
+    @Override
+    public void attributesAreNotNull() {
+        assertNotNull(profileModel.getUuid());
+        assertNotNull(profileModel.getField());
+        assertNotNull(profileModel.getStandard());
+        assertNotNull(profileModel.getCreate_at());
+    }
+
+    @Test
+    @Order(2)
     @DisplayName("should be created a new profile")
     @Override
     public void testCreateNewEntity() {
@@ -43,7 +55,7 @@ public class ProfileServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("should be listed profiles")
     @Override
     public void testReadEntities() {
@@ -57,7 +69,7 @@ public class ProfileServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("should be found a profile")
     @Override
     public void testFindOneEntityById() {
@@ -71,7 +83,7 @@ public class ProfileServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("should be updated a profile")
     @Override
     public void testUpdateOneEntityById() {
@@ -85,7 +97,7 @@ public class ProfileServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("should be deleted a profile")
     @Override
     public void testDeleteOneEntityById() {
