@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
@@ -14,10 +14,11 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProfessorServiceTest implements ServiceTest {
+public class ProfessorServiceIntegrationTest implements ServiceTest {
 
     @Autowired
     private ProfessorService professorService;
@@ -39,6 +40,21 @@ public class ProfessorServiceTest implements ServiceTest {
 
     @Test
     @Order(1)
+    @DisplayName("Name is not null")
+    public void testNameIsNotNull() {
+        assertNotNull(professorDRO.getName());
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Id is not null")
+    public void testIdIsNotNull() {
+        assertNotNull(professorDRO.getProfileUuid());
+    }
+
+
+    @Test
+    @Order(3)
     @DisplayName("should be created a new professor")
     @Override
     public void testCreateNewEntity() {
@@ -58,7 +74,7 @@ public class ProfessorServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(2)
+    @Order(4)
     @DisplayName("should be listed professors")
     @Override
     public void testReadEntities() {
@@ -72,7 +88,7 @@ public class ProfessorServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(5)
     @DisplayName("should be found a professor")
     @Override
     public void testFindOneEntityById() {
@@ -84,7 +100,7 @@ public class ProfessorServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     @DisplayName("should be updated a professor")
     @Override
     public void testUpdateOneEntityById() {
@@ -97,7 +113,7 @@ public class ProfessorServiceTest implements ServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     @DisplayName("should be deleted a professor")
     @Override
     public void testDeleteOneEntityById() {

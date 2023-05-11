@@ -2,34 +2,24 @@ package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.List;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
-import br.edu.ifpb.dac.sistemadehorarios.exception.interval.ShiftException;
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
-import br.edu.ifpb.dac.sistemadehorarios.exception.interval.IntervalInvalidException;
 
 @SpringBootTest
 @AutoConfigureMockMvc
