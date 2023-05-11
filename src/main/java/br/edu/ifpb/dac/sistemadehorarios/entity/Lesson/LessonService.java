@@ -130,9 +130,9 @@ public class LessonService extends ServiceTemplate {
     }
 
     public LessonDTO update(LessonDRO lessonDRO, String uuid) {
+        System.out.println(lessonDRO.toString());
         try {
             LessonModel result = this.repository.findByUuid(uuid);
-            System.out.println("Penis grande");
             System.out.println(lessonDRO);
 
             TurmaModel turmaModel = lessonDRO.getTurmaUuid() == null
