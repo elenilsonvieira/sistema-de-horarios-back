@@ -14,15 +14,9 @@ public abstract class ServiceTemplate {
     }
 
     protected <T> boolean create(T object, JpaRepository repository) {
-        try {
-            if(object == null){
-                return false;
-            }
-            repository.save(object);
-            return true;
-        }catch (Exception error){
-            throw error;
-        }
+        if(object == null)  return false;
+        repository.save(object);
+        return true;
     }
 
     protected List<?> read( JpaRepository repository) {

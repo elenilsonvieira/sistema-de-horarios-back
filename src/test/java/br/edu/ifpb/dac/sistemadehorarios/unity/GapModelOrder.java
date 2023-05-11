@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.newUnity;
+package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -24,13 +24,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GapModelOrder {
-    
-    
+
     @Test
-	@Order(1)
+    @Order(1)
     @Tag("order")
     @DisplayName("Logic of order")
     void testeSet() {
@@ -48,15 +46,14 @@ public class GapModelOrder {
         gapModels.add(gap2);
         gapModels.add(gap3);
 
-        for(GapModel gap : gapModels){
+        for (GapModel gap : gapModels) {
             System.out.println(gap.getDisplayName());
         }
         assertNotEquals(gapModels, null);
     }
 
-
     @Test
-	@Order(2)
+    @Order(2)
     @Tag("order")
     @DisplayName("Logic of order")
     void testeList() {
@@ -76,26 +73,26 @@ public class GapModelOrder {
 
         Collections.sort(gapModels);
 
-        for(GapModel gap : gapModels){
+        for (GapModel gap : gapModels) {
             System.out.println(gap.getDisplayName());
         }
-        
+
         assertNotEquals(gapModels, null);
     }
 
     @Test
-	@Order(2)
+    @Order(2)
     @Tag("order")
     @DisplayName("Logic of enum")
     void testeListEnum() {
-        for (GapEnum gapEnum: GapEnum.values()) {
+        for (GapEnum gapEnum : GapEnum.values()) {
             System.out.println(gapEnum);
-            System.out.println(gapEnum.getName()); 
+            System.out.println(gapEnum.getName());
         }
     }
 
     @Test
-	@Order(3)
+    @Order(3)
     @Tag("order")
     @DisplayName("Gap get index")
     void testeListGetIndex() {
@@ -113,8 +110,7 @@ public class GapModelOrder {
         gapModels.add(gap3);
 
         Collections.sort(gapModels);
-        assertEquals(gapModels.get(gapModels.size() -1).getGapEnum(), GapEnum.valueOf("THIRD"));
+        assertEquals(gapModels.get(gapModels.size() - 1).getGapEnum(), GapEnum.valueOf("THIRD"));
     }
-
 
 }

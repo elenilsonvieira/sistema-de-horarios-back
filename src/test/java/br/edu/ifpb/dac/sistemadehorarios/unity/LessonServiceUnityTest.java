@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.newUnity;
+package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,28 +17,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.LessonDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Calendar.CalendarService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalRepository;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonRepository;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Lesson.LessonService;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Restriction.RestrictionService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
 import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 
 @SpringBootTest
@@ -47,56 +36,56 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.LessonInvalidException;
 class LessonServiceUnityTest {
 
 	@MockBean
-    private LessonRepository repository;
+	private LessonRepository repository;
 	@MockBean
-    private TurmaModel turmaMock;
+	private TurmaModel turmaMock;
 	@MockBean
-    private CurricularComponentModel curricularComponentMock;
+	private CurricularComponentModel curricularComponentMock;
 	@MockBean
-    private ClassroomModel classroomMock;
+	private ClassroomModel classroomMock;
 	@MockBean
-    private CalendarModel calendarMock;
+	private CalendarModel calendarMock;
 	@MockBean
-    private CourseModel courseMock;
+	private CourseModel courseMock;
 	@MockBean
-    private RestrictionModel restrictionMock;
+	private RestrictionModel restrictionMock;
 	@MockBean
-    private ShiftModel shiftMock;
+	private ShiftModel shiftMock;
 	@MockBean
-    private IntervalRepository intervalRepository;
+	private IntervalRepository intervalRepository;
 	@MockBean
 	private LessonModel lessonMock;
 	@MockBean
 	private LessonDRO lessonDROMock;
-	
+
 	@Autowired
 	private LessonService lessonService;
-	
-	
+
 	@Test
 	@Order(1)
-    @Tag("creat method")
-    @DisplayName("Creat from lessonService")
-	void createNewLesson() {	
+	@Tag("creat method")
+	@DisplayName("Creat from lessonService")
+	void createNewLesson() {
 		try {
 			LessonDRO lessonDRO = new LessonDRO();
 			lessonDRO.setCalendarUuid(calendarMock.getUuid());
 			lessonDRO.setClassroomUuid(classroomMock.getUuid());
 			lessonDRO.setTurmaUuid(turmaMock.getUuid());
-			assertThrows(LessonInvalidException.class, () -> lessonService.create(lessonDRO), "Não é permitido valro null");
+			assertThrows(LessonInvalidException.class, () -> lessonService.create(lessonDRO),
+					"Não é permitido valro null");
 			LessonModel lessonModelTeste = lessonService.create(lessonDROMock);
 			assertNotEquals(lessonModelTeste, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	@Test
 	@Order(2)
-    @Tag("read method")
-    @DisplayName("List LessonModel from lessonService")
-	void readLesson() {	
+	@Tag("read method")
+	@DisplayName("List LessonModel from lessonService")
+	void readLesson() {
 		try {
 			List<LessonModel> listLessonModelTeste = lessonService.read();
 			listLessonModelTeste.add(lessonMock);
@@ -104,14 +93,14 @@ class LessonServiceUnityTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	@Test
 	@Order(3)
-    @Tag("findByUuid method")
-    @DisplayName("Return LessonModel from lessonService")
-	void findByUuidLesson() {	
+	@Tag("findByUuid method")
+	@DisplayName("Return LessonModel from lessonService")
+	void findByUuidLesson() {
 		try {
 			String id = "id-mock";
 			LessonModel lessonModelTeste = lessonService.findByUuid(id);
@@ -119,19 +108,19 @@ class LessonServiceUnityTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	@Test
 	@Order(4)
-    @Tag("delete method")
-    @DisplayName("Delete LessonModel from lessonService")
+	@Tag("delete method")
+	@DisplayName("Delete LessonModel from lessonService")
 	void deleteRestriction() {
 		try {
 			String id = "id-mock";
 			boolean check = lessonService.delete(id);
 			assertTrue(check);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -140,47 +129,32 @@ class LessonServiceUnityTest {
 
 	@Test
 	@Order(5)
-    @Tag("update method")
-    @DisplayName("Update LessonModel")
+	@Tag("update method")
+	@DisplayName("Update LessonModel")
 	void updateLesson() {
 		try {
 			String id = "id-mock";
-			LessonDTO lessonModelTeste = lessonService.update(lessonMock, id);
+			LessonDTO lessonModelTeste = lessonService.update(lessonDROMock, id);
 			assertNotEquals(lessonModelTeste, null);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	@Order(5)
-    @Tag("update method")
-    @DisplayName("Update erro LessonModel")
+	@Tag("update method")
+	@DisplayName("Update erro LessonModel")
 	void updateErroLesson() {
 		try {
-			ProfessorModel professorModel = new ProfessorModel();
-			ShiftModel shiftModel = new ShiftModel();
-			ShiftModel shiftModel2 = new ShiftModel();
-			WeekDayModel weekDayModel = new WeekDayModel();
-			
-			RestrictionModel restrictionModel = new RestrictionModel();
-			restrictionModel.setProfessorModel(professorModel);
-			restrictionModel.setShiftModel(shiftModel);
-			restrictionModel.setWeekDayModel(weekDayModel);
-			
-			IntervalModel intervalModel = new IntervalModel();
-			intervalModel.setShiftModel(shiftModel2);
-			intervalModel.setWeekDayModel(weekDayModel);
-			
-			LessonModel lessonModelOrigin = new LessonModel();
-			lessonModelOrigin.setIntervalModel(intervalModel);		
-			lessonModelOrigin.setProfessorModel(professorModel);
-			
+			LessonDRO lessonDRO = new LessonDRO();
+
 			String id = "id-mock";
-			assertThrows(LessonInvalidException.class, () -> lessonService.update(lessonModelOrigin, id), "Não é permitido valro null");
-			
+			assertThrows(LessonInvalidException.class, () -> lessonService.update(lessonDRO, id),
+					"Não é permitido valro null");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.newUnity;
+package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,16 +31,16 @@ class RestrictionServiceUnityTest {
 	private RestrictionRepository restrictionRepository;
 	@Autowired
 	private RestrictionService restrictionService;
-	
+
 	@Test
 	@Order(1)
-    @Tag("creat method")
-    @DisplayName("Creat from restrictionService")
+	@Tag("creat method")
+	@DisplayName("Creat from restrictionService")
 	void createNewRestriction() {
 		try {
 			RestrictionModel restrictionTeste = restrictionService.create(restrictionMock);
 			assertNotEquals(restrictionTeste, null);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,83 +49,83 @@ class RestrictionServiceUnityTest {
 
 	@Test
 	@Order(2)
-    @Tag("read method")
-    @DisplayName("List RestrictionModel from restrictionService")
+	@Tag("read method")
+	@DisplayName("List RestrictionModel from restrictionService")
 	void readRestriction() {
 		try {
 			List<RestrictionModel> listRestrictionTeste = restrictionService.read();
 			listRestrictionTeste.add(restrictionMock);
 			assertEquals(listRestrictionTeste.size(), 1);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	@Order(3)
-    @Tag("findByUuid method")
-    @DisplayName("Return RestrictionModel from restrictionService")
+	@Tag("findByUuid method")
+	@DisplayName("Return RestrictionModel from restrictionService")
 	void findByUuidRestriction() {
 		try {
 			String id = "id-mock";
 			RestrictionModel restrictionTeste = restrictionService.findByUuid(id);
 			assertNotEquals(restrictionTeste, null);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	@Order(4)
-    @Tag("findByProfessor method")
-    @DisplayName("List RestrictionModel by professor")
+	@Tag("findByProfessor method")
+	@DisplayName("List RestrictionModel by professor")
 	void findByProfessorRestriction() {
 		try {
-			List<RestrictionModel> listRestrictionTeste = restrictionService.findByProfessorModel(restrictionMock.getProfessorModel());
+			List<RestrictionModel> listRestrictionTeste = restrictionService
+					.findByProfessorModel(restrictionMock.getProfessorModel());
 			listRestrictionTeste.add(restrictionMock);
 			assertEquals(listRestrictionTeste.size(), 1);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	@Order(5)
-    @Tag("update method")
-    @DisplayName("Update RestrictionModel")
+	@Tag("update method")
+	@DisplayName("Update RestrictionModel")
 	void updateRestriction() {
 		try {
 			String id = "id-mock";
 			boolean check = restrictionService.update(restrictionMock, id);
 			assertTrue(check);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	@Order(6)
-    @Tag("delete method")
-    @DisplayName("Delete RestrictionModel from restrictionService")
+	@Tag("delete method")
+	@DisplayName("Delete RestrictionModel from restrictionService")
 	void deleteRestriction() {
 		try {
 			String id = "id-mock";
 			boolean check = restrictionService.delete(id);
 			assertTrue(check);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }

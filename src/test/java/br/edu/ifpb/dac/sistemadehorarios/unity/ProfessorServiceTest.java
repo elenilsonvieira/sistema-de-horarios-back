@@ -1,11 +1,11 @@
-package br.edu.ifpb.dac.sistemadehorarios.newUnity;
+package br.edu.ifpb.dac.sistemadehorarios.unity;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Professor.ProfessorService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileService;
-import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceUnityTest;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProfessorServiceUnityTest implements ServiceUnityTest {
+public class ProfessorServiceTest implements ServiceTest {
 
     @Autowired
     private ProfessorService professorService;
@@ -36,7 +36,6 @@ public class ProfessorServiceUnityTest implements ServiceUnityTest {
         professorDRO.setProfileUuid("id-test2");
 
     }
-
 
     @Test
     @Order(1)

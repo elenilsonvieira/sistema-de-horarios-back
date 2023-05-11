@@ -1,6 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.interfaces;
 
-public interface ServiceUnityTest {
+public interface ServiceTest {
     void testCreateNewEntity();
     void testReadEntities();
     void testFindOneEntityById();

@@ -1,8 +1,8 @@
-package br.edu.ifpb.dac.sistemadehorarios.newUnity;
+package br.edu.ifpb.dac.sistemadehorarios.unity;
 
-import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;
-import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaService;
-import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceUnityTest;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
+import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,29 +14,28 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TurmaServiceUnityTest implements ServiceUnityTest {
+public class CourseServiceTest implements ServiceTest {
 
     @Autowired
-    private TurmaService turmaService;
+    private CourseService courseService;
 
-    private static TurmaModel turmaModel;
+    private static CourseModel courseModel;
 
     @BeforeAll
     public static void setUp() {
-        turmaModel = new TurmaModel();
-        turmaModel.setName("Turma Teste");
-        turmaModel.setUuid("id-test");
-        turmaModel.setCreate_at(new Date());
+        courseModel = new CourseModel();
+        courseModel.setName("Curso 1");
+        courseModel.setUuid("id-test");
+        courseModel.setCreate_at(new Date());
     }
-
 
     @Test
     @Order(1)
-    @DisplayName("should be created a new turma")
+    @DisplayName("should be created a new course")
     @Override
     public void testCreateNewEntity() {
         try {
-            assertNotEquals(turmaService.create(turmaModel), null);
+            assertNotEquals(courseService.create(courseModel), null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,13 +43,13 @@ public class TurmaServiceUnityTest implements ServiceUnityTest {
 
     @Test
     @Order(2)
-    @DisplayName("should be listed turmas")
+    @DisplayName("should be listed courses")
     @Override
     public void testReadEntities() {
         try {
-            List<TurmaModel> turmaModels = turmaService.read();
-            turmaModels.add(turmaModel);
-            assertNotEquals(turmaModels.size(), 0);
+            List<CourseModel> courseModels = courseService.read();
+            courseModels.add(courseModel);
+            assertNotEquals(courseModels.size(), 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,12 +57,12 @@ public class TurmaServiceUnityTest implements ServiceUnityTest {
 
     @Test
     @Order(3)
-    @DisplayName("should be found a turma")
+    @DisplayName("should be found a course")
     @Override
     public void testFindOneEntityById() {
         try {
             String id = "id-test";
-            assertNotEquals(turmaService.findByUuid(id), null);
+            assertNotEquals(courseService.findByUuid(id), null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,13 +70,13 @@ public class TurmaServiceUnityTest implements ServiceUnityTest {
 
     @Test
     @Order(4)
-    @DisplayName("should be updated a turma")
+    @DisplayName("should be updated a course")
     @Override
     public void testUpdateOneEntityById() {
         try {
             String id = "id-test";
-            turmaModel.setName("Turma Teste 2");
-            assertNotEquals(turmaService.update(turmaModel, id), false);
+            courseModel.setName("Curso 2");
+            assertNotEquals(courseService.update(courseModel, id), false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,12 +84,12 @@ public class TurmaServiceUnityTest implements ServiceUnityTest {
 
     @Test
     @Order(5)
-    @DisplayName("should be deleted a turma")
+    @DisplayName("should be deleted a course")
     @Override
     public void testDeleteOneEntityById() {
         try {
             String id = "id-test";
-            assertNotEquals(turmaService.delete(id), false);
+            assertNotEquals(courseService.delete(id), false);
         } catch (Exception e) {
             e.printStackTrace();
         }

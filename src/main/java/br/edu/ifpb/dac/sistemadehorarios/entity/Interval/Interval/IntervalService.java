@@ -86,7 +86,7 @@ public class IntervalService extends ServiceTemplate {
         try{
             return super.create(intervalModel, this.repository);
         }catch (Exception error){
-            throw new IntervalInvalidException("Houve um problema para criar um Interval. Erro: "+error.getMessage(), 400);
+            throw new IntervalInvalidException("Houve um problema para criar um Interval. Erro: " + error.getMessage(), 400);
         }
     }
 
