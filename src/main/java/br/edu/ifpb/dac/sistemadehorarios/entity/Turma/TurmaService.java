@@ -48,8 +48,13 @@ public class TurmaService extends ServiceTemplate {
     }
 
     public void createDefaultValues() {
+        TurmaModel turmaModel = new TurmaModel();
+        turmaModel.setUuid("período padrão na criação");
+        turmaModel.setName(-1 + " Período Padrão");
+        this.repository.save(turmaModel);
+
         for (int i = 1; i < 8; i++) {
-            TurmaModel turmaModel = new TurmaModel();
+            turmaModel = new TurmaModel();
             turmaModel.setName(i + " Período");
             this.repository.save(turmaModel);
         }

@@ -77,7 +77,7 @@ public class LessonService extends ServiceTemplate {
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
             LessonModel lessonModel = new LessonModel();
-            lessonModel.setTurmaModel();
+            lessonModel.setTurmaModel(this.turmaService.findByUuid("período padrão na criação"));
             lessonModel.setCurricularComponentModel(curricularComponentModel);
             lessonModel.setClassroomModel(classroomModel);
             lessonModel.setCalendarModel(calendarModel);
