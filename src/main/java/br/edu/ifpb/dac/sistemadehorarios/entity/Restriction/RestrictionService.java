@@ -47,9 +47,9 @@ public class RestrictionService extends ServiceTemplate {
         try {
             RestrictionModel result = this.repository.findByUuid(uuid);
 
-            ProfessorModel professorUuid = restrictionModel.getProfessorModel()==null ? result.getProfessorModel() : restrictionModel.getProfessorModel();
-            WeekDayModel weekDayUuid = restrictionModel.getWeekDayModel()==null ? result.getWeekDayModel() : restrictionModel.getWeekDayModel();
-            ShiftModel shiftUuid = restrictionModel.getShiftModel()==null ? result.getShiftModel() : restrictionModel.getShiftModel();
+            ProfessorModel professorUuid = restrictionModel.getProfessorModel() == null ? result.getProfessorModel() : restrictionModel.getProfessorModel();
+            WeekDayModel weekDayUuid = restrictionModel.getWeekDayModel() == null ? result.getWeekDayModel() : restrictionModel.getWeekDayModel();
+            ShiftModel shiftUuid = restrictionModel.getShiftModel() == null ? result.getShiftModel() : restrictionModel.getShiftModel();
 
             result.setProfessorModel(professorUuid);
             result.setWeekDayModel(weekDayUuid);

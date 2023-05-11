@@ -33,7 +33,7 @@ public class CurricularComponentUnityTest {
     public void create() {
 
         try {
-            CourseModel course  =new CourseModel();
+            CourseModel course = new CourseModel();
             course.setName("ADS");
             when(this.courseService.create(course)).thenReturn(true);
 
