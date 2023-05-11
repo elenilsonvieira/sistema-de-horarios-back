@@ -77,7 +77,7 @@ public class LessonService extends ServiceTemplate {
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
             LessonModel lessonModel = new LessonModel();
-            lessonModel.setTurmaModel(null);
+            lessonModel.setTurmaModel();
             lessonModel.setCurricularComponentModel(curricularComponentModel);
             lessonModel.setClassroomModel(classroomModel);
             lessonModel.setCalendarModel(calendarModel);

@@ -35,7 +35,7 @@ public class LessonModel implements Serializable, Comparable<LessonModel> {
     private IntervalModel intervalModel;
 
     @ManyToOne
-    @JoinColumn(name = "turma_uuid", nullable = false)
+    @JoinColumn(name = "turma_uuid", nullable = true)
     private TurmaModel turmaModel;
 
     @ManyToOne
