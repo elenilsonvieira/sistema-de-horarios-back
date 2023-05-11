@@ -131,57 +131,40 @@ public class LessonService extends ServiceTemplate {
         System.out.println(lessonDRO.toString());
         try {
             LessonModel result = this.repository.findByUuid(uuid);
-            System.out.println(lessonDRO);
 
             TurmaModel turmaModel = lessonDRO.getTurmaUuid() == null
                     ? result.getTurmaModel()
                     : this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
 
-            System.out.println(turmaModel);
-
             CurricularComponentModel curricularComponentModel = lessonDRO.getCurricularComponentUuid() == null
                     ? result.getCurricularComponentModel()
                     : this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
-
-            System.out.println(curricularComponentModel);
 
             ProfessorModel professorModel = lessonDRO.getProfessorUuid() == null
                     ? result.getProfessorModel()
                     : this.professorService.findByUuid(lessonDRO.getProfessorUuid());
 
-            System.out.println(professorModel);
-
             IntervalModel intervalModel = lessonDRO.getIntervalUuid() == null
                     ? result.getIntervalModel()
                     : this.intervalService.findByUuid(lessonDRO.getIntervalUuid());
-
-            System.out.println(intervalModel);
 
             ClassroomModel classroomModel = lessonDRO.getClassroomUuid() == null
                     ? result.getClassroomModel()
                     : this.classroomService.findByUuid(lessonDRO.getClassroomUuid());
 
-            System.out.println(classroomModel);
-
             CalendarModel calendarModel = lessonDRO.getCalendarUuid() == null
                     ? result.getCalendarModel()
                     : this.calendarService.findByUuid(lessonDRO.getCalendarUuid());
-
-            System.out.println(classroomModel);
 
             CourseModel courseModel = lessonDRO.getCourseUuid() == null
                     ? result.getCourseModel()
                     : this.courseService.findByUuid(lessonDRO.getCourseUuid());
 
-            System.out.println(courseModel);
-
             intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
             List<RestrictionModel> restrictions = null;
-
-            System.out.println("Interval tá com problema?");
+            
 
             if(intervalModel != null && professorModel != null) {
-                System.out.println("Null eles?");
             	restrictions = restrictionService.findByProfessorModel(professorModel);
                 boolean check = true;
             	for(RestrictionModel restrictionModel: restrictions) {
