@@ -128,7 +128,6 @@ public class LessonService extends ServiceTemplate {
     }
 
     public LessonDTO update(LessonDRO lessonDRO, String uuid) {
-        System.out.println(lessonDRO.toString());
         try {
             LessonModel result = this.repository.findByUuid(uuid);
 
@@ -166,14 +165,14 @@ public class LessonService extends ServiceTemplate {
 
             if(intervalModel != null && professorModel != null) {
             	restrictions = restrictionService.findByProfessorModel(professorModel);
-                boolean check = true;
+                boolean check = false;
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
                 		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
                 			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByShiftEnum(ShiftEnum.ALL_DAY).getUuid())) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
-                            check = false;
+                            check = true;
                 		}
                 	}        		
             	}
@@ -192,11 +191,13 @@ public class LessonService extends ServiceTemplate {
 
             System.out.println("Chegou aqui, parceiro");
 
+            System.out.println(turmaModel.getName());
             result.setTurmaModel(turmaModel);
             result.setCurricularComponentModel(curricularComponentModel);
             result.setClassroomModel(classroomModel);
             result.setCalendarModel(calendarModel);
             result.setCourseModel(courseModel);
+            result.setIntervalModel(intervalModel);
 
             result = repository.save(result);
 
@@ -207,6 +208,7 @@ public class LessonService extends ServiceTemplate {
 
             return resultDTO;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
