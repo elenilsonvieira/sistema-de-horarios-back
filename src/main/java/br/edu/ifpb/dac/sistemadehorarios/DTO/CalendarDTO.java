@@ -17,8 +17,8 @@ public class CalendarDTO {
     public CalendarDTO(CalendarModel model) {
         this.uuid = model.getUuid();
         this.semester = model.getSemester();
-
     }
+
     public static List<CalendarDTO> convert(List<CalendarModel> classes){
         return classes.stream().map(CalendarDTO::new).collect(Collectors.toList());
     }
