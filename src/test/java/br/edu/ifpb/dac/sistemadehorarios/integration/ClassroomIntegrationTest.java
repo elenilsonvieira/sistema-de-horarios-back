@@ -1,12 +1,15 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomDRO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.Classroom.ClassroomService;
+import br.edu.ifpb.dac.sistemadehorarios.exception.classroom.ClassBlockInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.exception.classroom.ClassroomInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -19,20 +22,29 @@ public class ClassroomIntegrationTest implements ServiceTest {
 
 
     private static ClassroomModel classroomModel;
+
+    @Autowired
+    private ClassBlockService classBlockService;
     private static ClassBlockModel classBlockModel;
 
-    private static ClassroomService classroomService;
+    @Autowired
+    private ClassroomService classroomService;
 
     private static ClassroomDRO classroomDRO;
 
     @BeforeAll
     public static void setUp() {
+     classBlockModel = new ClassBlockModel();
      classBlockModel.setBlockName("Bloco D");
+     classBlockModel.setUuid("test-id");
 
+     classroomModel =  new ClassroomModel();
      classroomModel.setName("Lab 6");
+     classroomModel.setUuid("test-id");
      classroomModel.setCapacity(40);
      classroomModel.setClassBlockModel(classBlockModel);
 
+     classroomDRO = new ClassroomDRO();
      classroomDRO.setCapacity(classroomModel.getCapacity());
      classroomDRO.setName(classroomModel.getName());
      classroomDRO.setClassBlockUuid(classBlockModel.getUuid());
@@ -62,11 +74,27 @@ public class ClassroomIntegrationTest implements ServiceTest {
     @DisplayName("should be created a new Classroom")
     @Override
     public void testCreateNewEntity() {
-        ClassroomInvalidException exception = Assertions.assertThrows(ClassroomInvalidException.class, () -> {
-            classroomService.create(classroomDRO);
-        });
 
-        assertNull("Something exception happened", exception.getMessage());
+        ClassroomInvalidException err = null;
+        ClassBlockInvalidException blockErr = null;
+
+        try{
+            classBlockService.create(classBlockModel);
+        }catch(ClassBlockInvalidException e){
+            blockErr = e;
+        }
+
+        try{
+            classroomService.create(classroomDRO);
+        }catch(ClassroomInvalidException e){
+            err = e;
+        }
+
+
+
+        assertNull(err);
+        assertNull(blockErr);
+
     }
 
     @Test
