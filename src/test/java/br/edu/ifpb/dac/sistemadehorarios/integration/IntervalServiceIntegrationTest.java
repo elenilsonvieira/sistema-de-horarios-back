@@ -120,7 +120,6 @@ public class IntervalServiceIntegrationTest implements ServiceTest {
             boolean check = intervalService.delete(id);
             assertTrue(check);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -74,7 +74,6 @@ public class CurricularComponentIntegrationTest implements ServiceTest {
     @DisplayName("should be created a new CurricularComponent and Course")
     @Override
     public void testCreateNewEntity() {
-
         CourseInvalidException courseErr = null;
         CurricularComponentInvalidException curricularErr = null;
 
@@ -92,7 +91,6 @@ public class CurricularComponentIntegrationTest implements ServiceTest {
 
         assertNull(curricularErr);
         assertNull(courseErr);
-
     }
 
     @Test
