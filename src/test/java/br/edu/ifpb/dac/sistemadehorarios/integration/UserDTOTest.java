@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

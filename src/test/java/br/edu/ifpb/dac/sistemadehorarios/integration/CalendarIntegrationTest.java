@@ -6,6 +6,7 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.CalendarInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CalendarIntegrationTest implements ServiceTest {
 
@@ -69,7 +71,7 @@ public class CalendarIntegrationTest implements ServiceTest {
     @Override
     public void testFindOneEntityById() {
         List<CalendarModel> listC = calendarService.read();
-        CalendarModel calendarModelFinded = calendarService.findByUuid(listC.get(0).getUuid());
+        CalendarModel calendarModelFinded = calendarService.findByUuid("test-id");
 
         assertEquals("2 Semestre", calendarModelFinded.getSemester());
         assertNotNull(calendarModelFinded);
@@ -82,7 +84,7 @@ public class CalendarIntegrationTest implements ServiceTest {
     public void testUpdateOneEntityById() {
         List<CalendarModel> listC = calendarService.read();
         listC.get(0).setSemester("1 Semestre");
-        boolean isUpdated = calendarService.update(listC.get(0), listC.get(0).getUuid());
+        boolean isUpdated = calendarService.update(listC.get(0), "test-id");
 
         assertTrue(isUpdated);
     }
@@ -93,7 +95,7 @@ public class CalendarIntegrationTest implements ServiceTest {
     @Override
     public void testDeleteOneEntityById() {
         List<CalendarModel> listC = calendarService.read();
-        boolean isDeleted = calendarService.delete(listC.get(0).getUuid());
+        boolean isDeleted = calendarService.delete("test-id");
 
         assertTrue(isDeleted);
     }

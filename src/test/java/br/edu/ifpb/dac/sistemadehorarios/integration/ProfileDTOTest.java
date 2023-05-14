@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfileDTO;
 import br.edu.ifpb.dac.sistemadehorarios.DTO.UserDTO;

@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.sistemadehorarios.unity;
+package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import br.edu.ifpb.dac.sistemadehorarios.DTO.TurmaDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Turma.TurmaModel;

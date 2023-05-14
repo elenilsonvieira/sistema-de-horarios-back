@@ -10,6 +10,7 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.classroom.ClassroomInvalidExc
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.ServiceTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ClassroomIntegrationTest implements ServiceTest {
 
@@ -89,12 +91,8 @@ public class ClassroomIntegrationTest implements ServiceTest {
         }catch(ClassroomInvalidException e){
             err = e;
         }
-
-
-
         assertNull(err);
         assertNull(blockErr);
-
     }
 
     @Test
