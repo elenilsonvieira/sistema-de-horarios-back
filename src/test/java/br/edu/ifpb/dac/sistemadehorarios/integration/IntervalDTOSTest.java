@@ -11,10 +11,8 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Interval.IntervalModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftEnum;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayModel;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -22,7 +20,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IntervalDTOSTest {
 
     private static WeekDayModel weekDayModel = new WeekDayModel();

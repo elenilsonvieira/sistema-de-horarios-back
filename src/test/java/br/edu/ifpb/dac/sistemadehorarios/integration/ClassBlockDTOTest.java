@@ -4,7 +4,10 @@ import br.edu.ifpb.dac.sistemadehorarios.DTO.classroom.ClassBlockDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockModel;
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ClassBlockDTOTest implements DTOTest {
 
     @Test

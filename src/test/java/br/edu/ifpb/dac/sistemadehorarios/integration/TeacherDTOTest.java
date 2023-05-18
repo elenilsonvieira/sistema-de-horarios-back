@@ -7,12 +7,15 @@ import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
 import br.edu.ifpb.dac.sistemadehorarios.interfaces.DTOTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.DisplayName;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TeacherDTOTest implements DTOTest {
 
     private static ProfileModel profileModel = new ProfileModel();
