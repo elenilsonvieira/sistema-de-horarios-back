@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse;
+import java.security.spec.InvalidParameterSpecException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,4 +137,9 @@ public class SuapService {
 		return null;
 	}
 
+	public String findAllHeadquarters(String token) throws InvalidParameterSpecException {return null;}
+
+	public String findOneHeadquarters(String token) throws InvalidParameterSpecException{return null;}
+
+	public String findHeadquartersWeekCH(String token, String id) throws InvalidParameterSpecException{return null;}
 }
