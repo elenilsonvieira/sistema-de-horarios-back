@@ -139,7 +139,7 @@ public class SuapService {
 
 	public String findAllCurriculumMatrix(String token) throws InvalidParameterSpecException {return null;}
 
-	public String findOneCurriculumMatrix(String token) throws InvalidParameterSpecException{return null;}
+	public String findOneCurriculumMatrix(String token, String id) throws InvalidParameterSpecException{return null;}
 
 	public int findCurriculumMatrixWeekCH(String token, String id) throws InvalidParameterSpecException{return 0;}
 }
