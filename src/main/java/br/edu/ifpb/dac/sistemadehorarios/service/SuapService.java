@@ -137,9 +137,9 @@ public class SuapService {
 		return null;
 	}
 
-	public String findAllHeadquarters(String token) throws InvalidParameterSpecException {return null;}
+	public String findAllCurriculumMatrix(String token) throws InvalidParameterSpecException {return null;}
 
-	public String findOneHeadquarters(String token) throws InvalidParameterSpecException{return null;}
+	public String findOneCurriculumMatrix(String token) throws InvalidParameterSpecException{return null;}
 
-	public String findHeadquartersWeekCH(String token, String id) throws InvalidParameterSpecException{return null;}
+	public String findCurriculumMatrixWeekCH(String token, String id) throws InvalidParameterSpecException{return null;}
 }
