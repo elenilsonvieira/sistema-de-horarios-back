@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class SuapServiceIntegration {
+public class SuapServiceIntegrationTest {
 
     @Mock
     private Mock mock;

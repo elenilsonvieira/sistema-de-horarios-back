@@ -57,10 +57,6 @@ public class LessonService extends ServiceTemplate {
     @Autowired
     private IntervalService intervalService;
 
-    @Autowired
-    private IntervalRepository intervalRepository;
-
-
     public LessonModel create(LessonDRO lessonDRO) throws LessonInvalidException {
         try {
             CurricularComponentModel curricularComponentModel = this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
@@ -159,7 +155,6 @@ public class LessonService extends ServiceTemplate {
                     ? result.getCourseModel()
                     : this.courseService.findByUuid(lessonDRO.getCourseUuid());
 
-            intervalModel = intervalRepository.findByUuid(intervalModel.getUuid());
             List<RestrictionModel> restrictions = null;
 
 
@@ -181,24 +176,15 @@ public class LessonService extends ServiceTemplate {
             		throw new LessonInvalidException("Professor não pode ser escalado para este horario", 400);
             	}
 
-            } else if(intervalModel != null) {
-                System.out.println("Só o interval");
-            	result.setIntervalModel(intervalModel);
-            } else if(professorModel != null) {
-                System.out.println("Só o professor");
-            	result.setProfessorModel(professorModel);
             }
 
-            System.out.println("Chegou aqui, parceiro");
-
-            System.out.println(turmaModel.getName());
             result.setTurmaModel(turmaModel);
             result.setCurricularComponentModel(curricularComponentModel);
             result.setClassroomModel(classroomModel);
             result.setCalendarModel(calendarModel);
             result.setCourseModel(courseModel);
             result.setIntervalModel(intervalModel);
-
+            result.setProfessorModel(professorModel);
             result = repository.save(result);
 
             LessonDTO resultDTO = new LessonDTO(result);

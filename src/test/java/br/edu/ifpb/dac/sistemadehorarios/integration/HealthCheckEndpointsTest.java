@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,13 +22,17 @@ public class HealthCheckEndpointsTest extends HealthCheckOfEndpointsIntegrationT
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("${password.victor}")
-    private String passwordVictor;
+    @Value("${enrollment.arthur}")
+    private String enrollment;
+
+    @Value("${password.arthur}")
+    private String password;
 
     @Test
     @Order(1)
     public void login() throws Exception {
-        super.login(mockMvc,objectMapper,passwordVictor);
+//        Adicionei minhas informações para testes
+        super.login(mockMvc, objectMapper, enrollment, password);
     }
 
     @Test
@@ -56,38 +61,40 @@ public class HealthCheckEndpointsTest extends HealthCheckOfEndpointsIntegrationT
     }
     @Test
     @Order(6)
-    public void className() throws Exception {
-        super.testWithToken(mockMvc,"/className");
-        super.testWithoutToken(mockMvc,"/className");
+    public void classBlock() throws Exception {
+//        Ajustei o endpoint aqui
+        super.testWithToken(mockMvc,"/classBlock");
+        super.testWithoutToken(mockMvc,"/classBlock");
     }
     @Test
     @Order(7)
-    public void classBlock() throws Exception {
-        super.testWithToken(mockMvc,"/className");
-        super.testWithoutToken(mockMvc,"/className");
-    }
-    @Test
-    @Order(8)
     public void classroom() throws Exception {
         super.testWithToken(mockMvc,"/classroom");
         super.testWithoutToken(mockMvc,"/classroom");
     }
     @Test
-    @Order(9)
+    @Order(8)
     public void calendar() throws Exception {
         super.testWithToken(mockMvc,"/calendar");
         super.testWithoutToken(mockMvc,"/calendar");
     }
     @Test
-    @Order(10)
+    @Order(9)
     public void curricularComponent() throws Exception {
         super.testWithToken(mockMvc,"/curricularComponent");
         super.testWithoutToken(mockMvc,"/curricularComponent");
     }
     @Test
-    @Order(11)
+    @Order(10)
     public void turma() throws Exception {
         super.testWithToken(mockMvc,"/turma");
         super.testWithoutToken(mockMvc,"/turma");
+    }
+
+    @Test
+    @Order(11)
+    public void lesson() throws Exception {
+        super.testWithToken(mockMvc,"/lesson");
+        super.testWithoutToken(mockMvc,"/lesson");
     }
 }

@@ -9,24 +9,27 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 
 public abstract class HealthCheckOfEndpointsIntegrationTest {
 
     public static String token;
 
-    public void login(MockMvc mockMvc, ObjectMapper objectMapper, String passwordVictor) throws Exception {
+    public void login(MockMvc mockMvc, ObjectMapper objectMapper, String enrollment, String password) throws Exception {
         LoginDTO login = new LoginDTO();
-        login.setPass(passwordVictor);
+//        Setando aqui
+        login.setEnrollment(enrollment);
+        login.setPass(password);
 
         ResultActions result = mockMvc.perform(
-                        post("/user/login")
+                        post("/auth/login")
                                 .contentType("application/json")
                                 .content(objectMapper.writeValueAsString(login)))
-                .andExpect(status().is(200));
+                        .andExpect(status().is(200))
+                        .andDo(print());
 
         MvcResult mvcResult = result.andReturn();
         String response = mvcResult.getResponse().getContentAsString();
@@ -42,12 +45,12 @@ public abstract class HealthCheckOfEndpointsIntegrationTest {
         mockMvc.perform(
                         get(endpoint)
                         .header("Authorization", "Bearer "+HealthCheckOfEndpointsIntegrationTest.token))
-                .andExpect(status().is(200));
+                .andExpect(status().is(200)).andDo(print());;
     }
 
     public void testWithoutToken(MockMvc mockMvc, String endpoint) throws Exception {
         mockMvc.perform(
                         get(endpoint))
-                .andExpect(status().is(403));
+                .andExpect(status().is(403)).andDo(print());
     }
 }
