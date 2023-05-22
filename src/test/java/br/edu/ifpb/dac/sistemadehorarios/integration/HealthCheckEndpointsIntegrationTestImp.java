@@ -1,7 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class HealthCheckEndpointsTest extends HealthCheckOfEndpointsIntegrationTest{
+public class HealthCheckEndpointsIntegrationTestImp extends HealthCheckOfEndpointsIntegrationTest{
 
     @Autowired
     private MockMvc mockMvc;
