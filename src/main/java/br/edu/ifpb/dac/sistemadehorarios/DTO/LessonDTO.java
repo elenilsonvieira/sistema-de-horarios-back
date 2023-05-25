@@ -39,6 +39,21 @@ public class LessonDTO {
         this.interval = intervalModel != null ? new IntervalDTO(intervalModel) : null;
     }
 
+    @Override
+    public String toString() {
+        return "LessonDTO{" +
+                "uuid='" + uuid + '\'' +
+                ", curricularComponent=" + curricularComponent +
+                ", professor=" + professor +
+                ", turma=" + turma +
+                ", interval=" + interval +
+                ", classroom=" + classroom +
+                ", calendar=" + calendar +
+                ", course=" + course +
+                ", tipMessage='" + tipMessage + '\'' +
+                '}';
+    }
+
     public static List<LessonDTO> convert(List<LessonModel> lessons) {
         return lessons.stream().map(LessonDTO::new).collect(Collectors.toList());
     }

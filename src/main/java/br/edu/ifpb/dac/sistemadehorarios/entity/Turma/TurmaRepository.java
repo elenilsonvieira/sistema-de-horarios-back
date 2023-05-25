@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface TurmaRepository extends JpaRepository<TurmaModel, String> {
 
     public TurmaModel findByUuid(String uuid);
+
+    public TurmaModel findByName(String name);
 }

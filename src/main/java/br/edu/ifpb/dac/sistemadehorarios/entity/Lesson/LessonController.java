@@ -20,6 +20,8 @@ public class LessonController {
     @PostMapping
     public ResponseEntity<LessonDTO> create(@RequestBody LessonDRO dro) throws LessonInvalidException {
         LessonModel result = this.service.create(dro);
+        LessonDTO lessonDTO = new LessonDTO(result);
+        System.out.println(lessonDTO);
 
         if(result != null)
             return ResponseEntity.status(201).body(new LessonDTO(result));

@@ -73,9 +73,9 @@ public class LessonService extends ServiceTemplate {
                 throw new LessonInvalidException("Um dos campos informados não existe", 400);
             }
             LessonModel lessonModel = new LessonModel();
-            lessonModel.setTurmaModel(this.turmaService.findByUuid("default"));
             lessonModel.setCurricularComponentModel(curricularComponentModel);
             lessonModel.setClassroomModel(classroomModel);
+            lessonModel.setTurmaModel(this.turmaService.findByUuid("default"));
             lessonModel.setCalendarModel(calendarModel);
             lessonModel.setCourseModel(courseModel);
             lessonModel.setProfessorModel(professorModel);
@@ -131,6 +131,7 @@ public class LessonService extends ServiceTemplate {
                     ? result.getTurmaModel()
                     : this.turmaService.findByUuid(lessonDRO.getTurmaUuid());
 
+//
             CurricularComponentModel curricularComponentModel = lessonDRO.getCurricularComponentUuid() == null
                     ? result.getCurricularComponentModel()
                     : this.curricularComponentService.findByUuid(lessonDRO.getCurricularComponentUuid());
@@ -163,13 +164,13 @@ public class LessonService extends ServiceTemplate {
                 boolean check = false;
             	for(RestrictionModel restrictionModel: restrictions) {
             		if(restrictionModel.getWeekDayModel().getUuid().equals(intervalModel.getWeekDayModel().getUuid())) {
-                		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid()) 
+                		if(restrictionModel.getShiftModel().getUuid().equals(intervalModel.getShiftModel().getUuid())
                 			||restrictionModel.getShiftModel().getUuid().equals(shiftService.findByShiftEnum(ShiftEnum.ALL_DAY).getUuid())) {
                             result.setProfessorModel(professorModel);
                             result.setIntervalModel(intervalModel);
                             check = true;
                 		}
-                	}        		
+                	}
             	}
 
             	if(check) {
@@ -191,7 +192,7 @@ public class LessonService extends ServiceTemplate {
             if (intervalModel != null && professorModel != null && !validateExtremeHours(result, restrictions)) {
                 resultDTO.setTipMessage("Este horario não está bom para o professor: " + result.getProfessorModel().getName());
             }
-
+//
             return resultDTO;
         } catch (Exception e) {
             e.printStackTrace();

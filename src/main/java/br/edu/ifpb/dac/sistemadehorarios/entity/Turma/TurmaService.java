@@ -47,6 +47,15 @@ public class TurmaService extends ServiceTemplate {
         }
     }
 
+    public void createDefaultValues() {
+        if (this.repository.findAll().isEmpty()) {
+            TurmaModel turmaModel = new TurmaModel();
+            turmaModel.setUuid("default");
+            turmaModel.setName(-1 + " Periodo Padrao");
+            this.repository.save(turmaModel);
+        }
+    }
+
 //    public void createDefaultValues() {
 //        if (this.repository.findAll().isEmpty()) {
 //            TurmaModel turmaModel = new TurmaModel();
