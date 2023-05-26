@@ -31,4 +31,15 @@ public class TurmaModel implements Serializable {
     public TurmaModel() {
         this.uuid = Generators.randomBasedGenerator().generate().toString();
     }
+
+    @Override
+    public String toString() {
+        return "TurmaModel{" +
+                "name='" + name + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", create_at=" + create_at +
+                ", update_at=" + update_at +
+                ", courseModel=" + courseModel +
+                '}';
+    }
 }
