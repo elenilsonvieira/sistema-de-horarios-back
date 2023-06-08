@@ -1,9 +1,18 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Course;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapEnum;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapModel;
 import br.edu.ifpb.dac.sistemadehorarios.exception.CourseInvalidException;
+import br.edu.ifpb.dac.sistemadehorarios.exception.interval.GapException;
+import br.edu.ifpb.dac.sistemadehorarios.service.SuapService;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +21,9 @@ public class CourseService extends ServiceTemplate {
 	
 	@Autowired
 	private CourseRepository repository;
+
+    @Autowired
+    private SuapService suapService;
 	
 	public boolean create(CourseModel courseModel) throws CourseInvalidException {
 
@@ -45,6 +57,28 @@ public class CourseService extends ServiceTemplate {
         }catch (Exception error){
             return false;
         }
+    }
+
+    public void createDefaultValues() throws CourseInvalidException, JsonProcessingException {
+        if(repository.findAll().isEmpty()) {
+            this.suapService.setSuapToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2MTg4MzQyLCJpYXQiOjE2ODYxODQ3NDIsImp0aSI6IjYyYTA4MDgwODE0NzRhNTU4MmM4ZDE4YWUyM2M4YTAwIiwidXNlcl9pZCI6MTM2MTEyfQ.LOMnYRfvNtIks03tNTjvKv8pGtqZUBVuC1R11LdPQWg");
+            var coursesInString = this.suapService.findAllCourses();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(coursesInString).get("results");
+            List<CourseModel> courseModels = new ArrayList<>();
+            for (JsonNode node : jsonNode) {
+                if(node.get("diretoria").asText().contains("MONTEIRO")) {
+                    CourseModel courseModel = new CourseModel();
+                    courseModel.setUuid(node.get("uuid").asText());
+                    courseModel.setName(node.get("descricao").asText());
+                    courseModels.add(courseModel);
+                }
+
+            }
+
+            this.repository.saveAll(courseModels);
+        }
+
     }
 
 }

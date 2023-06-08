@@ -48,6 +48,7 @@ public class TurmaService extends ServiceTemplate {
     }
 
     public void createDefaultValues() {
+
         if (this.repository.findAll().isEmpty()) {
             TurmaModel turmaModel = new TurmaModel();
             turmaModel.setUuid("default");

@@ -23,16 +23,19 @@ import com.google.gson.JsonParser;
 public class SuapService {
 
 	private static final String OBTAIN_TOKEN_URL = "https://suap.ifpb.edu.br/api/jwt/obtain_token/";
+	private static final String COURSES_URL = "https://suap.ifpb.edu.br/api/ensino/cursos/v1/?limit=439&offset=1";
 	private static final String EMPLOYEES_URL = "https://suap.ifpb.edu.br/api/recursos-humanos/servidores/v1/";
 	private static final String STUDENTS_URL = "https://suap.ifpb.edu.br/api/ensino/alunos/v1/";
 
 	private static final String USERNAME_JSON_FIELD = "username";
 	private static final String PASSWORD_JSON_FIELD = "password";
 
-	private static final String TOKEN_HEADER_NAME = "Authorization";
-	private static final String TOKEN_HEADER_VALUE = "JWT %s";
+	private static final String TOKEN_HEADER_NAME = "authorization";
+	private static final String TOKEN_HEADER_VALUE = "Bearer %s";
 
 	private static final Map<String, String> DEFAULT_HEADERS = Map.of("Content-Type", "application/json");
+
+	private String suapToken;
 
 	@Autowired
 	private Gson gson;
@@ -47,7 +50,8 @@ public class SuapService {
 					.method("POST", HttpRequest.BodyPublishers.ofString(json))
 					.build();
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			return response.body().split(":")[2].substring(1).split("\"")[0];
+			this.suapToken = response.body().split(":")[2].substring(1).split("\"")[0];
+			return suapToken;
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -63,6 +67,10 @@ public class SuapService {
 	public String findStudent(String token, String username) {
 		String url = String.format("%s?search=%s", STUDENTS_URL, username);
 		return find(token, url);
+	}
+
+	public String findAllCourses() {
+		return find(suapToken, COURSES_URL);
 	}
 
 	public JsonObject findUser(String token, String username) {
@@ -121,6 +129,8 @@ public class SuapService {
 	}
 
 	private String find(String token, String findUrl) {
+		System.out.println(TOKEN_HEADER_NAME);
+		System.out.println(String.format(TOKEN_HEADER_VALUE, token));
 		try {
 			HttpRequest url = generateGetUrl(findUrl,
 					Map.of(TOKEN_HEADER_NAME, String.format(TOKEN_HEADER_VALUE, token)));
@@ -142,4 +152,12 @@ public class SuapService {
 	public String findOneCurriculumMatrix(String token, String id) throws InvalidParameterSpecException{return null;}
 
 	public int findCurriculumMatrixWeekCH(String token, String id) throws InvalidParameterSpecException{return 0;}
+
+	public String getSuapToken() {
+		return suapToken;
+	}
+
+	public void setSuapToken(String suapToken) {
+		this.suapToken = suapToken;
+	}
 }

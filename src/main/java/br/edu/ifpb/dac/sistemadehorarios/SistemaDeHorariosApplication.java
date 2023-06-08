@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios;
 
 import br.edu.ifpb.dac.sistemadehorarios.entity.Classroom.ClassBlock.ClassBlockService;
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Gap.GapService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.Shift.ShiftService;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Interval.WeekDay.WeekDayService;
@@ -31,12 +32,16 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
     @Autowired
     private TurmaService turmaService;
 
+    @Autowired
+    private CourseService  courseService;
+
     public static void main(String[] args) {
         SpringApplication.run(SistemaDeHorariosApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
+        courseService.createDefaultValues();
         gapService.createDefaultValues();
         shiftService.createDefaultValues();
         weekDayService.createDefaultValues();
