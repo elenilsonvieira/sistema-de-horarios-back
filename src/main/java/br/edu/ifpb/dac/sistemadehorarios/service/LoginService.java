@@ -40,7 +40,7 @@ public class LoginService {
     private String suapLogin(String enrollment, String password) {
         String token = suapService.login(enrollment, password);
         if (token == null) {
-            throw new IllegalArgumentException("Incorrect Email or Password");
+            throw new IllegalArgumentException("Matrícula ou Senha inválida");
         }
         return token;
     }
