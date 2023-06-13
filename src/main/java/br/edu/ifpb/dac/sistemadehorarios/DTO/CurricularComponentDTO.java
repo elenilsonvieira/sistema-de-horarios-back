@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class CurricularComponentDTO {
 
     private String uuid;
-    private byte workload;
+    private int workload;
     private String name;
     private CourseDTO course;
 

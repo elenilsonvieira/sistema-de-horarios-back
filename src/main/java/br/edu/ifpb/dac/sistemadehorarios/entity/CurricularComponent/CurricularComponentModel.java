@@ -13,11 +13,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name="corricular_component")
+@Entity(name="curricular_component")
 public class CurricularComponentModel implements Serializable {
 
     @Column(nullable = false)
-    private byte workload;
+    private int workload;
     @Column(nullable = false)
     private String name;
     @ManyToOne
@@ -33,4 +33,12 @@ public class CurricularComponentModel implements Serializable {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
     }
 
+    @Override
+    public String toString() {
+        return "CurricularComponentModel{" +
+                "workload=" + workload +
+                ", name='" + name + '\'' +
+                ", courseUuid=" + courseUuid +
+                '}';
+    }
 }

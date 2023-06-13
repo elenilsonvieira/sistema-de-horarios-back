@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class CurricularComponentDRO {
     private String name;
-    private byte workload;
+    private int workload;
     private String courseUuid;
 }

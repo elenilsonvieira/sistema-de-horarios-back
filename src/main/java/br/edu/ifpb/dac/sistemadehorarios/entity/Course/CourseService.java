@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,9 @@ public class CourseService extends ServiceTemplate {
 
     @Autowired
     private SuapService suapService;
+
+    @Value("${Campus}")
+    private String suapToken;
 	
 	public boolean create(CourseModel courseModel) throws CourseInvalidException {
 
@@ -61,7 +65,7 @@ public class CourseService extends ServiceTemplate {
 
     public void createDefaultValues() throws CourseInvalidException, JsonProcessingException {
         if(repository.findAll().isEmpty()) {
-            this.suapService.setSuapToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2MTg4MzQyLCJpYXQiOjE2ODYxODQ3NDIsImp0aSI6IjYyYTA4MDgwODE0NzRhNTU4MmM4ZDE4YWUyM2M4YTAwIiwidXNlcl9pZCI6MTM2MTEyfQ.LOMnYRfvNtIks03tNTjvKv8pGtqZUBVuC1R11LdPQWg");
+            this.suapService.setSuapToken(suapToken);
             var coursesInString = this.suapService.findAllCourses();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(coursesInString).get("results");

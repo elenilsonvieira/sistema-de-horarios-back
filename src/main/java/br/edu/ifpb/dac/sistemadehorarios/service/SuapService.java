@@ -24,6 +24,7 @@ public class SuapService {
 
 	private static final String OBTAIN_TOKEN_URL = "https://suap.ifpb.edu.br/api/jwt/obtain_token/";
 	private static final String COURSES_URL = "https://suap.ifpb.edu.br/api/ensino/cursos/v1/?limit=439&offset=1";
+	private static final String CURRICULAR_COMPONENT_URL = "https://suap.ifpb.edu.br/api/ensino/matrizes/v1/?page=";
 	private static final String EMPLOYEES_URL = "https://suap.ifpb.edu.br/api/recursos-humanos/servidores/v1/";
 	private static final String STUDENTS_URL = "https://suap.ifpb.edu.br/api/ensino/alunos/v1/";
 
@@ -71,6 +72,10 @@ public class SuapService {
 
 	public String findAllCourses() {
 		return find(suapToken, COURSES_URL);
+	}
+
+	public String findAllCurricularComponent() {
+		return find(suapToken, CURRICULAR_COMPONENT_URL);
 	}
 
 	public JsonObject findUser(String token, String username) {
@@ -129,11 +134,26 @@ public class SuapService {
 	}
 
 	private String find(String token, String findUrl) {
-		System.out.println(TOKEN_HEADER_NAME);
-		System.out.println(String.format(TOKEN_HEADER_VALUE, token));
 		try {
 			HttpRequest url = generateGetUrl(findUrl,
 					Map.of(TOKEN_HEADER_NAME, String.format(TOKEN_HEADER_VALUE, token)));
+			return sendRequest(url);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		} catch (InterruptedException e3) {
+			Thread.currentThread().interrupt();
+			e3.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public String findCurricular(int page) {
+		try {
+			HttpRequest url = generateGetUrl(CURRICULAR_COMPONENT_URL + page,
+					Map.of(TOKEN_HEADER_NAME, String.format(TOKEN_HEADER_VALUE, suapToken)));
 			return sendRequest(url);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
