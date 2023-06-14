@@ -112,7 +112,6 @@ public class CurricularComponentService extends ServiceTemplate {
 
             System.out.println("Adicionando ao banco");
             this.repository.saveAll(curricularComponentModels);
-
         }
 
     }

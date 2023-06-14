@@ -82,7 +82,6 @@ public class CourseService extends ServiceTemplate {
 
             this.repository.saveAll(courseModels);
         }
-
     }
 
 }
