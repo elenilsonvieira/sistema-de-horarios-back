@@ -51,6 +51,7 @@ public class TurmaController {
     @PutMapping("/{uuid}")
     public ResponseEntity<TurmaDTO> update(@RequestBody TurmaModel turmaModel, @PathVariable("uuid") String uuid){
         boolean result = this.service.update(turmaModel, uuid);
+        System.out.println(turmaModel.toString());
         if (result) {
             return ResponseEntity.status(200).body(new TurmaDTO(this.service.findByUuid(uuid)));
         }

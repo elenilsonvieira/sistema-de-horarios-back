@@ -34,4 +34,16 @@ public class ClassroomModel implements Serializable {
     public ClassroomModel() {
         this.uuid= Generators.randomBasedGenerator().generate().toString();
     }
+
+    @Override
+    public String toString() {
+        return "ClassroomModel{" +
+                "name='" + name + '\'' +
+                ", capacity=" + capacity +
+                ", classBlockModel=" + classBlockModel +
+                ", uuid='" + uuid + '\'' +
+                ", create_at=" + create_at +
+                ", update_at=" + update_at +
+                '}';
+    }
 }

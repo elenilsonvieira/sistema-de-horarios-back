@@ -73,7 +73,7 @@ public class ProfessorService extends ServiceTemplate {
     public boolean update(ProfessorModel professorModel, String uuid) {
         try {
             ProfessorModel result = this.repository.findByUuid(uuid);
-
+            professorModel.toString();
             String name = professorModel.getName()==null? result.getName() : professorModel.getName();
             ProfileModel profile = professorModel.getProfileModel()==null? result.getProfileModel() : professorModel.getProfileModel();
             result.setName(name);

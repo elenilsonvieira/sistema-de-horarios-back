@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Turma;
 
+import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.exception.TurmaInvalidException;
 
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
@@ -38,8 +39,10 @@ public class TurmaService extends ServiceTemplate {
             TurmaModel result = this.repository.findByUuid(uuid);
 
             String name = turmaModel.getName()==null? result.getName() : turmaModel.getName();
+            CourseModel course = turmaModel.getCourseModel()==null? result.getCourseModel() : turmaModel.getCourseModel();
 
             result.setName(name);
+            result.setCourseModel(course);
             this.repository.save(result);
             return true;
         }catch (Exception error){

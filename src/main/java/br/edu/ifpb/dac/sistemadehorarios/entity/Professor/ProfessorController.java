@@ -43,6 +43,7 @@ public class ProfessorController {
     @PutMapping("/{uuid}")
     public ResponseEntity<ProfessorDTO> update(@RequestBody ProfessorModel professor, @PathVariable("uuid") String uuid) {
         boolean result = this.professorService.update(professor, uuid);
+        System.out.println(professor.toString());
         if(result){
             return  ResponseEntity.status(200).body(new ProfessorDTO(professor));
         }
