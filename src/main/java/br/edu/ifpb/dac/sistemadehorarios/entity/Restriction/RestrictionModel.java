@@ -62,5 +62,16 @@ public class RestrictionModel implements Serializable, Comparable<RestrictionMod
             }
         }
     }
-	
+
+    @Override
+    public String toString() {
+        return "RestrictionModel{" +
+                "professorModel=" + professorModel.getName() +
+                ", weekDayModel=" + weekDayModel.getDisplayName() +
+                ", shiftModel=" + shiftModel.getDisplayName() +
+                ", uuid='" + uuid + '\'' +
+                ", create_at=" + create_at +
+                ", update_at=" + update_at +
+                '}';
+    }
 }

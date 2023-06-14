@@ -32,4 +32,15 @@ public class ProfessorModel implements Serializable {
 	public ProfessorModel() {
 		this.uuid= Generators.randomBasedGenerator().generate().toString();
 	}
+
+	@Override
+	public String toString() {
+		return "ProfessorModel{" +
+				"name='" + name + '\'' +
+				", profileModel=" + profileModel +
+				", uuid='" + uuid + '\'' +
+				", create_at=" + create_at +
+				", update_at=" + update_at +
+				'}';
+	}
 }

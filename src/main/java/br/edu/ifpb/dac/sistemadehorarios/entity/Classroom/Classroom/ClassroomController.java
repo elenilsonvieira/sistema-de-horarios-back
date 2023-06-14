@@ -53,6 +53,7 @@ public class ClassroomController {
 	
 	@PutMapping("/{uuid}")
 	public ResponseEntity<Object> update(@RequestBody ClassroomModel classroom, @PathVariable("uuid") String uuid){
+		System.out.println(classroom.toString());
 		try{
 			ClassroomModel result = this.service.update(classroom, uuid);
 			if (result != null) {

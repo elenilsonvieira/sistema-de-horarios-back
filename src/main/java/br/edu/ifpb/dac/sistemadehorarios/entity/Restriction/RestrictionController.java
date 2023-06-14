@@ -47,9 +47,10 @@ public class RestrictionController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<RestrictionDTO> update(@RequestBody RestrictionModel restrictionModel,
-            @PathVariable("uuid") String uuid) {
+    public ResponseEntity<RestrictionDTO> update(@RequestBody RestrictionModel restrictionModel, @PathVariable("uuid") String uuid) {
+        System.out.println(restrictionModel.toString());
         if (this.service.update(restrictionModel, uuid)) {
+
             return ResponseEntity.status(200).body(new RestrictionDTO(restrictionModel));
         }
         return ResponseEntity.status(404).body(null);

@@ -39,7 +39,7 @@ public class TurmaModel implements Serializable {
                 ", uuid='" + uuid + '\'' +
                 ", create_at=" + create_at +
                 ", update_at=" + update_at +
-                ", courseModel=" + courseModel +
+                ", courseModel=" + courseModel.getUuid() +
                 '}';
     }
 }
