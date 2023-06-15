@@ -34,3 +34,4 @@ build/
 
 application.properties
 /thunder-tests
+src/main/resources/application.properties
