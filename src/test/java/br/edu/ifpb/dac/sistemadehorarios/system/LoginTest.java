@@ -5,14 +5,16 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginTest {
 
@@ -22,97 +24,101 @@ public class LoginTest {
     @Value("${password.arthur}")
     private String password;
 
-    static WebDriver navegador;
+    private static WebDriver driver;
+
     @BeforeAll
     public static void setUp(){
-        System.setProperty("webdriver.chrome.driver", "src\\drive\\chromedriver.exe");
-        navegador = new ChromeDriver();
-    }
+        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "src/drive/chromedriver.exe");
 
-    @BeforeEach
-    void tearDown(){
-        navegador = new ChromeDriver();
+        //Se a página não responder em 10 segundos, lance exceção
+        new ChromeDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @AfterEach
-    void tearUp() throws Exception {
+    void beforeEach() throws InterruptedException {
         Thread.sleep(1000);
-        navegador.quit();
     }
 
     @AfterAll
-    public static void setDown() throws Exception {
-        Thread.sleep(10000);
-        navegador.quit();
+    public static void tearDown() throws Exception {
+        Thread.sleep(1000);
+        driver.quit();
     }
 
     @Test
+    @DisplayName("Testar se os campos estão vazios")
     @Order(1)
-    public void emptyAllFileds() {
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+    public void emptyAllFields() {
+        driver.get("http://localhost:3000/");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
         assertEquals("×\n" +
                 "Erro\n" +
-                "A matrícula é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A matrícula é obrigatória", driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "A senha é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div[2]")).getText());
+                "A senha é obrigatória", driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div[2]")).getText());
+    }
+
+    private void fillInTheFields(String enrollment, String password) {
+        WebElement element;
+
     }
 
     @Test
     @Order(2)
     public void emptyPass() {
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        driver.get("http://localhost:3000/");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        driver.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "A senha é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A senha é obrigatória", driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
     }
 
     @Test
     @Order(3)
     public void emptyEnrollment(){
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        driver.get("http://localhost:3000/");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        driver.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
         assertEquals("×\n" +
                 "Erro\n" +
-                "A matrícula é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A matrícula é obrigatória", driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
     }
 
     @Test
     @Order(4)
     public void invalidFields() throws Exception{
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        driver.get("http://localhost:3000/");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        driver.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
+        driver.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         Thread.sleep(3000);
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "Verifique os dados e tente novamente.", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]")).getText());
+                "Verifique os dados e tente novamente.", driver.findElement(By.xpath("//*[@id=\"toast-container\"]")).getText());
     }
 
     @Test
     @Order(5)
     public void validFields() throws Exception{
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys(enrollment);
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys(password);
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        driver.get("http://localhost:3000/");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        driver.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys(enrollment);
+        driver.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys(password);
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         Thread.sleep(3000);
-        assertEquals("http://localhost:3000/acess-info", navegador.getCurrentUrl());
+        assertEquals("http://localhost:3000/acess-info", driver.getCurrentUrl());
     }
 
 }
