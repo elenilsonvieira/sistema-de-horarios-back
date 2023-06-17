@@ -20,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LoginTest {
 
     @Value("${enrollment.arthur}")
-    private String enrollment;
+    protected String enrollment;
 
     @Value("${password.arthur}")
-    private String password;
+    protected String password;
 
-    static WebDriver navegador;
+    static WebDriver browser;
     @BeforeAll
     public static void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "src\\drive\\chromedriver.exe");
@@ -33,88 +33,88 @@ public class LoginTest {
 
     @BeforeEach
     void tearDown(){
-        navegador = new ChromeDriver();
+        browser = new ChromeDriver();
     }
 
     @AfterEach
     void tearUp() throws Exception {
         Thread.sleep(1000);
-        navegador.quit();
+        //browser.quit();
     }
 
     @AfterAll
     public static void setDown() throws Exception {
         Thread.sleep(10000);
-        navegador.close();
+        browser.close();
     }
 
     @Test
     @Order(1)
     public void emptyAllFileds() {
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        browser.get("http://localhost:3000/");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
         assertEquals("×\n" +
                 "Erro\n" +
-                "A matrícula é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A matrícula é obrigatória", browser.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "A senha é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div[2]")).getText());
+                "A senha é obrigatória", browser.findElement(By.xpath("//*[@id=\"toast-container\"]/div[2]")).getText());
     }
 
     @Test
     @Order(2)
     public void emptyPass() {
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        browser.get("http://localhost:3000/");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "A senha é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A senha é obrigatória", browser.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
     }
 
     @Test
     @Order(3)
     public void emptyEnrollment(){
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        browser.get("http://localhost:3000/");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
         assertEquals("×\n" +
                 "Erro\n" +
-                "A matrícula é obrigatória", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
+                "A matrícula é obrigatória", browser.findElement(By.xpath("//*[@id=\"toast-container\"]/div")).getText());
     }
 
     @Test
     @Order(4)
     public void invalidFields() throws Exception{
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        browser.get("http://localhost:3000/");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys("1092381238");
+        browser.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys("1092381238");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         Thread.sleep(3000);
 
         assertEquals("×\n" +
                 "Erro\n" +
-                "Verifique os dados e tente novamente.", navegador.findElement(By.xpath("//*[@id=\"toast-container\"]")).getText());
+                "Verifique os dados e tente novamente.", browser.findElement(By.xpath("//*[@id=\"toast-container\"]")).getText());
     }
 
     @Test
     @Order(5)
     public void validFields() throws Exception{
-        navegador.get("http://localhost:3000/");
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
-        navegador.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys(enrollment);
-        navegador.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys(password);
-        navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
+        browser.get("http://localhost:3000/");
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"enrollment\"]")).sendKeys(enrollment);
+        browser.findElement(By.xpath("//*[@id=\"pass\"]")).sendKeys(password);
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         Thread.sleep(3000);
-        assertEquals("http://localhost:3000/access-info", navegador.getCurrentUrl());
+        assertEquals("http://localhost:3000/access-info", browser.getCurrentUrl());
     }
 
 
