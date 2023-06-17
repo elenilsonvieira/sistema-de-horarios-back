@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.sistemadehorarios.system;
 
+import br.edu.ifpb.dac.sistemadehorarios.SistemaDeHorariosApplication;
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -10,9 +11,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginTest {
 
@@ -24,9 +27,8 @@ public class LoginTest {
 
     static WebDriver navegador;
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "src\\drive\\chromedriver.exe");
-        navegador = new ChromeDriver();
     }
 
     @BeforeEach
@@ -43,7 +45,7 @@ public class LoginTest {
     @AfterAll
     public static void setDown() throws Exception {
         Thread.sleep(10000);
-        navegador.quit();
+        navegador.close();
     }
 
     @Test
@@ -112,7 +114,8 @@ public class LoginTest {
         navegador.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div/form/button")).click();
 
         Thread.sleep(3000);
-        assertEquals("http://localhost:3000/acess-info", navegador.getCurrentUrl());
+        assertEquals("http://localhost:3000/access-info", navegador.getCurrentUrl());
     }
+
 
 }
