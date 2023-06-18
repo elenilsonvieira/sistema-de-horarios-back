@@ -86,46 +86,48 @@ public class ProfessorService extends ServiceTemplate {
     }
 
     public void createDefaultValues() throws JsonProcessingException {
-        List<ProfessorModel> professorModels = new ArrayList<>();
-        this.suapService.setSuapToken(suapToken);
-        ObjectMapper mapper = new ObjectMapper();
-        int count = 100;
-        boolean isFinished = false;
-        while(!isFinished) {
-            var professorInString = this.suapService.findProfessors(count);
-            JsonNode jsonNode = mapper.readTree(professorInString);
-            JsonNode results = jsonNode.get("results");
-            if(results != null) {
-                for (JsonNode node : results) {
-                    if (node.has("lotacao_suap") && !node.get("lotacao_suap").isNull()) {
-                        JsonNode lotacaoSuapNode = node.get("lotacao_suap");
-                        String nomeLotacaoSuap = lotacaoSuapNode.get("nome").asText();
+        if(repository.findAll().isEmpty()) {
+            List<ProfessorModel> professorModels = new ArrayList<>();
+            this.suapService.setSuapToken(suapToken);
+            ObjectMapper mapper = new ObjectMapper();
+            int count = 100;
+            boolean isFinished = false;
+            while(!isFinished) {
+                var professorInString = this.suapService.findProfessors(count);
+                JsonNode jsonNode = mapper.readTree(professorInString);
+                JsonNode results = jsonNode.get("results");
+                if(results != null) {
+                    for (JsonNode node : results) {
+                        if (node.has("lotacao_suap") && !node.get("lotacao_suap").isNull()) {
+                            JsonNode lotacaoSuapNode = node.get("lotacao_suap");
+                            String nomeLotacaoSuap = lotacaoSuapNode.get("nome").asText();
 
-                        if(verificaString(nomeLotacaoSuap)) {
-                            ProfessorModel professorModel = new ProfessorModel();
-                            ProfileModel profileModel = new ProfileModel();
-                            JsonNode situacaoSuapNode = node.get("situacao");
-                            String situacaoSuapString = situacaoSuapNode.get("codigo").asText();
-                            profileModel.setStandard(Integer.parseInt(situacaoSuapString));
-                            profileModel.setField(node.get("cargo_emprego").asText());
-                            professorModel.setName(node.get("nome").asText());
-                            this.profileRepository.save(profileModel);
-                            professorModel.setProfileModel(profileModel);
-                            professorModels.add(professorModel);
+                            if(verificaString(nomeLotacaoSuap)) {
+                                ProfessorModel professorModel = new ProfessorModel();
+                                ProfileModel profileModel = new ProfileModel();
+                                JsonNode situacaoSuapNode = node.get("situacao");
+                                String situacaoSuapString = situacaoSuapNode.get("codigo").asText();
+                                profileModel.setStandard(Integer.parseInt(situacaoSuapString));
+                                profileModel.setField(node.get("cargo_emprego").asText());
+                                professorModel.setName(node.get("nome").asText());
+                                this.profileRepository.save(profileModel);
+                                professorModel.setProfileModel(profileModel);
+                                professorModels.add(professorModel);
+                            }
                         }
                     }
                 }
+
+                if(count == 1300) count += 200;
+                else if(count == 3100) isFinished = true;
+                else count += 100;
+
+                System.out.println(count);
             }
 
-            if(count == 1300) count += 200;
-            else if(count == 3100) isFinished = true;
-            else count += 100;
-
-            System.out.println(count);
+            System.out.println("Adicionando ao banco...");
+            this.repository.saveAll(professorModels);
         }
-
-        System.out.println("Adicionando ao banco...");
-        this.repository.saveAll(professorModels);
     }
 
     public static boolean verificaString(String texto) {
