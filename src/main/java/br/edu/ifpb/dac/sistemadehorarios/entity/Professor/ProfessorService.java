@@ -41,7 +41,7 @@ public class ProfessorService extends ServiceTemplate {
     public ProfessorModel create(ProfessorDRO professor) throws ProfessorInvalidException {
         try{
             ProfileModel profile = profileRepository.findByUuid(professor.getProfileUuid());
-            
+
             if(profile != null){
                 ProfessorModel professorModel = new ProfessorModel();
 
@@ -102,7 +102,7 @@ public class ProfessorService extends ServiceTemplate {
                             JsonNode lotacaoSuapNode = node.get("lotacao_suap");
                             String nomeLotacaoSuap = lotacaoSuapNode.get("nome").asText();
 
-                            if(verificaString(nomeLotacaoSuap)) {
+                            if(verificaString(nomeLotacaoSuap) && node.get("cargo_emprego").asText().contains("PROFESSOR")) {
                                 ProfessorModel professorModel = new ProfessorModel();
                                 ProfileModel profileModel = new ProfileModel();
                                 JsonNode situacaoSuapNode = node.get("situacao");

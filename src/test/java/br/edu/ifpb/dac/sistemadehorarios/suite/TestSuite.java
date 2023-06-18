@@ -10,10 +10,10 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-//        LoginTest.class,
+        LoginTest.class,
         CreateInfoTest.class,
         EditInfoTest.class,
-//        RoutesTest.class
+        RoutesTest.class
 })
 public class TestSuite {
 }

@@ -69,8 +69,8 @@ public class EditInfoTest {
         String field = browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[3]/div/div/div[2]/div[2]/span[2]")).getText();
 
         assertAll("view infos in teacher",
-            () -> assertEquals("Tiago Brasileiro", name),
-            () -> assertEquals("Ciencia de dados - 1", field)
+            () -> assertEquals("Anselmo Almeida dos Santos", name),
+            () -> assertEquals("ASSISTENTE EM ADMINISTRACAO - 1", field)
         );
     }
 
@@ -85,7 +85,7 @@ public class EditInfoTest {
         String pattern = browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[3]/div/div/div[2]/div[2]/span[2]")).getText();
 
         assertAll("view infos in profile",
-                () -> assertEquals("Ciencia de dados", fieldProfile),
+                () -> assertEquals("ASSISTENTE EM ADMINISTRACAO", fieldProfile),
                 () -> assertEquals("1", pattern)
         );
     }
@@ -102,7 +102,7 @@ public class EditInfoTest {
         String shift = browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[3]/div/div/div[2]/div[3]/span[2]")).getText();
 
         assertAll("view infos in restriction",
-                () -> assertEquals("Tiago Brasileiro", teacher),
+                () -> assertEquals("Anselmo Almeida dos Santos", teacher),
                 () -> assertEquals("segunda-feira", dayOfWeek),
                 () -> assertEquals("Manhã", shift)
         );
@@ -166,7 +166,7 @@ public class EditInfoTest {
 
         assertAll("view infos in class",
                 () -> assertEquals("1 Periodo", className),
-                () -> assertEquals("Tecnologia em Análise e Desenvolvimento de Sistemas (2021/1) - Monteiro", courseClass)
+                () -> assertEquals("Técnico em Manutenção e Suporte em Informática Subsequente - Monteiro", courseClass)
         );
     }
 
@@ -179,7 +179,7 @@ public class EditInfoTest {
 
         String courseName = browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[3]/div/div[1]/div[2]/div[1]/span[2]")).getText();
 
-        assertEquals("Analise e Desenvolvimento de Sistemas", courseName);
+        assertEquals("Técnico em Manutenção e Suporte em Informática Subsequente - Monteiro", courseName);
     }
 
     @Test
@@ -201,7 +201,7 @@ public class EditInfoTest {
                 () -> assertEquals("2023.1", calendarLesson),
                 () -> assertEquals("Lab 3 - Bloco 1", classroomLesson),
                 () -> assertEquals("Fundamentos de Eletricidade", curricularCLesson),
-                () -> assertEquals("Tiago Brasileiro", teacherLesson),
+                () -> assertEquals("Anselmo Almeida dos Santos", teacherLesson),
                 () -> assertEquals("Não definida", classLesson),
                 () -> assertEquals("Tecnologia em Análise e Desenvolvimento de Sistemas (2021/1) - Monteiro", courseLesson)
         );

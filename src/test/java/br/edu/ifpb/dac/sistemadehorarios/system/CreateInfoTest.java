@@ -142,7 +142,7 @@ public class CreateInfoTest extends SeleniumClassesTest {
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[2]/div/div[8]/label/span"));
 
         WebElement input = getElementByXpath("//*[@id=\"nome\"]");
-        fillInput(input, "2023.1");
+        fillInput(input, "Lab 3");
 
         input = getElementByXpath("//*[@id=\"capacidade\"]");
         fillInput(input, "40");
