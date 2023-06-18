@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 public class SuapService {
 
 	private static final String OBTAIN_TOKEN_URL = "https://suap.ifpb.edu.br/api/jwt/obtain_token/";
+	private static final String PROFESSOR_URL = "https://suap.ifpb.edu.br/api/recursos-humanos/servidores/v1/?limit=100&offset=";
 	private static final String COURSES_URL = "https://suap.ifpb.edu.br/api/ensino/cursos/v1/?limit=439&offset=1";
 	private static final String CURRICULAR_COMPONENT_URL = "https://suap.ifpb.edu.br/api/ensino/matrizes/v1/?page=";
 	private static final String EMPLOYEES_URL = "https://suap.ifpb.edu.br/api/recursos-humanos/servidores/v1/";
@@ -153,6 +154,23 @@ public class SuapService {
 	public String findCurricular(int page) {
 		try {
 			HttpRequest url = generateGetUrl(CURRICULAR_COMPONENT_URL + page,
+					Map.of(TOKEN_HEADER_NAME, String.format(TOKEN_HEADER_VALUE, suapToken)));
+			return sendRequest(url);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		} catch (InterruptedException e3) {
+			Thread.currentThread().interrupt();
+			e3.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public String findProfessors(int set) {
+		try {
+			HttpRequest url = generateGetUrl(PROFESSOR_URL + set,
 					Map.of(TOKEN_HEADER_NAME, String.format(TOKEN_HEADER_VALUE, suapToken)));
 			return sendRequest(url);
 		} catch (URISyntaxException e) {
