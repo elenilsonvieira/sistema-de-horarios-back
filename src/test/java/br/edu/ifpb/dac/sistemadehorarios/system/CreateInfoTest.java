@@ -100,7 +100,7 @@ public class CreateInfoTest extends SeleniumClassesTest {
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[2]/div/div[7]/label/span"));
 
         WebElement input = getElementByXpath("//*[@id=\"nome\"]");
-        fillInput(input, "Analise de Sistemas");
+        fillInput(input, "Analise e Desenvolvimento de Sistemas");
 
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[1]/div[2]/button"));
 
@@ -121,7 +121,7 @@ public class CreateInfoTest extends SeleniumClassesTest {
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[2]/div/div[6]/label/span"));
 
         WebElement input = getElementByXpath("//*[@id=\"turma\"]");
-        fillInput(input, "2023.1");
+        fillInput(input, "1 Periodo");
 
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[1]/div[2]/button"));
 
@@ -166,7 +166,7 @@ public class CreateInfoTest extends SeleniumClassesTest {
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[2]/div/div[4]/label/span"));
 
         WebElement input = getElementByXpath("//*[@id=\"nome\"]");
-        fillInput(input, "Testes Americanos");
+        fillInput(input, "Testes");
 
         input = getElementByXpath("//*[@id=\"carga-horária\"]");
         fillInput(input, "33");

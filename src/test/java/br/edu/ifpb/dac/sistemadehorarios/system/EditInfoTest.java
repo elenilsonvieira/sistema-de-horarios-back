@@ -179,7 +179,7 @@ public class EditInfoTest {
 
         String courseName = browser.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[3]/div/div[1]/div[2]/div[1]/span[2]")).getText();
 
-        assertEquals("Técnico em Manutenção e Suporte em Informática Subsequente - Monteiro", courseName);
+        assertEquals("Analise e Desenvolvimento de Sistemas", courseName);
     }
 
     @Test
