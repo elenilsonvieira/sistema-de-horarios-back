@@ -49,7 +49,7 @@ public class CreateInfoTest extends SeleniumClassesTest {
     @Order(4)
     public void addProfessor(){
         WebElement input = getElementByXpath("/html/body/div/div[2]/div[1]/div[1]/div[2]/form/div[1]/input");
-        fillInput(input, "Tiago Brasileiross");
+        fillInput(input, "Tiago Brasileiro");
 
         clickButton(getElementByXpath("//*[@id=\"root\"]/div[2]/div[1]/div[1]/div[2]/button"));
 
