@@ -4,7 +4,6 @@ import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
 import br.edu.ifpb.dac.sistemadehorarios.exception.ProfessorInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,11 +40,11 @@ public class ProfessorController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<ProfessorDTO> update(@RequestBody ProfessorModel professor, @PathVariable("uuid") String uuid) {
+    public ResponseEntity<ProfessorDTO> update(@RequestBody ProfessorDTO professor, @PathVariable("uuid") String uuid) {
         boolean result = this.professorService.update(professor, uuid);
-        System.out.println(professor.toString());
+       // System.out.println(professor.toString());
         if(result){
-            return  ResponseEntity.status(200).body(new ProfessorDTO(professor));
+            return  ResponseEntity.status(200).body(professor);
         }
         return ResponseEntity.status(404).body(null);
     }

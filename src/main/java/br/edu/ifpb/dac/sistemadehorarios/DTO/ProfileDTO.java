@@ -19,6 +19,8 @@ public class ProfileDTO {
         this.standard = profile.getStandard();
 		this.uuid = profile.getUuid();
     }
+    public ProfileDTO() {
+    }
 
     public static List<ProfileDTO> convert(List<ProfileModel> profiles){
         return profiles.stream().map(ProfileDTO::new).collect(Collectors.toList());

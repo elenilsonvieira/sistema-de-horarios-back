@@ -30,13 +30,12 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
     private ClassBlockService classBlockService;
     @Autowired
     private IntervalService intervalService;
-
     @Autowired
     private TurmaService turmaService;
-
     @Autowired
     private ProfessorService professorService;
-
+    @Autowired
+    private CourseService courseService;
     @Autowired
     private CurricularComponentService curricularComponentService;
 
@@ -46,7 +45,7 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        courseService.createDefaultValues();
+        courseService.createDefaultValues();
         gapService.createDefaultValues();
         shiftService.createDefaultValues();
         weekDayService.createDefaultValues();

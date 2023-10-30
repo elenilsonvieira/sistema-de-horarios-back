@@ -24,6 +24,8 @@ public class ProfessorDTO {
         this.profile = profileModel != null ? new ProfileDTO(profileModel) : null;
 
     }
+    public ProfessorDTO() {
+    }
 
 	public static List<ProfessorDTO> convert(List<ProfessorModel> professor){
         return professor.stream().map(ProfessorDTO::new).collect(Collectors.toList());

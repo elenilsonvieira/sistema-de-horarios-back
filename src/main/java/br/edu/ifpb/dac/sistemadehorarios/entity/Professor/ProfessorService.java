@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.sistemadehorarios.entity.Professor;
 
 
+import br.edu.ifpb.dac.sistemadehorarios.DTO.ProfessorDTO;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Course.CourseModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.CurricularComponent.CurricularComponentModel;
 import br.edu.ifpb.dac.sistemadehorarios.entity.Profile.ProfileModel;
@@ -12,12 +13,14 @@ import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
+
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +33,9 @@ public class ProfessorService extends ServiceTemplate {
 
     @Autowired
     private SuapService suapService;
+
+    @Autowired
+    private ProfileService  profileService;
 
 
     @Autowired
@@ -70,14 +76,15 @@ public class ProfessorService extends ServiceTemplate {
         return (ProfessorModel) super.findByUuid(uuid, this.repository);
     }
 
-    public boolean update(ProfessorModel professorModel, String uuid) {
+    public boolean update(ProfessorDTO professorModel, String uuid) {
         try {
             ProfessorModel result = this.repository.findByUuid(uuid);
-            professorModel.toString();
-            String name = professorModel.getName()==null? result.getName() : professorModel.getName();
-            ProfileModel profile = professorModel.getProfileModel()==null? result.getProfileModel() : professorModel.getProfileModel();
+            String name = professorModel.getName().equals("")? result.getName() : professorModel.getName();
+            ProfileModel resultProfileModel = profileService.findByUuid(professorModel.getProfile().getUuid());
+            ProfileModel newProfile = resultProfileModel != null ? resultProfileModel : result.getProfileModel();
             result.setName(name);
-            result.setProfileModel(profile);
+            result.setProfileModel(newProfile);
+            result.setUpdate_at(new Date());
             this.repository.save(result);
             return true;
         }catch (Exception error){
