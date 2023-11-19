@@ -45,7 +45,7 @@ public class SistemaDeHorariosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        courseService.createDefaultValues();
+        // courseService.createDefaultValues();
         gapService.createDefaultValues();
         shiftService.createDefaultValues();
         weekDayService.createDefaultValues();

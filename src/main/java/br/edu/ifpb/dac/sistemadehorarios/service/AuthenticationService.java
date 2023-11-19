@@ -15,6 +15,11 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String enrollment) throws UsernameNotFoundException {
-        return userService.findByEnrollment(enrollment);
+        try {
+            return userService.findByEnrollment(enrollment);
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        }
+        
     }
 }

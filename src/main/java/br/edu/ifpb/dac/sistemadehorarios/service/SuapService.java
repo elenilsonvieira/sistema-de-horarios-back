@@ -46,15 +46,9 @@ public class SuapService {
 		Map<String, String> body = Map.of(USERNAME_JSON_FIELD, username, PASSWORD_JSON_FIELD, password);
 		String json = gson.toJson(body);
 		try{
-			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create(OBTAIN_TOKEN_URL))
-					.header("Content-Type", "application/json")
-					.method("POST", HttpRequest.BodyPublishers.ofString(json))
-					.build();
-			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			this.suapToken = response.body().split(":")[2].substring(1).split("\"")[0];
-			return suapToken;
-
+			HttpRequest request = generatePostUrl(OBTAIN_TOKEN_URL, null, json);
+			String response = sendRequest(request);
+			return response.contains("non_field_errors") ? null : response;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -79,21 +73,12 @@ public class SuapService {
 		return find(suapToken, CURRICULAR_COMPONENT_URL);
 	}
 
-	public JsonObject findUser(String token, String username) {
+	public String findUser(String token, String username) {
 		String json = findEmployee(token, username);
-
-		JsonArray result = JsonParser.parseString(json).getAsJsonObject()
-				.get("results")
-				.getAsJsonArray();
-
-		if (result.size() == 0) {
+		if (json.contains("\"count\":0")) {
 			json = findStudent(token, username);
-			result = JsonParser.parseString(json).getAsJsonObject()
-					.get("results")
-					.getAsJsonArray();
 		}
-
-		return result.size() == 0 ? null : result.get(0).getAsJsonObject();
+		return json;
 	}
 
 	private HttpRequest generateGetUrl(String url, Map<String, String> headers) throws URISyntaxException {
