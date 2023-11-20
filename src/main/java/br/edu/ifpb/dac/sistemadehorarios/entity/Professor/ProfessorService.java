@@ -100,7 +100,7 @@ public class ProfessorService extends ServiceTemplate {
             int count = 100;
             boolean isFinished = false;
             while(!isFinished) {
-                var professorInString = this.suapService.findProfessors(count);
+                String professorInString = this.suapService.findProfessors(count);
                 JsonNode jsonNode = mapper.readTree(professorInString);
                 JsonNode results = jsonNode.get("results");
                 if(results != null) {

@@ -4,13 +4,13 @@ import br.edu.ifpb.dac.sistemadehorarios.exception.UserInvalidException;
 import br.edu.ifpb.dac.sistemadehorarios.service.SuapService;
 import br.edu.ifpb.dac.sistemadehorarios.template.ServiceTemplate;
 
-import org.apache.tomcat.jni.User;
-import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -57,37 +57,34 @@ public class UserService extends ServiceTemplate implements UserDetailsService {
         art.setName("Arthur Pereira da silva");
         art.setRoles(fullAcess);
         repository.save(art);
-
         
         }
     }
     public UserModel convertJSonUserModel (String json) {
-        System.out.println("json: " + json);
+
         JsonObject result = JsonParser.parseString(json).getAsJsonObject();
-        System.out.println("result: " + result);
+        JsonArray results = result.getAsJsonArray("results");
+        JsonObject firstResult = results.get(0).getAsJsonObject();
         UserModel user = new UserModel();
-        System.out.println("criei o user");
-        user.setName(result.get("nome").getAsString());
-        System.out.println("setei o nome");
-        user.setEnrollment(result.get("matricula").getAsString());
-        System.out.println("setei a matricula");
-        user.setRoles(RoleEnum.ADM.name());
+        user.setName(firstResult.getAsJsonPrimitive("nome").getAsString());
+        user.setEnrollment(firstResult.getAsJsonPrimitive("matricula").getAsString());
+        user.setRoles(RoleEnum.READ.name());
         
-        System.out.println("user: " + user.getName() + " " + user.getEnrollment() + " " + user.getRoles() + " " + user.getUuid() + "");
         return user;
     }
 
     public UserModel create(String token, String enrollment, String roles) throws UserInvalidException {
         try {
             JsonObject result = JsonParser.parseString(suapService.findUser(token, enrollment)).getAsJsonObject();
-
+            JsonArray results = result.getAsJsonArray("results");
+            JsonObject firstResult = results.get(0).getAsJsonObject();
             UserModel user = new UserModel();
-            user.setName(result.get("nome").getAsString());
-            user.setEnrollment(result.get("matricula").getAsString());
+            user.setName(firstResult.getAsJsonPrimitive("nome").getAsString());
+            user.setEnrollment(firstResult.getAsJsonPrimitive("matricula").getAsString());
             user.setRoles(roles == null
                     ? RoleEnum.READ.name()
                     : roles);
-
+                    
             super.create(user, repository);
             return user;
         } catch (Exception error) {
