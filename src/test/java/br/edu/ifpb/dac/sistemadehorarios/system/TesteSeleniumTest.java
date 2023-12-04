@@ -1,29 +1,21 @@
 package br.edu.ifpb.dac.sistemadehorarios.system;
-import org.junit.Test;
-import org.junit.Before;
-import org.hibernate.dialect.Dialect;
-import org.hibernate.sql.Select;
-import org.junit.After;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
-import java.util.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 public class TesteSeleniumTest {
     private WebDriver driver;
     private Map<String, Object> vars;
@@ -39,7 +31,7 @@ public class TesteSeleniumTest {
 
     @After
     public void tearDown() {
-        driver.quit();
+      driver.quit();
     }
 
     @Test
@@ -81,33 +73,86 @@ public class TesteSeleniumTest {
             Thread.currentThread().interrupt();
         }
 
+        driver.findElement(By.xpath("(//span)[4]")).click();
+         try {
+          Thread.sleep(1000*2);
+        } catch (Exception e) {
+          Thread.currentThread().interrupt();
+        }
+        {
+            WebElement dropdown1 = driver.findElement(By.xpath("(//select)[1]"));
+            dropdown1.findElement(By.xpath("//option[. = 'Hicaro Ferreira Brasil']")).click();
+        }
+        driver.findElement(By.xpath("(//Button)[1]")).click();
+
+        // assertEquals("Restrição adicionada com sucesso!", driver.findElement(By.cssSelector(".success-message")).getText());
+
+        try {
+          Thread.sleep(1000*5);
+        } catch (Exception e) {
+          Thread.currentThread().interrupt();
+        }
+        
         // Adicione mais assertivas conforme necessário
         assertTrue(driver.findElement(By.xpath("//a[text()='Acesso às Informações']")).isDisplayed());
-
         assertEquals("http://localhost:3000/add-info", driver.getCurrentUrl());
-
+      
+        try {
+          Thread.sleep(1000*5);
+        } catch (Exception e) {
+          Thread.currentThread().interrupt();
+        }
     driver.findElement(By.xpath("//a[text()='Acesso às Informações']")).click();
     driver.findElement(By.xpath("(//Button)[5]")).click();
     {
       WebElement dropdown1  = driver.findElement(By.xpath("(//select)[1]"));
       dropdown1.findElement(By.xpath("//option[. = 'Edição']")).click();
     }
-    driver.findElement(By.cssSelector(".sc-gKXOVf:nth-child(38) span")).click();
-    driver.findElement(By.cssSelector(".sc-gKXOVf:nth-child(38) img")).click();
-    driver.findElement(By.id("a37")).click();
-    driver.findElement(By.id("a37")).sendKeys("Hicaro Brasil");
+    try{
+      Thread.sleep(1000*5);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    driver.findElement(By.cssSelector(".sc-gKXOVf:nth-child(36) span")).click();
+    driver.findElement(By.xpath("(//label)[47]")).click();
+    driver.findElement(By.id("a36")).click();
+    driver.findElement(By.id("a36")).sendKeys("Hicaro Brasil");
     driver.findElement(By.cssSelector(".sc-iqcoie")).click();
+    
+    try {
+      Thread.sleep(1000*3);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    // Logica para deletar uma restrição de um professor
+    driver.findElement(By.xpath("(//span)[4]")).click();
+    {
+      WebElement dropdown2 = driver.findElement(By.xpath("(//select)[1]"));
+      dropdown2.findElement(By.xpath("//option[. = 'Edição']")).click();
+    }
+    
+    driver.findElement(By.xpath("(//label)[10]")).click();
+    driver.findElement(By.xpath("(//label)[11]")).click();
+    driver.findElement(By.xpath("(//Button)[1]")).click();
+    assertThat(driver.switchTo().alert().getText(), is("Deseja confirmar a operação?"));
+    driver.switchTo().alert().accept();
+
     try {
       Thread.sleep(1000*5);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+    driver.findElement(By.xpath(("(//span)[2]"))).click();
     {
       WebElement dropdown2 = driver.findElement(By.xpath("(//select)[1]"));
       dropdown2.findElement(By.xpath("//option[. = 'Edição']")).click();
     }
-    driver.findElement(By.cssSelector(".sc-gKXOVf:nth-child(38)")).click();
-    driver.findElement(By.cssSelector(".sc-gKXOVf:nth-child(38) img")).click();
+    try {
+      Thread.sleep(1000*5);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    driver.findElement(By.xpath("(//label)[47]")).click();
     driver.findElement(By.cssSelector(".sc-kDDrLX")).click();
     assertThat(driver.switchTo().alert().getText(), is("Deseja confirmar a operação?"));
     driver.switchTo().alert().accept();
