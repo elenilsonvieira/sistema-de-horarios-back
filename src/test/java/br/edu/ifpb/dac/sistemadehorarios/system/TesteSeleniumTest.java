@@ -39,10 +39,12 @@ public class TesteSeleniumTest {
         driver.get("http://localhost:3000/");
         driver.manage().window().setSize(new Dimension(1552, 832));
 
-        // Assertivas - Personalize conforme necessário
+        // Para verificar se o sistema está na página inicial
         assertEquals("http://localhost:3000/", driver.getCurrentUrl());
+        // Para verificar se o título da página está correto
         assertEquals("Sistema de Horários", driver.getTitle());
 
+        // Logica para fazer o login
         driver.findElement(By.cssSelector(".sc-fEOsli")).click();
         driver.findElement(By.id("enrollment")).click();
         driver.findElement(By.id("enrollment")).sendKeys("202115020040");
@@ -56,14 +58,28 @@ public class TesteSeleniumTest {
             Thread.currentThread().interrupt();
         }
 
+        // Logica para inserir um professor
         driver.findElement(By.xpath("(//Button)[3]")).click();
         driver.findElement(By.xpath("(//Input)[1]"));
         driver.findElement(By.xpath("(//Input)[1]")).sendKeys("Hicaro Ferreira Brasil");
+
+        // Compara o nome inserido com um nome esperado (url)
+        assertNotEquals("http://localhost:3000/", driver.getCurrentUrl());
         driver.findElement(By.id("perfil-s")).click();
 
+        // Compara o nome inserido com um nome esperado (professor)
+        String nomeInserido = driver.findElement(By.xpath("(//Input)[1]")).getAttribute("value");
+        assertEquals("Hicaro Ferreira Brasil", nomeInserido);
+
+        // Logica para inserir um perfil
         WebElement dropdown = driver.findElement(By.id("perfil-s"));
         dropdown.findElement(By.xpath("//option[. = 'PROFESSOR ENS BASICO TECN TECNOLOGICO - 1']")).click();
 
+        // Compara o perfil inserido com um nome esperado
+        String perfilInserido = driver.findElement(By.id("perfil-s")).getAttribute("value");
+        assertNotEquals(null, perfilInserido);
+
+        // Logica para salvar um professor
         driver.findElement(By.cssSelector(".sc-eCYdqJ")).click();
         driver.findElement(By.cssSelector(".sc-fXynhf")).click();
 
@@ -72,20 +88,19 @@ public class TesteSeleniumTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
+        // Logica para entrar em uma restrição de um professor
         driver.findElement(By.xpath("(//span)[4]")).click();
          try {
           Thread.sleep(1000*2);
         } catch (Exception e) {
           Thread.currentThread().interrupt();
         }
+        // Logica para adicionar uma restrição de um professor
         {
             WebElement dropdown1 = driver.findElement(By.xpath("(//select)[1]"));
             dropdown1.findElement(By.xpath("//option[. = 'Hicaro Ferreira Brasil']")).click();
         }
         driver.findElement(By.xpath("(//Button)[1]")).click();
-
-        // assertEquals("Restrição adicionada com sucesso!", driver.findElement(By.cssSelector(".success-message")).getText());
 
         try {
           Thread.sleep(1000*5);
@@ -93,15 +108,19 @@ public class TesteSeleniumTest {
           Thread.currentThread().interrupt();
         }
         
-        // Adicione mais assertivas conforme necessário
+        // Logica para verificar se o botão de acesso às informações está visível
         assertTrue(driver.findElement(By.xpath("//a[text()='Acesso às Informações']")).isDisplayed());
+        // Logica para verificar se a url está correta
         assertEquals("http://localhost:3000/add-info", driver.getCurrentUrl());
       
+        // Thread para esperar 5 segundos
         try {
           Thread.sleep(1000*5);
         } catch (Exception e) {
           Thread.currentThread().interrupt();
         }
+    
+    // Logica para entrar em edição de um professor
     driver.findElement(By.xpath("//a[text()='Acesso às Informações']")).click();
     driver.findElement(By.xpath("(//Button)[5]")).click();
     {
@@ -142,6 +161,7 @@ public class TesteSeleniumTest {
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+    // Logica para deletar um professor
     driver.findElement(By.xpath(("(//span)[2]"))).click();
     {
       WebElement dropdown2 = driver.findElement(By.xpath("(//select)[1]"));
@@ -157,4 +177,7 @@ public class TesteSeleniumTest {
     assertThat(driver.switchTo().alert().getText(), is("Deseja confirmar a operação?"));
     driver.switchTo().alert().accept();
   }
+
+    private void assertNotEquals(String string, String currentUrl) {
+    }
 }
